@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;700&display=swap');
+
+:root {
+  --color-orange: #FB6D1D;
+  --color-orange-dark: #e35f13;
+  --color-blue: #1742E7;
+  --color-dark: #14141F;
+  --color-bg: #FBFBFB;
+  --color-gray-mid: #64748B;
+  --color-border: #E0E0E0;
+  --color-footer-bg: #F4F4F4;
+  --radius-card: 10px;
+  --font-title: 'Montserrat', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-dark);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--color-orange);
+  color: #FBFBFB;
+}
+
+.btn-primary:hover {
+  background: var(--color-orange-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-orange);
+  border: 1.5px solid var(--color-orange);
+}
+
+.btn-white {
+  background: #FFFFFF;
+  color: var(--color-orange);
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 16px;
+  }
+}
