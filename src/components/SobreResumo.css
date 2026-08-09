@@ -17,6 +17,7 @@
 /* Um <svg> sem width/height explícitos assume 100% da altura do contentor.
    Empilhado numa coluna de altura automática, isso dá zero — a ilustração
    desaparecia por completo em telemóvel. */
+.sobre-resumo__imagem img,
 .sobre-resumo__imagem svg {
   width: 100%;
   height: auto;

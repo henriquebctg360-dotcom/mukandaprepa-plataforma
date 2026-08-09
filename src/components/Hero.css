@@ -37,6 +37,7 @@
   max-width: 420px;
 }
 
+.hero__illustration img,
 .hero__illustration svg {
   width: 100%;
   height: auto;

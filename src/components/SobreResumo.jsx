@@ -10,13 +10,21 @@ export default function SobreResumo() {
   return (
     <section className="sobre-resumo">
       <div className="container sobre-resumo__inner">
-        <div className="sobre-resumo__imagem" aria-hidden="true">
-          <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="340" height="280" rx="16" fill="#EAF0FF" />
-            <circle cx="180" cy="120" r="50" fill="#1742E7" opacity="0.25" />
-            <rect x="110" y="190" width="140" height="16" rx="8" fill="#1742E7" opacity="0.5" />
-            <rect x="130" y="220" width="100" height="12" rx="6" fill="#14141F" opacity="0.15" />
-          </svg>
+        {/*
+          Recorte do painel pêssego da fotografia original: a metade branca,
+          com os arcos e a grelha de pontos, foi deixada de fora. O pêssego
+          é uma forma da marca e é suposto ler-se como um rectângulo, por
+          isso esta imagem não precisa de fundo transparente.
+        */}
+        <div className="sobre-resumo__imagem">
+          <img
+            src="/sobre-estudante.webp"
+            alt="Estudante da MUKANDA PREPA com os seus materiais de estudo"
+            width="760"
+            height="957"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
 
         <div className="sobre-resumo__texto">
