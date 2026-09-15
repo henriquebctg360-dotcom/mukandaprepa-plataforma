@@ -70,8 +70,6 @@ export default function Navbar() {
               <div className="navbar__megamenu">
                 <Link to="/aulas-online">Aulas online</Link>
                 <Link to="/maratonas">Maratonas MUKANDA</Link>
-                <Link to="/noticias">Not&iacute;cias</Link>
-                <Link to="/artigos">Artigos</Link>
               </div>
             )}
           </div>

@@ -34,9 +34,7 @@ export default function Footer() {
           <Link to="/aulas-online">Aulas Online</Link>
           <Link to="/sobre">Sobre nós</Link>
           <Link to="/missao">A Nossa Missão</Link>
-          <Link to="/equipa">A Nossa Equipa</Link>
           <Link to="/recursos">Recursos</Link>
-          <Link to="/identidade-visual">Identidade Visual</Link>
         </div>
 
         <div className="footer__col">

@@ -18,27 +18,18 @@ export default function Hero() {
         </div>
 
         {/*
-          Fotografia principal. Substituiu a ilustração provisória em SVG,
-          que por sua vez tinha substituído uma Hero.jpg de 12,5 MB.
-          Recortada na coluna onde a cena começa: a metade branca à
-          esquerda saiu. Entra em WebP a 840 px de largura, o dobro do
-          espaço que ocupa no ecrã, para ficar nítida em telemóveis.
-          width/height declarados reservam o espaço antes de a imagem
-          chegar, para o texto não saltar durante o carregamento.
-
-          O fundo é transparente de propósito. A fotografia original tinha
-          um branco acinzentado que, contra o branco puro da página,
-          desenhava um rectângulo à volta da imagem — parecia uma sombra.
-          Se alguém reexportar estas imagens, tem de manter o canal alfa.
+          Imagem principal da versão em produção (16 Ago 2026): a estudante
+          com os destaques de tutores, maratonas gratuitas e apoio 24h já
+          desenhados na própria imagem. width/height declarados reservam o
+          espaço antes de a imagem chegar, para o texto não saltar.
         */}
         <div className="hero__illustration">
           <img
-            src="/hero-estudante.webp"
-            alt="Estudante a consultar a plataforma MUKANDA PREPA no telemóvel"
-            width="840"
-            height="1225"
+            src="/home-hero.webp"
+            alt="Estudante da MUKANDA PREPA com tutores, maratonas gratuitas e apoio 24h"
+            width="1300"
+            height="813"
             fetchPriority="high"
-            decoding="async"
           />
         </div>
       </div>

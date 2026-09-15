@@ -3,29 +3,57 @@ import './Maratonas.css';
 import { APP_REGISTO } from '../config/appLinks';
 import { DATA_PROXIMA_MARATONA_LEGIVEL } from '../config/maratona';
 
+// O formato de uma maratona, em três números.
 const PILARES = [
   {
-    titulo: 'Resolve',
-    desc: 'Exercícios cronometrados que simulam o exame real de acesso à universidade.',
+    titulo: '15 questões, 20 valores',
+    desc: 'Escolha múltipla com quatro opções, construídas a partir de exames reais das universidades angolanas.',
   },
   {
-    titulo: 'Compite',
-    desc: 'Vê a tua posição no ranking em tempo real com outros estudantes.',
+    titulo: 'Até 48 horas para responder',
+    desc: 'Cada maratona fica aberta durante uma janela de dois dias. Entras quando te for mais conveniente.',
   },
   {
-    titulo: 'Cresce',
-    desc: 'Recebe feedback imediato depois de cada maratona e evolui a cada semana.',
+    titulo: 'Corrigida por um professor',
+    desc: 'O teu resultado aparece assim que o professor validar a submissão — e a resolução é explicada numa aula online.',
   },
 ];
 
-// Calendário confirmado pela equipa (4 Ago 2026): três semanas, três fases.
+// Percurso de uma maratona, do momento em que abre até à aula de correcção.
+const PERCURSO = [
+  { n: '1', titulo: 'A maratona abre', desc: 'Fica publicada um dia antes do início da fase, para saberes o que aí vem.' },
+  { n: '2', titulo: 'Resolves quando puderes', desc: 'Dentro da janela de 48 horas, ao teu ritmo, de computador ou telemóvel.' },
+  { n: '3', titulo: 'O professor valida', desc: 'A correcção é feita por quem escreveu as questões. O resultado fica visível para ti.' },
+  { n: '4', titulo: 'Aula de correcção', desc: 'Nos dois dias seguintes ao fecho, ao vivo, começando pelas questões em que a maioria falhou.' },
+];
+
+// Calendário confirmado pela equipa: três semanas, três fases.
 // A primeira maratona começa a 20/08 às 20h00 (data no src/config/maratona.js,
-// que alimenta o contador). Depois de 10/09 não são publicadas novas
-// maratonas; as abertas e as aulas online continuam até 15/09.
+// que alimenta o contador).
 const CALENDARIO = [
-  { semana: 'Semana 1 · 20 a 26 de Agosto', fase: 'Fase A · Fundamental', estado: 'aberta' },
-  { semana: 'Semana 2 · 27 de Agosto a 2 de Setembro', fase: 'Fase B · Intermediária', estado: 'brevemente' },
-  { semana: 'Semana 3 · 3 a 10 de Setembro', fase: 'Fase C · Autonomia', estado: 'brevemente' },
+  { semana: 'Semana 1 · 20 a 26 de Agosto', fase: 'Fase A · Fundamentos', estado: 'aberta' },
+  { semana: 'Semana 2 · 27 de Agosto a 2 de Setembro', fase: 'Fase B · Nível Intermediário', estado: 'brevemente' },
+  { semana: 'Semana 3 · 3 a 10 de Setembro', fase: 'Fase C · Autonomia e Aplicação Avançada', estado: 'brevemente' },
+];
+
+// Plano temático por área: cada linha é [disciplina, Fase A, Fase B, Fase C].
+const PLANO_TEMATICO = [
+  {
+    area: 'Engenharia e Tecnologia',
+    linhas: [
+      ['Matemática', 'Fundamentos algébricos, funções e trigonometria I', 'Expressões racionais e irracionais · limites e derivadas I · trigonometria II', 'Expressões não algébricas, integrais e trigonometria III'],
+      ['Física', 'Fundamentos de cinemática e vectores', 'Dinâmica e leis do movimento', 'Conservação de energia e hidrostática'],
+      ['Química', 'Estrutura da matéria e tabela periódica', 'Funções inorgânicas e estequiometria', 'Soluções e concentrações'],
+    ],
+  },
+  {
+    area: 'Ciências Sociais',
+    linhas: [
+      ['L. Portuguesa', 'Fonética, ortografia e leitura', 'Morfossintaxe e tipologia textual', 'Sintaxe da frase complexa e redacção'],
+      ['Cultura Geral', 'Geografia física e recursos de Angola', 'História de Angola: do pré-colonial à independência', 'Angola contemporânea e relações internacionais'],
+      ['Matemática', 'Números, expressões e equações do 1.º e 2.º grau', 'Polinómios, equações e inequações II · introdução a limites e derivadas', 'Expressões racionais e irracionais · limites e derivadas II'],
+    ],
+  },
 ];
 
 export default function Maratonas() {
@@ -36,20 +64,14 @@ export default function Maratonas() {
           <div className="maratonas-hero__text">
             <h1>Maratona MUKANDA</h1>
             <p>
-              Sessões intensivas de exercícios cronometrados, por área e por
-              universidade, para chegares preparado ao dia do exame.
+              Quinze questões de exames reais, uma janela de 48 horas para
+              responder, e uma aula ao vivo onde um professor explica tudo.
+              Gratuito em 2026.
             </p>
             <a href={APP_REGISTO} className="btn btn-primary" target="_blank" rel="noreferrer">Inscrever-me numa Maratona</a>
           </div>
-          <div className="maratonas-hero__illustration" aria-hidden="true">
-            <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-              <rect x="30" y="40" width="340" height="240" rx="16" fill="#EAF0FF" />
-              <rect x="70" y="90" width="260" height="18" rx="9" fill="#1742E7" />
-              <rect x="70" y="130" width="180" height="14" rx="7" fill="#FB6D1D" opacity="0.8" />
-              <rect x="70" y="160" width="220" height="14" rx="7" fill="#14141F" opacity="0.15" />
-              <circle cx="300" cy="220" r="40" fill="#FB6D1D" opacity="0.15" />
-              <circle cx="90" cy="230" r="24" fill="#1742E7" opacity="0.25" />
-            </svg>
+          <div className="maratonas-hero__illustration">
+            <img src="/maratonas.webp" alt="Maratonas MUKANDA" width="940" height="788" />
           </div>
         </div>
       </section>
@@ -62,6 +84,21 @@ export default function Maratonas() {
               <p>{p.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="maratonas-percurso">
+        <div className="container">
+          <h2>Como funciona uma maratona</h2>
+          <div className="maratonas-percurso__grid">
+            {PERCURSO.map((p) => (
+              <div className="maratonas-percurso__passo" key={p.n}>
+                <span className="maratonas-percurso__n">{p.n}</span>
+                <h3>{p.titulo}</h3>
+                <p>{p.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -98,6 +135,43 @@ export default function Maratonas() {
             A primeira maratona começa a {DATA_PROXIMA_MARATONA_LEGIVEL}. As
             maratonas abertas e as aulas online continuam até 15 de Setembro.
           </p>
+        </div>
+      </section>
+
+      <section className="maratonas-plano">
+        <div className="container">
+          <h2>O que sai em cada fase</h2>
+          <p className="maratonas-plano__intro">
+            As questões saem do plano temático de cada área. Serve para saberes
+            onde concentrar o estudo antes de cada maratona.
+          </p>
+          {PLANO_TEMATICO.map((a) => (
+            <div className="maratonas-plano__area" key={a.area}>
+              <h3>{a.area}</h3>
+              <div className="maratonas-plano__scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Disciplina</th>
+                      <th>Fase A · Fundamentos</th>
+                      <th>Fase B · Intermediário</th>
+                      <th>Fase C · Autonomia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {a.linhas.map((l) => (
+                      <tr key={l[0]}>
+                        <td><strong>{l[0]}</strong></td>
+                        <td>{l[1]}</td>
+                        <td>{l[2]}</td>
+                        <td>{l[3]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </>

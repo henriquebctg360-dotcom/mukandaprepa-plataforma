@@ -6,7 +6,7 @@
 // mais tarde passará a ser o domínio próprio — assim muda-se num sítio só.
 //
 // Definir VITE_APP_URL no .env (ou nas variáveis do projecto na hospedagem).
-const base = String(import.meta.env.VITE_APP_URL || 'https://mukanda-prepa-app.vercel.app')
+const base = String(import.meta.env.VITE_APP_URL || 'https://app.mukandaprepa.com')
   .trim()
   .replace(/\/$/, '');
 

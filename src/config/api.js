@@ -5,7 +5,7 @@
 // Nota de CORS: o domínio do site tem de constar do CORS_ORIGINS do backend,
 // senão o browser recusa a chamada (já aconteceu em Julho com domínios quase
 // iguais — ver GUIA-DE-DEPLOY-VERCEL.md).
-const base = String(import.meta.env.VITE_API_BASE || 'https://mukandaprepa-backend.vercel.app/api')
+const base = String(import.meta.env.VITE_API_BASE || 'https://api.mukandaprepa.com/api')
   .trim()
   .replace(/\/$/, '');
 

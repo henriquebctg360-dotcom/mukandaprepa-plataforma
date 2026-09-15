@@ -185,3 +185,32 @@
     margin-bottom: 22px;
   }
 }
+
+/* Fotografias da equipa e grupos Fundadores / Direcção (versão de 16 Ago 2026). */
+.sobre-equipa__foto {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: block;
+  box-shadow: 0 0 0 3px rgba(251, 109, 29, 0.18);
+}
+
+.sobre-equipa__grupo {
+  margin-top: 28px;
+}
+
+.sobre-equipa__rotulo {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 14px;
+}
+
+.sobre-equipa__grupo .sobre-equipa__fundadores {
+  margin: 0;
+}

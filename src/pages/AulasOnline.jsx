@@ -2,22 +2,18 @@ import './AulasOnline.css';
 
 const COMO_FUNCIONAM = [
   {
-    titulo: 'Ao vivo',
-    desc: 'Aulas semanais com professores especializados, em directo, com interacção em tempo real.',
+    titulo: 'A correcção da maratona',
+    desc: 'Um professor apresenta a resolução das 15 questões, pela mesma ordem em que as viste, e começa por aquelas em que a maioria falhou.',
+  },
+  {
+    titulo: 'Ao vivo, por videochamada',
+    desc: 'A sessão acontece em directo, com espaço para perguntares o que não ficou claro.',
   },
   {
     titulo: 'Gratuitas em 2026',
-    desc: 'Nesta primeira fase, as aulas online MUKANDA PREPA 2026 são totalmente gratuitas.',
-  },
-  {
-    titulo: 'Por matéria',
-    desc: 'Escolhe as matérias onde precisas de mais apoio, organizadas por área de exame.',
+    desc: 'Nesta primeira fase, as aulas online MUKANDA PREPA são totalmente gratuitas.',
   },
 ];
-
-// Decisão da equipa (D9, 3 Ago 2026): o horário provisório saiu — era
-// inventado. Quando a equipa pedagógica fixar o horário real, volta aqui
-// como tabela (a estrutura antiga está no histórico do git).
 
 export default function AulasOnline() {
   return (
@@ -27,20 +23,13 @@ export default function AulasOnline() {
           <div className="aulas-hero__text">
             <h1>Aulas Online ao Vivo</h1>
             <p>
-              Professores especializados a explicar as matérias mais difíceis,
-              com aulas ao vivo e gravadas, por matéria e ao teu ritmo.
+              Depois de cada maratona, um professor explica ao vivo a resolução
+              de cada questão. É onde se percebe o que correu mal — e porquê.
             </p>
             <a href="/planos" className="btn btn-primary">Começar gratuitamente</a>
           </div>
-          <div className="aulas-hero__illustration" aria-hidden="true">
-            <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-              <rect x="30" y="40" width="340" height="240" rx="16" fill="#FFF1E8" />
-              <rect x="70" y="90" width="260" height="18" rx="9" fill="#FB6D1D" />
-              <rect x="70" y="130" width="180" height="14" rx="7" fill="#1742E7" opacity="0.8" />
-              <rect x="70" y="160" width="220" height="14" rx="7" fill="#14141F" opacity="0.15" />
-              <circle cx="300" cy="220" r="40" fill="#1742E7" opacity="0.15" />
-              <circle cx="90" cy="230" r="24" fill="#FB6D1D" opacity="0.25" />
-            </svg>
+          <div className="aulas-hero__illustration">
+            <img src="/aulas-online.webp" alt="Aulas Online MUKANDA" width="940" height="788" />
           </div>
         </div>
       </section>
@@ -58,10 +47,18 @@ export default function AulasOnline() {
 
       <section className="aulas-horario">
         <div className="container">
-          <h2>Horário semanal</h2>
-          <p className="aulas-horario__aviso">
-            O horário das aulas será anunciado brevemente na plataforma e nas
-            nossas redes sociais.
+          <h2>Quando acontecem</h2>
+          <p className="aulas-horario__texto">
+            A aula de correcção realiza-se <strong>nos dois dias seguintes ao fecho
+            da maratona</strong>, enquanto as questões ainda estão frescas — e nunca
+            antes, para não entregar as respostas a quem ainda não respondeu.
+          </p>
+          <p className="aulas-horario__texto">
+            A data e a hora de cada aula são definidas semanalmente pela
+            coordenação pedagógica e comunicadas nos grupos de estudantes da
+            MUKANDA Community. Como cada professor escolhe quando abre a sua
+            maratona, duas maratonas da mesma fase podem ter aulas em dias
+            diferentes.
           </p>
         </div>
       </section>

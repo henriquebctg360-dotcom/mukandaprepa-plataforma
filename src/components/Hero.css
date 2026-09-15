@@ -34,11 +34,10 @@
 
 .hero__illustration {
   flex: 1;
-  max-width: 420px;
+  max-width: 560px;
 }
 
-.hero__illustration img,
-.hero__illustration svg {
+.hero__illustration img {
   width: 100%;
   height: auto;
   display: block;
@@ -55,7 +54,7 @@
   .hero__illustration {
     flex: none;
     width: 100%;
-    max-width: 360px;
+    max-width: 480px;
     margin-left: auto;
     margin-right: auto;
   }

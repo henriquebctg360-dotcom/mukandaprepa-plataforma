@@ -4,15 +4,18 @@
 // tudo. Ter os dados aqui evita que as duas páginas digam coisas diferentes
 // sobre as mesmas pessoas, que foi o que aconteceu com as datas da maratona.
 
+// Fotografias em public/, quadradas (600x600). Sem foto, a página Sobre
+// mostra as iniciais.
 export const FUNDADORES = [
-  { nome: 'Henrique Catraio', cargo: 'CEO & Fundador' },
-  { nome: 'Walter Sampaio', cargo: 'Co-fundador e Gestor de Redes Sociais' },
+  { nome: 'Henrique Catraio', cargo: 'CEO & Fundador', foto: '/equipa-henrique-catraio.webp' },
+  { nome: 'Walter Sampaio', cargo: 'Co-fundador e Gestor de Redes Sociais', foto: '/equipa-walter-sampaio.webp' },
 ];
 
 // Directores — sem menção a co-fundador, por decisão da direcção (27 Jul 2026).
+// Cargos e nomes tal como estão em produção desde 16 Ago 2026.
 export const DIRECTORES = [
-  { nome: 'Armando Baptista', cargo: 'Director Administrativo' },
-  { nome: 'Tadeu Mandavela', cargo: 'Director de Marketing e Publicidade' },
+  { nome: 'Armando Baptista', cargo: 'Director de Administração e Gestão', foto: '/equipa-armando-baptista.webp' },
+  { nome: 'Tadeu Epalanga', cargo: 'Director de Marketing', foto: '/equipa-tadeu-epalanga.webp' },
 ];
 
 export const EQUIPAS = [

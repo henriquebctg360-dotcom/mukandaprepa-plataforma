@@ -1,7 +1,30 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
 import { APP_REGISTO } from '../config/appLinks';
-import { FUNDADORES } from '../config/equipa.jsx';
+import { FUNDADORES, DIRECTORES } from '../config/equipa.jsx';
+
+function Perfil({ pessoa }) {
+  return (
+    <div className="sobre-equipa__perfil">
+      {pessoa.foto ? (
+        <img
+          className="sobre-equipa__foto"
+          src={pessoa.foto}
+          alt={pessoa.nome}
+          width="600"
+          height="600"
+          loading="lazy"
+        />
+      ) : (
+        <div className="sobre-equipa__avatar" aria-hidden="true">
+          {pessoa.nome.split(' ').slice(0, 2).map((p) => p[0]).join('')}
+        </div>
+      )}
+      <h3>{pessoa.nome}</h3>
+      <p>{pessoa.cargo}</p>
+    </div>
+  );
+}
 
 // Conteúdo provisório — esta página aguardava protótipo do designer (Briefing
 // v1.0, secção 2.1). Avançou-se sem protótipo por decisão da equipa; rever
@@ -85,26 +108,26 @@ export default function Sobre() {
           <h2>A equipa</h2>
           <p>
             A MUKANDA PREPA é liderada por Henrique Catraio, CEO &amp; Fundador,
-            com uma equipa dedicada a construir a melhor preparação para o
-            acesso à universidade em Angola.
+            e por Walter Sampaio, Co-fundador e Gestor de Redes Sociais, com uma
+            direcção responsável pela administração e pelo marketing. À volta
+            deles trabalha uma equipa de professores, designers e programadores
+            com um objectivo comum: que nenhum estudante angolano chegue ao
+            exame de acesso sem preparação.
           </p>
-          {/* Fundadores em destaque; o resto da equipa vive na página
-              própria, com o mesmo tipo de link usado para a Visão 2030. */}
-          <div className="sobre-equipa__fundadores">
-            {FUNDADORES.map((f) => (
-              <div className="sobre-equipa__perfil" key={f.nome}>
-                <div className="sobre-equipa__avatar" aria-hidden="true">
-                  {f.nome.split(' ').slice(0, 2).map((p) => p[0]).join('')}
-                </div>
-                <h3>{f.nome}</h3>
-                <p>{f.cargo}</p>
-              </div>
-            ))}
+
+          <div className="sobre-equipa__grupo">
+            <span className="sobre-equipa__rotulo">Fundadores</span>
+            <div className="sobre-equipa__fundadores">
+              {FUNDADORES.map((f) => <Perfil key={f.nome} pessoa={f} />)}
+            </div>
           </div>
 
-          <Link to="/equipa" className="sobre-historia__link">
-            Conhece toda a equipa →
-          </Link>
+          <div className="sobre-equipa__grupo">
+            <span className="sobre-equipa__rotulo">Direcção</span>
+            <div className="sobre-equipa__fundadores">
+              {DIRECTORES.map((d) => <Perfil key={d.nome} pessoa={d} />)}
+            </div>
+          </div>
         </div>
       </section>
 

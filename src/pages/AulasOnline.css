@@ -31,13 +31,11 @@
   max-width: 380px;
 }
 
-/* Um <svg> sem width/height explícitos assume 100% da altura do contentor.
-   Empilhado numa coluna de altura automática, isso dá zero — a ilustração
-   desaparecia por completo em telemóvel. */
-.aulas-hero__illustration svg {
+.aulas-hero__illustration img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: var(--radius-card);
 }
 
 .aulas-explicacao {
@@ -166,4 +164,18 @@
   .aulas-explicacao__grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Texto de "Quando acontecem" (substituiu o aviso provisório do horário). */
+.aulas-horario__texto {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 16px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-gray-mid);
+}
+
+.aulas-horario__texto strong {
+  color: var(--color-dark);
 }
