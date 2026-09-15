@@ -1,38 +1,22 @@
+import { useSearchParams } from 'react-router-dom';
 import './Hero.css';
-import { APP_REGISTO } from '../config/appLinks';
+import './hero/HeroVariantes.css';
+import HeroNumeros from './hero/HeroNumeros';
+import HeroClassica from './hero/HeroClassica';
+import HeroComunidade from './hero/HeroComunidade';
+import { lerVarianteHero } from '../prototipo/varianteHero';
+
+// ESP-02 — a hero deixa de pedir inscrição na app (em manutenção) e passa a
+// mostrar os números da fase gratuita, com contacto por WhatsApp e entrada
+// na comunidade. Há três propostas em comparação; a barra do protótipo
+// alterna entre elas (?hero=a|b|c). Escolhida uma, as outras saem.
+//
+// A hero anterior (texto + imagem + "Inscrever-me agora gratuitamente")
+// está no histórico do git, na versão de produção de 16 Ago 2026.
+const VARIANTES = { a: HeroNumeros, b: HeroClassica, c: HeroComunidade };
 
 export default function Hero() {
-  return (
-    <section className="hero">
-      <div className="container hero__inner">
-        <div className="hero__text">
-          <h1>A melhor preparação para o acesso à universidade</h1>
-          <p className="hero__subtitle">
-            Plataforma 100% angolana: a MUKANDA PREPA junta
-            maratonas online e aulas ao vivo, para estudares ao teu
-            ritmo e onde quiseres — 100% gratuita em 2026.
-          </p>
-          <a href={APP_REGISTO} className="btn btn-primary hero__cta" target="_blank" rel="noreferrer">
-            Inscrever-me agora gratuitamente
-          </a>
-        </div>
-
-        {/*
-          Imagem principal da versão em produção (16 Ago 2026): a estudante
-          com os destaques de tutores, maratonas gratuitas e apoio 24h já
-          desenhados na própria imagem. width/height declarados reservam o
-          espaço antes de a imagem chegar, para o texto não saltar.
-        */}
-        <div className="hero__illustration">
-          <img
-            src="/home-hero.webp"
-            alt="Estudante da MUKANDA PREPA com tutores, maratonas gratuitas e apoio 24h"
-            width="1300"
-            height="813"
-            fetchPriority="high"
-          />
-        </div>
-      </div>
-    </section>
-  );
+  const [params] = useSearchParams();
+  const Variante = VARIANTES[lerVarianteHero(params)];
+  return <Variante />;
 }

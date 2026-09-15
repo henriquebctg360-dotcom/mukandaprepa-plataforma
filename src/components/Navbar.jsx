@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { APP_LOGIN, APP_REGISTO } from '../config/appLinks';
+import { ROTA_ENTRAR_NA_APP } from '../config/appLinks';
+import { MarcadorEsp } from '../prototipo/NotasDev';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -35,12 +36,11 @@ export default function Navbar() {
           <span className="navbar__logo-nome">MUKANDA<br />PREPA</span>
         </Link>
 
-        {/* Em telemóvel o Login fica à vista na barra, ao lado do menu: é a
-            acção mais procurada por quem já tem conta e não deve obrigar a
-            abrir o menu para a encontrar. */}
-        <a href={APP_LOGIN} className="navbar__login-movel" target="_blank" rel="noreferrer">
-          Login
-        </a>
+        {/* ESP-01: um único botão "Entrar na app" substitui Login e
+            Inscrever-me. Em telemóvel fica à vista na barra, ao lado do menu. */}
+        <Link to={ROTA_ENTRAR_NA_APP} className="navbar__app-movel">
+          Entrar na app
+        </Link>
 
         {/* Abaixo de 1023px os links eram apenas escondidos e não havia nada
             no lugar — o site ficava sem navegação em telemóvel e tablet. */}
@@ -56,7 +56,6 @@ export default function Navbar() {
         <nav className={`navbar__links${menuAberto ? ' navbar__links--aberto' : ''}`}>
           <Link to="/">Home</Link>
           <Link to="/sobre">Sobre</Link>
-          <Link to="/planos">Planos &amp; Pre&ccedil;os</Link>
 
           <div
             className="navbar__dropdown"
@@ -66,31 +65,35 @@ export default function Navbar() {
             <Link to="/blog" className="navbar__dropdown-trigger">
               Blog <span className="navbar__caret">&#9662;</span>
             </Link>
+            <MarcadorEsp
+              esp="ESP-04"
+              balao="direita"
+              texto="Menu: saiu “Planos & Preços” (tudo foi gratuito; volta quando houver novos planos). Notícias e Artigos voltaram ao submenu do Blog."
+            />
             {blogOpen && (
               <div className="navbar__megamenu">
-                <Link to="/aulas-online">Aulas online</Link>
-                <Link to="/maratonas">Maratonas MUKANDA</Link>
+                <Link to="/maratonas">Maratonas 2026</Link>
+                <Link to="/aulas-online">Aulas Online 2026</Link>
+                <Link to="/noticias">Not&iacute;cias</Link>
+                <Link to="/artigos">Artigos</Link>
               </div>
             )}
           </div>
 
           <Link to="/contactos">Contactos</Link>
-
-          {/* Dentro do próprio painel, para não ser preciso uma segunda caixa
-              flutuante posicionada por baixo desta. O Login já está na barra. */}
-          <a
-            href={APP_REGISTO}
-            className="btn btn-primary navbar__cta-movel"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Inscrever-me
-          </a>
         </nav>
 
         <div className="navbar__actions">
-          <a href={APP_LOGIN} className="btn btn-outline navbar__acao-login" target="_blank" rel="noreferrer">Login</a>
-          <a href={APP_REGISTO} className="btn btn-primary" target="_blank" rel="noreferrer">Inscrever-me</a>
+          <Link to={ROTA_ENTRAR_NA_APP} className="btn btn-primary navbar__app">
+            Entrar na app
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          <MarcadorEsp
+            esp="ESP-01"
+            texto="Substitui os antigos botões Login e Inscrever-me. Leva à página /entrar-na-app, que informa que a app web está em manutenção."
+          />
         </div>
       </div>
     </header>

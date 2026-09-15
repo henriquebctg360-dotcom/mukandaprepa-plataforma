@@ -1,19 +1,37 @@
 import Hero from '../components/Hero';
-import Pilares from '../components/Pilares';
-import PlanosPreview from '../components/PlanosPreview';
-import MaratonaCountdown from '../components/MaratonaCountdown';
-import SobreResumo from '../components/SobreResumo';
-import CtaFinal from '../components/CtaFinal';
+import {
+  SobreNosHome,
+  SituacaoHome,
+  NoticiasHome,
+  ArtigosHome,
+  RecursosHome,
+  TestemunhosHome,
+  ParceirosHome,
+  PerguntasHome,
+  ComunidadeHome,
+} from '../components/home/SeccoesHome';
 
+// ESP-03 — a página inicial passa a ser uma landing page informativa.
+//
+// Saíram (os componentes continuam no projecto):
+//   - Pilares (Maratonas Online, Aulas ao Vivo, Exames Passados)
+//   - MaratonaCountdown (continua a ser usado na página Maratonas)
+//   - PlanosPreview (a fase gratuita já é contada na hero)
+//   - SobreResumo (substituído por SobreNosHome)
+//   - CtaFinal "Começa hoje, é grátis!" (substituído por ComunidadeHome)
 export default function Homepage() {
   return (
     <>
       <Hero />
-      <Pilares />
-      <MaratonaCountdown />
-      <PlanosPreview />
-      <SobreResumo />
-      <CtaFinal />
+      <SobreNosHome />
+      <SituacaoHome />
+      <NoticiasHome />
+      <ArtigosHome />
+      <RecursosHome />
+      <TestemunhosHome />
+      <ParceirosHome />
+      <PerguntasHome />
+      <ComunidadeHome />
     </>
   );
 }

@@ -70,3 +70,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ESP-05: cada cartão abre a notícia completa. */
+a.noticia-card { display: block; transition: transform .15s ease, box-shadow .15s ease; }
+a.noticia-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20, 20, 31, .08); }

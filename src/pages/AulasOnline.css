@@ -179,3 +179,22 @@
 .aulas-horario__texto strong {
   color: var(--color-dark);
 }
+
+/* ESP-08: disciplinas cobertas pelas aulas de 2026. */
+.aulas-disciplinas {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.aulas-disciplinas li {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(23, 66, 231, .08);
+  color: var(--color-blue);
+}

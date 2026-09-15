@@ -2,6 +2,12 @@ import { useState } from 'react';
 import './Contactos.css';
 import { CONTACTO } from '../config/contactos';
 import { API_BASE } from '../config/api';
+import { MarcadorEsp } from '../prototipo/NotasDev';
+
+// ESP-10: no protótipo o formulário NÃO envia nada — só simula o envio, para
+// quem testa não mandar emails reais para a caixa de suporte. Na versão final
+// pôr a false (volta a usar POST /contacto no backend).
+const ENVIO_SIMULADO = true;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,6 +38,12 @@ export default function Contactos() {
     if (validationError) return;
 
     setAEnviar(true);
+    if (ENVIO_SIMULADO) {
+      await new Promise((r) => setTimeout(r, 700));
+      setEnviado(true);
+      setAEnviar(false);
+      return;
+    }
     try {
       const resposta = await fetch(`${API_BASE}/contacto`, {
         method: 'POST',
@@ -56,7 +68,7 @@ export default function Contactos() {
       <section className="contactos-hero">
         <div className="container">
           <h1>Contacta-nos</h1>
-          <p>Tens dúvidas sobre os planos, as maratonas ou as aulas? Fala connosco.</p>
+          <p>Tens dúvidas sobre as maratonas, as aulas ou a nova app? Fala connosco.</p>
         </div>
       </section>
 
@@ -65,7 +77,14 @@ export default function Contactos() {
           <div className="contactos-form-card">
             {enviado ? (
               <div className="contactos-form-card__sucesso">
-                <h2>Mensagem enviada</h2>
+                <h2>
+                  Mensagem enviada
+                  <MarcadorEsp
+                    esp="ESP-10"
+                    balao="direita"
+                    texto="Envio simulado: no protótipo nenhuma mensagem sai do navegador. Na versão final, ENVIO_SIMULADO = false em Contactos.jsx."
+                  />
+                </h2>
                 <p>Obrigado pelo contacto. Vamos responder-te em breve.</p>
               </div>
             ) : (

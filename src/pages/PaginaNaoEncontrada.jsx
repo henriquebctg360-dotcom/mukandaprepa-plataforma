@@ -18,9 +18,9 @@ export default function PaginaNaoEncontrada() {
         </div>
 
         <div className="nf__links">
-          <Link to="/planos">Planos &amp; Preços</Link>
-          <Link to="/maratonas">Maratonas</Link>
-          <Link to="/aulas-online">Aulas Online</Link>
+          <Link to="/noticias">Notícias</Link>
+          <Link to="/maratonas">Maratonas 2026</Link>
+          <Link to="/aulas-online">Aulas Online 2026</Link>
           <Link to="/blog">Blog</Link>
         </div>
       </div>

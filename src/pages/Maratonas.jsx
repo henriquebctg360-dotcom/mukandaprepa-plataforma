@@ -1,39 +1,37 @@
-import MaratonaCountdown from '../components/MaratonaCountdown';
 import './Maratonas.css';
-import { APP_REGISTO } from '../config/appLinks';
-import { DATA_PROXIMA_MARATONA_LEGIVEL } from '../config/maratona';
+import { SeloEdicao, NumerosEdicao, FechoEdicao } from '../components/Edicao2026';
+import { MarcadorEsp } from '../prototipo/NotasDev';
 
-// O formato de uma maratona, em três números.
+// ESP-08 — a página passa a descrever o que foi realizado nas Maratonas
+// MUKANDA 2026 (fase gratuita, 20 Ago – 15 Set 2026). Saíram o botão
+// "Inscrever-me numa Maratona" e o contador; os textos passam ao passado.
+
 const PILARES = [
   {
     titulo: '15 questões, 20 valores',
-    desc: 'Escolha múltipla com quatro opções, construídas a partir de exames reais das universidades angolanas.',
+    desc: 'Cada maratona teve escolha múltipla com quatro opções, construída a partir de exames reais das universidades angolanas.',
   },
   {
     titulo: 'Até 48 horas para responder',
-    desc: 'Cada maratona fica aberta durante uma janela de dois dias. Entras quando te for mais conveniente.',
+    desc: 'Cada maratona ficou aberta durante uma janela de dois dias, para cada estudante entrar quando lhe fosse mais conveniente.',
   },
   {
     titulo: 'Corrigida por um professor',
-    desc: 'O teu resultado aparece assim que o professor validar a submissão — e a resolução é explicada numa aula online.',
+    desc: 'O resultado aparecia assim que o professor validava a submissão — e a resolução era explicada numa aula online.',
   },
 ];
 
-// Percurso de uma maratona, do momento em que abre até à aula de correcção.
 const PERCURSO = [
-  { n: '1', titulo: 'A maratona abre', desc: 'Fica publicada um dia antes do início da fase, para saberes o que aí vem.' },
-  { n: '2', titulo: 'Resolves quando puderes', desc: 'Dentro da janela de 48 horas, ao teu ritmo, de computador ou telemóvel.' },
-  { n: '3', titulo: 'O professor valida', desc: 'A correcção é feita por quem escreveu as questões. O resultado fica visível para ti.' },
+  { n: '1', titulo: 'A maratona abria', desc: 'Era publicada um dia antes do início da fase, para os estudantes saberem o que vinha.' },
+  { n: '2', titulo: 'Os estudantes resolviam', desc: 'Dentro da janela de 48 horas, ao seu ritmo, no computador ou no telemóvel.' },
+  { n: '3', titulo: 'O professor validava', desc: 'A correcção era feita por quem escreveu as questões, e o resultado ficava visível para o estudante.' },
   { n: '4', titulo: 'Aula de correcção', desc: 'Nos dois dias seguintes ao fecho, ao vivo, começando pelas questões em que a maioria falhou.' },
 ];
 
-// Calendário confirmado pela equipa: três semanas, três fases.
-// A primeira maratona começa a 20/08 às 20h00 (data no src/config/maratona.js,
-// que alimenta o contador).
 const CALENDARIO = [
-  { semana: 'Semana 1 · 20 a 26 de Agosto', fase: 'Fase A · Fundamentos', estado: 'aberta' },
-  { semana: 'Semana 2 · 27 de Agosto a 2 de Setembro', fase: 'Fase B · Nível Intermediário', estado: 'brevemente' },
-  { semana: 'Semana 3 · 3 a 10 de Setembro', fase: 'Fase C · Autonomia e Aplicação Avançada', estado: 'brevemente' },
+  { semana: 'Semana 1 · 20 a 26 de Agosto', fase: 'Fase A · Fundamentos' },
+  { semana: 'Semana 2 · 27 de Agosto a 2 de Setembro', fase: 'Fase B · Nível Intermediário' },
+  { semana: 'Semana 3 · 3 a 10 de Setembro', fase: 'Fase C · Autonomia e Aplicação Avançada' },
 ];
 
 // Plano temático por área: cada linha é [disciplina, Fase A, Fase B, Fase C].
@@ -62,13 +60,20 @@ export default function Maratonas() {
       <section className="maratonas-hero">
         <div className="container maratonas-hero__inner">
           <div className="maratonas-hero__text">
-            <h1>Maratona MUKANDA</h1>
+            <SeloEdicao />
+            <h1>
+              Maratonas MUKANDA 2026
+              <MarcadorEsp
+                esp="ESP-08"
+                balao="direita"
+                texto="A página passa a ser o balanço da edição 2026: textos no passado, sem “Inscrever-me numa Maratona” e sem contador."
+              />
+            </h1>
             <p>
-              Quinze questões de exames reais, uma janela de 48 horas para
-              responder, e uma aula ao vivo onde um professor explica tudo.
-              Gratuito em 2026.
+              Na fase gratuita de 2026, estudantes de todo o país treinaram com
+              quinze questões de exames reais por maratona, uma janela de 48 horas
+              para responder e uma aula ao vivo onde um professor explicou tudo.
             </p>
-            <a href={APP_REGISTO} className="btn btn-primary" target="_blank" rel="noreferrer">Inscrever-me numa Maratona</a>
           </div>
           <div className="maratonas-hero__illustration">
             <img src="/maratonas.webp" alt="Maratonas MUKANDA" width="940" height="788" />
@@ -87,9 +92,15 @@ export default function Maratonas() {
         </div>
       </section>
 
+      <NumerosEdicao
+        titulo="As maratonas em números"
+        chaves={['maratonas', 'participacoes', 'estudantes']}
+        marcador="Secção nova: números da edição 2026, da mesma fonte da hero (config/estatisticas.js)."
+      />
+
       <section className="maratonas-percurso">
         <div className="container">
-          <h2>Como funciona uma maratona</h2>
+          <h2>Como funcionou cada maratona</h2>
           <div className="maratonas-percurso__grid">
             {PERCURSO.map((p) => (
               <div className="maratonas-percurso__passo" key={p.n}>
@@ -102,11 +113,9 @@ export default function Maratonas() {
         </div>
       </section>
 
-      <MaratonaCountdown ctaHref={APP_REGISTO} secondaryHref="#calendario" secondaryLabel="Ver calendário" />
-
       <section className="maratonas-calendario" id="calendario">
         <div className="container">
-          <h2>Calendário de Maratonas</h2>
+          <h2>Calendário da edição 2026</h2>
           <div className="maratonas-calendario__scroll">
             <table>
               <thead>
@@ -121,29 +130,24 @@ export default function Maratonas() {
                   <tr key={c.semana}>
                     <td>{c.semana}</td>
                     <td>{c.fase}</td>
-                    <td>
-                      <span className={`pill pill--${c.estado}`}>
-                        {c.estado === 'aberta' ? 'Inscrições abertas' : 'Em breve'}
-                      </span>
-                    </td>
+                    <td><span className="pill pill--realizada">Realizada</span></td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <p className="maratonas-calendario__nota">
-            A primeira maratona começa a {DATA_PROXIMA_MARATONA_LEGIVEL}. As
-            maratonas abertas e as aulas online continuam até 15 de Setembro.
+            A primeira maratona começou a 20 de Agosto de 2026, às 20h00. As
+            maratonas abertas e as aulas online continuaram até 15 de Setembro.
           </p>
         </div>
       </section>
 
       <section className="maratonas-plano">
         <div className="container">
-          <h2>O que sai em cada fase</h2>
+          <h2>O que saiu em cada fase</h2>
           <p className="maratonas-plano__intro">
-            As questões saem do plano temático de cada área. Serve para saberes
-            onde concentrar o estudo antes de cada maratona.
+            As questões saíram do plano temático de cada área de acesso.
           </p>
           {PLANO_TEMATICO.map((a) => (
             <div className="maratonas-plano__area" key={a.area}>
@@ -174,6 +178,11 @@ export default function Maratonas() {
           ))}
         </div>
       </section>
+
+      <FechoEdicao
+        titulo="As maratonas vão voltar"
+        texto="Estamos a preparar a próxima edição, já na nova app mobile. Entra na comunidade para saberes a data em primeira mão."
+      />
     </>
   );
 }

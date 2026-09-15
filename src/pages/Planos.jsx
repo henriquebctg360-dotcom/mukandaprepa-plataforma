@@ -3,6 +3,7 @@ import './Planos.css';
 import { appRegisto, propsLink } from '../config/appLinks';
 import { whatsappCom } from '../config/contactos';
 import { PLANOS, FASE_GRATUITA } from '../config/planos';
+import { ComMarcador } from '../prototipo/NotasDev';
 
 // ── Conteúdo da fase gratuita ───────────────────────────────────────────────
 // Mostrado enquanto FASE_GRATUITA for true (ver config/planos.js). Só promete
@@ -134,13 +135,15 @@ export default function Planos() {
                 ))}
               </ul>
 
-              <a
-                href={appRegisto()}
-                {...propsLink(appRegisto())}
-                className="btn btn-primary plano-card-full__cta"
-              >
-                Inscrever-me gratuitamente
-              </a>
+              <ComMarcador esp="ESP-01" bloco texto="Antes abria a app web num separador novo. Agora leva à página /entrar-na-app (app em manutenção).">
+                <a
+                  href={appRegisto()}
+                  {...propsLink(appRegisto())}
+                  className="btn btn-primary plano-card-full__cta"
+                >
+                  Inscrever-me gratuitamente
+                </a>
+              </ComMarcador>
             </div>
           </div>
         </section>

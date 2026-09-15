@@ -112,39 +112,33 @@
   font-size: 14px;
 }
 
-/* O Inscrever-me vive dentro do painel do menu em telemóvel; no computador
-   usa-se o botão normal da direita. */
-.navbar__cta-movel {
-  display: none;
-  text-align: center;
-  margin-top: 8px;
-  padding: 12px 18px;
-  font-size: 14px;
+/* ESP-01 — botão único "Entrar na app". */
+.navbar__app {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Login visível na barra em telemóvel — escondido no computador, onde já
-   existe o botão normal à direita. */
-/* Mesmas cores do botão Login do computador (btn-outline): contorno e
-   texto na laranja da marca, para se ler como acção e não como texto. */
-.navbar__login-movel {
+.navbar__app svg { transition: transform .15s ease; }
+.navbar__app:hover svg { transform: translateX(3px); }
+
+/* Versão compacta, na barra, só em telemóvel e tablet. */
+.navbar__app-movel {
   display: none;
   align-items: center;
   font-family: var(--font-title);
   font-weight: 700;
   font-size: 14px;
-  text-decoration: none;
-  color: var(--color-orange);
-  background: transparent;
-  border: 1.5px solid var(--color-orange);
+  color: #FBFBFB;
+  background: var(--color-orange);
   border-radius: 8px;
-  padding: 9px 18px;
+  padding: 10px 16px;
   white-space: nowrap;
 }
 
-.navbar__login-movel:hover,
-.navbar__login-movel:active {
-  background: var(--color-orange);
-  color: #FBFBFB;
+.navbar__app-movel:hover,
+.navbar__app-movel:active {
+  background: var(--color-orange-dark);
 }
 
 /* Botão de menu — só existe abaixo de 1023px, onde a barra de links não cabe. */
@@ -164,10 +158,10 @@
 }
 
 @media (max-width: 1023px) {
-  /* Espaço entre o Login e o botão de menu, que ficam encostados. */
+  /* Espaço entre "Entrar na app" e o botão de menu, que ficam encostados. */
   .navbar__inner { gap: 10px; }
 
-  .navbar__login-movel {
+  .navbar__app-movel {
     display: inline-flex;
     order: 1;
     margin-left: auto;
@@ -177,9 +171,6 @@
     display: inline-flex;
     order: 2;
   }
-
-  /* O Login já está na barra: não se repete dentro do painel. */
-  .navbar__acao-login { display: none; }
 
   /* Os links deixam de estar na barra e passam a painel por baixo dela.
      Antes eram apenas escondidos — o site ficava sem navegação. */
@@ -217,19 +208,24 @@
   .navbar__megamenu { display: none; }
   .navbar__caret { display: none; }
 
-  /* Login e Inscrever-me acompanham o painel, em vez de espremerem a barra. */
-  /* Os botões da direita saem da barra: o Login está à vista ao lado do
-     menu e o Inscrever-me passou para dentro do painel. */
+  /* O botão da direita sai da barra: "Entrar na app" fica à vista ao lado
+     do menu, na versão compacta. */
   .navbar__actions { display: none; }
-  .navbar__cta-movel { display: block; }
 }
 
 @media (max-width: 640px) {
   .navbar { height: 64px; }
-  .navbar__login-movel { padding: 8px 14px; font-size: 13px; }
+  .navbar__app-movel { padding: 9px 12px; font-size: 13px; }
   .navbar__logo-img { width: 34px; height: 34px; }
   .navbar__logo { gap: 8px; }
   .navbar__logo-nome { font-size: 13px; }
   .navbar__links { top: 64px; right: 10px; }
   .navbar__links { max-height: calc(100vh - 80px); }
+}
+
+/* Protótipo: o marcador da ESP-04 fica ao lado de "Blog", na mesma linha. */
+.navbar__dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

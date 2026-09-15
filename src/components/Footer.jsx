@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Footer.css';
 import { CONTACTO } from '../config/contactos';
+import { MarcadorEsp } from '../prototipo/NotasDev';
 
 export default function Footer() {
   return (
@@ -28,13 +29,18 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <h4>Links úteis</h4>
-          <Link to="/planos">Planos &amp; Preços</Link>
-          <Link to="/maratonas">Maratonas</Link>
-          <Link to="/aulas-online">Aulas Online</Link>
+          <h4>
+            Links úteis{' '}
+            <MarcadorEsp esp="ESP-04" balao="direita" texto="Rodapé: saiu Planos & Preços; entraram Notícias e Artigos. Novo link para o painel de publicação da equipa (ESP-05)." />
+          </h4>
+          <Link to="/maratonas">Maratonas 2026</Link>
+          <Link to="/aulas-online">Aulas Online 2026</Link>
+          <Link to="/noticias">Notícias</Link>
+          <Link to="/artigos">Artigos</Link>
           <Link to="/sobre">Sobre nós</Link>
           <Link to="/missao">A Nossa Missão</Link>
           <Link to="/recursos">Recursos</Link>
+          <Link to="/painel">Painel da equipa</Link>
         </div>
 
         <div className="footer__col">

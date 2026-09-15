@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './MaratonaCountdown.css';
 import { APP_REGISTO, propsLink } from '../config/appLinks';
+import { ComMarcador } from '../prototipo/NotasDev';
 import { DATA_PROXIMA_MARATONA, DATA_PROXIMA_MARATONA_LEGIVEL } from '../config/maratona';
 
 const MARATONA_DATE = DATA_PROXIMA_MARATONA;
@@ -65,9 +66,11 @@ export default function MaratonaCountdown({
         )}
 
         <div className="maratona__actions">
-          <a href={ctaHref} className="btn btn-primary" {...propsLink(ctaHref)}>
-            {ctaLabel ?? (tempo.terminou ? 'Entrar agora' : 'Inscrever-me na Maratona')}
-          </a>
+          <ComMarcador esp="ESP-01" balao="direita" texto="Antes abria a app web num separador novo. Agora leva à página /entrar-na-app (app em manutenção).">
+            <a href={ctaHref} className="btn btn-primary" {...propsLink(ctaHref)}>
+              {ctaLabel ?? (tempo.terminou ? 'Entrar agora' : 'Inscrever-me na Maratona')}
+            </a>
+          </ComMarcador>
           <a href={secondaryHref} className="btn btn-outline" {...propsLink(secondaryHref)}>{secondaryLabel}</a>
         </div>
       </div>

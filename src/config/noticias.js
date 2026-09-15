@@ -9,6 +9,29 @@
 // (esta última também em src/config/maratona.js, que alimenta o contador).
 // Nada de números, planos ou parcerias por confirmar.
 export const NOTICIAS = [
+  // ── ESP-03: novidades actuais (textos de exemplo, a validar pela equipa) ──
+  {
+    titulo: 'A app web MUKANDA PREPA entra em manutenção',
+    data: '13 Set 2026',
+    resumo: 'Para preparar a próxima fase, a app web fica temporariamente em manutenção. As maratonas e as aulas online retomam brevemente.',
+    cor: '#14141F',
+    exemplo: true,
+  },
+  {
+    titulo: 'Vem aí a app mobile MUKANDA PREPA',
+    data: '13 Set 2026',
+    resumo: 'As equipas de desenvolvimento estão a trabalhar para passar da app web para uma app mobile, com mais funcionalidades.',
+    cor: '#1742E7',
+    exemplo: true,
+  },
+  {
+    titulo: 'Fase gratuita 2026: obrigado a todos os estudantes',
+    data: '15 Set 2026',
+    resumo: 'Entre 20 de Agosto e 15 de Setembro, as maratonas e as aulas online foram totalmente gratuitas. Os números da fase estão na página inicial.',
+    cor: '#FB6D1D',
+    exemplo: true,
+  },
+  // ── Notícias do lançamento (Agosto 2026) ──
   {
     titulo: 'MUKANDA PREPA lança a primeira Maratona Nacional',
     data: '20 Ago 2026',

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
-import { APP_REGISTO } from '../config/appLinks';
 import { FUNDADORES, DIRECTORES } from '../config/equipa.jsx';
+import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 function Perfil({ pessoa }) {
   return (
@@ -78,9 +78,15 @@ export default function Sobre() {
             </p>
             <p>
               Juntamos maratonas de exercícios e aulas ao vivo numa só
-              plataforma — com uma biblioteca de exames passados a caminho —
+              plataforma — e exames passados disponíveis em{' '}
+              <Link to="/recursos">Recursos</Link> —
               pensada para o contexto angolano, incluindo o acesso
               maioritariamente via telemóvel e ligações 3G/4G.
+              <MarcadorEsp
+                esp="ESP-10"
+                balao="direita"
+                texto="Antes: “com uma biblioteca de exames passados a caminho”. Os exames passados já estão na página Recursos."
+              />
             </p>
             <Link to="/missao" className="sobre-historia__link">
               Conhece a nossa Visão 2030 →
@@ -131,12 +137,15 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="sobre-cta-final">
-        <div className="container sobre-cta-final__inner">
-          <h2>Queres fazer parte desta comunidade?</h2>
-          <a href={APP_REGISTO} className="btn btn-white" target="_blank" rel="noreferrer">Criar Conta Grátis</a>
-        </div>
-      </section>
+      {/* ESP-06: saiu o fecho "Queres fazer parte desta comunidade? / Criar Conta
+          Grátis" — já não se pedem inscrições na app. */}
+      <div className="container sobre-nota-removida">
+        <NotaDev esp="ESP-06" titulo="Secção retirada">
+          Aqui estava o fecho “Queres fazer parte desta comunidade? — Criar Conta Grátis”.
+          Saiu porque o site já não pede inscrições na app (em manutenção). O resto da
+          página Sobre fica igual.
+        </NotaDev>
+      </div>
     </>
   );
 }

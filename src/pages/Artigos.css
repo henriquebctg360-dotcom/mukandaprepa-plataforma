@@ -146,3 +146,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ESP-05: cada cartão abre o artigo completo. */
+a.artigo-card { display: block; transition: border-color .15s ease; }
+a.artigo-card:hover { border-color: var(--color-orange); }
