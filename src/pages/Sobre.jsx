@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
-import { APP_REGISTO } from '../config/appLinks';
+
 import { FUNDADORES, DIRECTORES } from '../config/equipa.jsx';
 
 function Perfil({ pessoa }) {
@@ -131,12 +131,6 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="sobre-cta-final">
-        <div className="container sobre-cta-final__inner">
-          <h2>Queres fazer parte desta comunidade?</h2>
-          <a href={APP_REGISTO} className="btn btn-white" target="_blank" rel="noreferrer">Criar Conta Grátis</a>
-        </div>
-      </section>
     </>
   );
 }
