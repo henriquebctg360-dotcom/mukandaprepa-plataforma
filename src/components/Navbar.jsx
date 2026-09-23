@@ -7,55 +7,137 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [blogOpen, setBlogOpen] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
- 
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
+  // Fecha o dropdown quando clicamos fora dele
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.navbar__dropdown')) {
+        setBlogOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const fecharMenus = () => {
+    setBlogOpen(false);
+    setMenuAberto(false);
+  };
 
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
 
-        <Link to="/" className="navbar__logo">
-          <img src="/logo-icon.png" alt="" className="navbar__logo-img" />
+        {/* LOGO */}
+        <Link
+          to="/"
+          className="navbar__logo"
+          onClick={fecharMenus}
+        >
+          <img
+            src="/logo-icon.png"
+            alt=""
+            className="navbar__logo-img"
+          />
+
           <span className="navbar__logo-nome">
-            MUKANDA<br />PREPA
+            MUKANDA<br />
+            PREPA
           </span>
         </Link>
 
-        <nav className={`navbar__links ${menuAberto ? 'navbar__links--aberto' : ''}`}>
-          <Link to="/">Home</Link>
-          <Link to="/sobre">Sobre</Link>
+        {/* MENU */}
+        <nav
+          className={`navbar__links ${
+            menuAberto ? 'navbar__links--aberto' : ''
+          }`}
+        >
+          <Link to="/" onClick={fecharMenus}>
+            Home
+          </Link>
 
-          <div
-            className="navbar__dropdown"
-            onMouseEnter={() => setBlogOpen(true)}
-            onMouseLeave={() => setBlogOpen(false)}
-          >
+          <Link to="/sobre" onClick={fecharMenus}>
+            Sobre
+          </Link>
+
+          {/* BLOG */}
+          <div className="navbar__dropdown">
+
             <button
-              className="navbar__dropdown-trigger"
-              onClick={() => setBlogOpen((v) => !v)}
+              type="button"
+              className={`navbar__dropdown-trigger ${
+                blogOpen ? 'navbar__dropdown-trigger--aberto' : ''
+              }`}
+              onClick={(event) => {
+                event.stopPropagation();
+                setBlogOpen((valor) => !valor);
+              }}
+              aria-expanded={blogOpen}
+              aria-haspopup="true"
             >
-              Blog <span>▾</span>
+              <span>Blog</span>
+              <span
+                className={`navbar__dropdown-arrow ${
+                  blogOpen ? 'navbar__dropdown-arrow--aberto' : ''
+                }`}
+              >
+                ▾
+              </span>
             </button>
 
             {blogOpen && (
               <div className="navbar__megamenu">
-                <Link to="/maratonas">Maratonas 2026</Link>
-                <Link to="/aulas-online">Aulas Online 2026</Link>
-                <Link to="/noticias">Notícias</Link>
-                <Link to="/blog">Artigos</Link>
+
+                <Link
+                  to="/maratonas"
+                  onClick={fecharMenus}
+                >
+                  Maratonas 2026
+                </Link>
+
+                <Link
+                  to="/aulas-online"
+                  onClick={fecharMenus}
+                >
+                  Aulas Online 2026
+                </Link>
+
+                <Link
+                  to="/noticias"
+                  onClick={fecharMenus}
+                >
+                  Notícias
+                </Link>
+
+               <Link to="/artigos">Artigos</Link>
+
               </div>
             )}
+
           </div>
 
-          <Link to="/contactos">Contactos</Link>
+          <Link to="/contactos" onClick={fecharMenus}>
+            Contactos
+          </Link>
         </nav>
 
+        {/* BOTÃO APP */}
         <div className="navbar__actions">
           <a
             href={APP_URL}
@@ -67,10 +149,19 @@ export default function Navbar() {
           </a>
         </div>
 
+        {/* MENU MOBILE */}
         <button
+          type="button"
           className="navbar__toggle"
-          aria-label={menuAberto ? 'Fechar menu' : 'Abrir menu'}
-          onClick={() => setMenuAberto((v) => !v)}
+          aria-label={
+            menuAberto
+              ? 'Fechar menu'
+              : 'Abrir menu'
+          }
+          onClick={() => {
+            setMenuAberto((valor) => !valor);
+            setBlogOpen(false);
+          }}
         >
           {menuAberto ? '✕' : '☰'}
         </button>

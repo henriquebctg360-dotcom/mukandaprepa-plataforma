@@ -1,159 +1,404 @@
+/* =========================================================
+   AULAS ONLINE
+========================================================= */
+
 .aulas-hero {
-  background: #FFFFFF;
-  padding: 64px 0;
+  background: #ffffff;
+  padding: 34px 0 36px;
 }
 
 .aulas-hero__inner {
   display: flex;
   align-items: center;
-  gap: 48px;
+  justify-content: space-between;
+
+  gap: 56px;
 }
 
 .aulas-hero__text {
   flex: 1;
+  max-width: 560px;
 }
 
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.aulas-hero__badge {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 13px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: #e9f9ef;
+  color: #16803c;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   HERO TÍTULO
+========================================================= */
+
 .aulas-hero__text h1 {
-  font-size: 38px;
-  margin-bottom: 16px;
+  margin: 0 0 12px;
+
+  color: var(--color-dark);
+
+  font-size: 36px;
+  line-height: 1.15;
+  letter-spacing: -0.6px;
 }
 
 .aulas-hero__text p {
-  font-size: 16px;
+  max-width: 500px;
+
+  margin: 0;
+
   color: var(--color-gray-mid);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 480px;
+
+  font-size: 13px;
+  line-height: 1.55;
 }
 
+
+/* =========================================================
+   IMAGEM HERO
+========================================================= */
+
 .aulas-hero__illustration {
-  flex: 1;
-  max-width: 380px;
+  flex: 0 0 360px;
+  width: 360px;
 }
 
 .aulas-hero__illustration img {
+  display: block;
+
   width: 100%;
   height: auto;
-  display: block;
-  border-radius: var(--radius-card);
+
+  border-radius: 6px;
 }
 
+
+/* =========================================================
+   3 CARTÕES
+========================================================= */
+
 .aulas-explicacao {
-  background: var(--color-bg);
-  padding: 48px 0;
+  background: #fafafa;
+
+  padding: 28px 0 30px;
 }
 
 .aulas-explicacao__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+
+  gap: 16px;
 }
 
 .aulas-explicacao__card {
-  background: #FFFFFF;
-  border-radius: var(--radius-card);
-  padding: 28px 24px;
+  min-height: 138px;
+
+  padding: 23px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #eeeeef;
+  border-radius: 7px;
+
   text-align: center;
-  box-shadow: 0 1px 4px rgba(20, 20, 31, 0.06);
+
+  box-shadow: 0 1px 5px rgba(20, 20, 31, 0.04);
 }
 
 .aulas-explicacao__card h3 {
+  margin: 0 0 9px;
+
   color: var(--color-orange);
-  font-size: 18px;
-  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1.25;
 }
 
 .aulas-explicacao__card p {
-  font-size: 14px;
+  margin: 0;
+
   color: var(--color-gray-mid);
-  line-height: 1.5;
+
+  font-size: 11px;
+  line-height: 1.45;
 }
 
-.aulas-horario {
-  background: #FFFFFF;
-  padding: 56px 0;
+
+/* =========================================================
+   NÚMEROS
+========================================================= */
+
+.aulas-numeros {
+  background: #12121e;
+
+  padding: 19px 0 21px;
+
+  color: #ffffff;
 }
 
-.aulas-horario h2 {
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 28px;
+.aulas-numeros__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 13px;
 }
 
-.aulas-horario__scroll {
-  overflow-x: auto;
+.aulas-numeros__top h2 {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.2;
 }
 
-/* Aviso temporário enquanto o horário real não é anunciado (D9). */
-.aulas-horario__aviso {
-  text-align: center;
-  color: #5A5A6E;
-  max-width: 520px;
-  margin: 0 auto;
-}
+.aulas-numeros__tag {
+  padding: 3px 7px;
 
-.aulas-horario table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--color-bg);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-}
+  border-radius: 4px;
 
-.aulas-horario th,
-.aulas-horario td {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 13px;
-  border-bottom: 1px solid var(--color-border);
-  white-space: nowrap;
-}
+  background: rgba(255, 255, 255, 0.12);
 
-.aulas-horario thead th {
-  background: var(--color-dark);
-  color: #FFFFFF;
+  color: #ffffff;
+
+  font-size: 8px;
   font-weight: 600;
 }
 
-.pill-plano {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  background: rgba(251, 109, 29, 0.12);
+.aulas-numeros__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.aulas-numero {
+  padding: 3px 28px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.aulas-numero:first-child {
+  padding-left: 0;
+}
+
+.aulas-numero:last-child {
+  border-right: none;
+}
+
+.aulas-numero strong {
+  display: block;
+
   color: var(--color-orange);
+
+  font-size: 25px;
+  line-height: 1;
 }
+
+.aulas-numero span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   COMO FORAM ORGANIZADAS
+========================================================= */
+
+.aulas-organizacao {
+  background: #ffffff;
+
+  padding: 48px 0 47px;
+}
+
+.aulas-organizacao__inner {
+  max-width: 760px;
+
+  text-align: center;
+}
+
+.aulas-organizacao h2 {
+  margin: 0 0 22px;
+
+  color: var(--color-dark);
+
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+.aulas-organizacao p {
+  max-width: 690px;
+
+  margin: 0 auto 17px;
+
+  color: var(--color-gray-mid);
+
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.aulas-organizacao p strong {
+  color: var(--color-dark);
+}
+
+
+/* =========================================================
+   MATÉRIAS
+========================================================= */
+
+.aulas-organizacao__materias {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 22px;
+}
+
+.aulas-organizacao__materias span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 25px;
+
+  padding: 4px 12px;
+
+  border-radius: 999px;
+
+  background: #eef0ff;
+
+  color: #3154d9;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   CTA FINAL
+========================================================= */
 
 .aulas-cta-final {
   background: var(--color-orange);
-  padding: 48px 0;
+
+  padding: 27px 0;
 }
 
 .aulas-cta-final__inner {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 35px;
+}
+
+.aulas-cta-final__text {
+  flex: 1;
 }
 
 .aulas-cta-final h2 {
-  color: #FFFFFF;
-  font-size: 24px;
-  margin-bottom: 20px;
+  margin: 0 0 6px;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  line-height: 1.2;
 }
 
+.aulas-cta-final p {
+  max-width: 610px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.aulas-cta-final__acoes {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   BOTÕES CTA
+========================================================= */
+
+.aulas-cta-final .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 0 20px;
+
+  border-radius: 5px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.aulas-btn-comunidade {
+  background: #ffffff;
+
+  color: var(--color-orange);
+
+  border: 1px solid #ffffff;
+}
+
+.aulas-btn-telefone {
+  background: transparent;
+
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
 @media (max-width: 1023px) {
+
   .aulas-hero__inner {
     flex-direction: column;
+
     text-align: center;
   }
 
-  /* Empilhado, `flex: 1` com base 0 deixava o contentor sem altura
-     própria. Passa a ocupar a largura disponível, com limite. */
-  .aulas-hero__illustration {
-    flex: none;
-    width: 100%;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
+  .aulas-hero__text {
+    max-width: 650px;
   }
 
   .aulas-hero__text p {
@@ -161,21 +406,66 @@
     margin-right: auto;
   }
 
-  .aulas-explicacao__grid {
-    grid-template-columns: 1fr;
+  .aulas-hero__illustration {
+    flex: none;
+
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .aulas-cta-final__inner {
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+  .aulas-cta-final p {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-/* Texto de "Quando acontecem" (substituiu o aviso provisório do horário). */
-.aulas-horario__texto {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 16px;
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--color-gray-mid);
-}
 
-.aulas-horario__texto strong {
-  color: var(--color-dark);
+@media (max-width: 640px) {
+
+  .aulas-hero {
+    padding: 32px 0;
+  }
+
+  .aulas-hero__text h1 {
+    font-size: 29px;
+  }
+
+  .aulas-explicacao__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aulas-numeros__grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .aulas-numero {
+    padding: 0 0 12px;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .aulas-numero:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+  }
+
+  .aulas-cta-final__acoes {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .aulas-cta-final .btn {
+    width: 100%;
+  }
 }

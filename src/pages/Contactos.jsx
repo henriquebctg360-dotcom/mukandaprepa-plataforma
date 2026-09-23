@@ -56,7 +56,7 @@ export default function Contactos() {
       <section className="contactos-hero">
         <div className="container">
           <h1>Contacta-nos</h1>
-          <p>Tens dúvidas sobre os planos, as maratonas ou as aulas? Fala connosco.</p>
+          <p>Tens dúvidas sobre as maratonas, as aulas ou a nova app? Fala connosco.</p>
         </div>
       </section>
 

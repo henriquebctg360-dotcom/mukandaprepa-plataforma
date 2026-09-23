@@ -1,89 +1,289 @@
+/* =========================================================
+   MARATONAS
+========================================================= */
+
 .maratonas-hero {
-  background: #FFFFFF;
-  padding: 64px 0;
+  background: #ffffff;
+  padding: 46px 0 42px;
 }
 
 .maratonas-hero__inner {
   display: flex;
   align-items: center;
-  gap: 48px;
+  justify-content: space-between;
+  gap: 56px;
 }
 
 .maratonas-hero__text {
   flex: 1;
+  max-width: 570px;
 }
 
+/* ─────────────────────────────────────────
+   Badge
+───────────────────────────────────────── */
+
+.maratonas-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 14px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: #eaf8ee;
+  color: #16803c;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────
+   Título
+───────────────────────────────────────── */
+
 .maratonas-hero__text h1 {
+  margin: 0 0 14px;
+
+  color: var(--color-dark);
+
   font-size: 38px;
-  margin-bottom: 16px;
+  line-height: 1.12;
+  letter-spacing: -0.7px;
 }
 
 .maratonas-hero__text p {
-  font-size: 16px;
+  max-width: 500px;
+
+  margin: 0 0 24px;
+
   color: var(--color-gray-mid);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 480px;
+
+  font-size: 15px;
+  line-height: 1.65;
 }
 
+/* ─────────────────────────────────────────
+   Imagem
+───────────────────────────────────────── */
+
 .maratonas-hero__illustration {
-  flex: 1;
-  max-width: 380px;
+  flex: 0 0 360px;
+  width: 360px;
 }
 
 .maratonas-hero__illustration img {
+  display: block;
+
   width: 100%;
   height: auto;
-  display: block;
-  border-radius: var(--radius-card);
+
+  border-radius: 8px;
 }
 
+
+/* =========================================================
+   PILARES
+========================================================= */
+
 .maratonas-explicacao {
-  background: var(--color-bg);
-  padding: 48px 0;
+  background: #fafafa;
+  padding: 30px 0 34px;
 }
 
 .maratonas-explicacao__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 16px;
 }
 
 .maratonas-explicacao__card {
-  background: #FFFFFF;
-  border-radius: var(--radius-card);
-  padding: 28px 24px;
+  padding: 20px 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #eeeeef;
+  border-radius: 7px;
+
   text-align: center;
-  box-shadow: 0 1px 4px rgba(20, 20, 31, 0.06);
 }
 
 .maratonas-explicacao__card h3 {
+  margin: 0 0 8px;
+
   color: var(--color-orange);
-  font-size: 18px;
-  margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 1.3;
 }
 
 .maratonas-explicacao__card p {
-  font-size: 14px;
+  margin: 0;
+
   color: var(--color-gray-mid);
+
+  font-size: 12px;
   line-height: 1.5;
 }
 
+
+/* =========================================================
+   NÚMEROS
+========================================================= */
+
+.maratonas-numeros {
+  background: #12121e;
+  padding: 18px 0 20px;
+
+  color: #ffffff;
+}
+
+.maratonas-numeros__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.maratonas-numeros__header h2 {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.maratonas-numeros__header span {
+  padding: 3px 7px;
+
+  border-radius: 4px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: #ffffff;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.maratonas-numeros__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.maratonas-numero {
+  padding: 4px 28px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.maratonas-numero:first-child {
+  padding-left: 0;
+}
+
+.maratonas-numero:last-child {
+  border-right: none;
+}
+
+.maratonas-numero strong {
+  display: block;
+
+  color: var(--color-orange);
+
+  font-size: 25px;
+  line-height: 1;
+}
+
+.maratonas-numero span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   COMO FUNCIONA
+========================================================= */
+
+.maratonas-percurso {
+  background: #ffffff;
+  padding: 48px 0 52px;
+}
+
+.maratonas-percurso h2 {
+  margin: 0 0 28px;
+
+  text-align: center;
+
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.maratonas-percurso__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.maratonas-percurso__passo {
+  position: relative;
+}
+
+.maratonas-percurso__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+
+  background: var(--color-orange);
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.maratonas-percurso__passo h3 {
+  margin: 10px 0 7px;
+
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.maratonas-percurso__passo p {
+  margin: 0;
+
+  color: var(--color-gray-mid);
+
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   CALENDÁRIO
+========================================================= */
+
 .maratonas-calendario {
-  background: #FFFFFF;
-  padding: 56px 0;
+  background: #ffffff;
+  padding: 46px 0 52px;
 }
 
 .maratonas-calendario h2 {
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 28px;
-}
+  margin: 0 0 22px;
 
-.maratonas-calendario__nota {
   text-align: center;
-  color: #5A5A6E;
-  margin-top: 18px;
+
+  font-size: 22px;
 }
 
 .maratonas-calendario__scroll {
@@ -92,38 +292,74 @@
 
 .maratonas-calendario table {
   width: 100%;
-  border-collapse: collapse;
-  background: var(--color-bg);
-  border-radius: var(--radius-card);
+
+  border-collapse: separate;
+  border-spacing: 0;
+
   overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
 }
 
 .maratonas-calendario th,
 .maratonas-calendario td {
-  padding: 14px 16px;
+  padding: 10px 13px;
+
   text-align: left;
-  font-size: 13px;
+
+  font-size: 11px;
+
   border-bottom: 1px solid var(--color-border);
-  white-space: nowrap;
 }
 
 .maratonas-calendario thead th {
-  background: var(--color-dark);
-  color: #FFFFFF;
+  background: #12121e;
+  color: #ffffff;
+
+  font-size: 10px;
   font-weight: 600;
 }
 
+.maratonas-calendario tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.maratonas-calendario__nota {
+  margin: 14px auto 0;
+
+  max-width: 720px;
+
+  color: var(--color-gray-mid);
+
+  text-align: center;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   PILLS
+========================================================= */
+
 .pill {
-  display: inline-block;
-  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+
+  padding: 3px 8px;
+
   border-radius: 999px;
-  font-size: 12px;
+
+  font-size: 9px;
   font-weight: 600;
 }
 
 .pill--aberta {
   background: rgba(34, 197, 94, 0.12);
-  color: #16803C;
+  color: #16803c;
 }
 
 .pill--brevemente {
@@ -131,100 +367,45 @@
   color: var(--color-gray-mid);
 }
 
-@media (max-width: 1023px) {
-  .maratonas-hero__inner {
-    flex-direction: column;
-    text-align: center;
-  }
 
-  /* Empilhado, `flex: 1` com base 0 deixava o contentor sem altura
-     própria. Passa a ocupar a largura disponível, com limite. */
-  .maratonas-hero__illustration {
-    flex: none;
-    width: 100%;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* =========================================================
+   PLANO TEMÁTICO
+========================================================= */
 
-  .maratonas-hero__text p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .maratonas-explicacao__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── Como funciona uma maratona ─────────────────────────────────── */
-.maratonas-percurso {
-  background: #FFFFFF;
-  padding: 56px 0;
-}
-
-.maratonas-percurso h2 {
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 32px;
-}
-
-.maratonas-percurso__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.maratonas-percurso__passo h3 {
-  font-size: 16px;
-  margin: 12px 0 8px;
-}
-
-.maratonas-percurso__passo p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--color-gray-mid);
-}
-
-.maratonas-percurso__n {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--color-orange);
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 15px;
-}
-
-/* ── O que sai em cada fase ─────────────────────────────────────── */
 .maratonas-plano {
-  background: var(--color-bg);
-  padding: 56px 0 64px;
+  background: #fafafa;
+  padding: 50px 0 58px;
 }
 
 .maratonas-plano h2 {
+  margin: 0 0 9px;
+
   text-align: center;
-  font-size: 26px;
-  margin-bottom: 10px;
+
+  font-size: 22px;
 }
 
 .maratonas-plano__intro {
-  text-align: center;
-  color: var(--color-gray-mid);
   max-width: 620px;
-  margin: 0 auto 32px;
+
+  margin: 0 auto 28px;
+
+  color: var(--color-gray-mid);
+
+  text-align: center;
+
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 .maratonas-plano__area {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .maratonas-plano__area h3 {
-  font-size: 18px;
-  margin-bottom: 14px;
+  margin: 0 0 10px;
+
+  font-size: 14px;
 }
 
 .maratonas-plano__scroll {
@@ -234,41 +415,187 @@
 .maratonas-plano table {
   width: 100%;
   min-width: 720px;
-  border-collapse: collapse;
-  background: #FFFFFF;
-  border-radius: var(--radius-card);
+
+  border-collapse: separate;
+  border-spacing: 0;
+
   overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
 }
 
 .maratonas-plano th,
 .maratonas-plano td {
-  padding: 13px 16px;
+  padding: 10px 12px;
+
   text-align: left;
-  font-size: 13px;
-  line-height: 1.5;
-  border-bottom: 1px solid var(--color-border);
   vertical-align: top;
+
+  font-size: 10px;
+  line-height: 1.45;
+
+  border-bottom: 1px solid var(--color-border);
 }
 
 .maratonas-plano thead th {
-  background: var(--color-dark);
-  color: #FFFFFF;
+  background: #12121e;
+  color: #ffffff;
+
+  font-size: 9px;
   font-weight: 600;
-  white-space: nowrap;
 }
 
 .maratonas-plano tbody tr:last-child td {
   border-bottom: none;
 }
 
+
+/* =========================================================
+   CTA FINAL
+========================================================= */
+
+.maratonas-final {
+  background: var(--color-orange);
+  padding: 28px 0;
+}
+
+.maratonas-final__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 32px;
+}
+
+.maratonas-final h2 {
+  margin: 0 0 6px;
+
+  color: #ffffff;
+
+  font-size: 20px;
+}
+
+.maratonas-final p {
+  max-width: 620px;
+
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.maratonas-final__acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.maratonas-final .btn {
+  white-space: nowrap;
+}
+
+.btn-light {
+  background: #ffffff;
+  color: var(--color-orange);
+}
+
+.btn-outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
 @media (max-width: 1023px) {
+
+  .maratonas-hero__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .maratonas-hero__text {
+    max-width: 650px;
+  }
+
+  .maratonas-hero__text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .maratonas-hero__illustration {
+    flex: none;
+    width: 100%;
+    max-width: 360px;
+  }
+
   .maratonas-percurso__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .maratonas-final__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .maratonas-final p {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
+
 @media (max-width: 640px) {
+
+  .maratonas-hero {
+    padding: 36px 0;
+  }
+
+  .maratonas-hero__text h1 {
+    font-size: 30px;
+  }
+
+  .maratonas-explicacao__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .maratonas-numeros__grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .maratonas-numero {
+    padding: 0 0 12px;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(253, 135, 1, 0.2)
+  }
+
+  .maratonas-numero:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
   .maratonas-percurso__grid {
     grid-template-columns: 1fr;
+  }
+
+  .maratonas-final__acoes {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .maratonas-final__acoes .btn {
+    width: 100%;
+    text-align: center;
   }
 }

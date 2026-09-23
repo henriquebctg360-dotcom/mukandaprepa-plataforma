@@ -134,17 +134,17 @@ export default function Hero() {
           <div className="hero__stats-grid">
 
             <div className="hero__stat">
-              <strong>1.250</strong>
+              <strong>147</strong>
               <span>estudantes inscritos</span>
             </div>
 
             <div className="hero__stat">
-              <strong>18</strong>
+              <strong>22</strong>
               <span>maratonas realizadas</span>
             </div>
 
             <div className="hero__stat">
-              <strong>3.400</strong>
+              <strong>103</strong>
               <span>participações em maratonas</span>
             </div>
 

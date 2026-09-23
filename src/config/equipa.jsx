@@ -15,7 +15,7 @@ export const FUNDADORES = [
 // Cargos e nomes tal como estão em produção desde 16 Ago 2026.
 export const DIRECTORES = [
   { nome: 'Armando Baptista', cargo: 'Director de Administração e Gestão', foto: '/equipa-armando-baptista.webp' },
-  { nome: 'Tadeu Epalanga', cargo: 'Director de Marketing', foto: '/equipa-tadeu-epalanga.webp' },
+
 ];
 
 export const EQUIPAS = [

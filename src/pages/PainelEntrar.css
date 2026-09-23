@@ -1,0 +1,245 @@
+.painel-entrar {
+  min-height: calc(100vh - 80px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 64px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff3ed 0%,
+      #f8f8fa 48%,
+      #eef1ff 100%
+    );
+}
+
+.painel-entrar__card {
+  width: 100%;
+  max-width: 375px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  padding: 26px 24px 24px;
+
+  box-shadow:
+    0 18px 45px rgba(20, 20, 31, 0.08),
+    0 2px 8px rgba(20, 20, 31, 0.04);
+}
+
+/* ── Marca ───────────────────────────────────────────── */
+
+.painel-entrar__marca {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 24px;
+}
+
+.painel-entrar__logo {
+  width: 22px;
+  height: 22px;
+
+  object-fit: contain;
+}
+
+.painel-entrar__marca div {
+  display: flex;
+  flex-direction: column;
+}
+
+.painel-entrar__marca strong {
+  font-family: var(--font-title);
+  font-size: 11px;
+  line-height: 1.1;
+
+  color: var(--color-dark);
+}
+
+.painel-entrar__marca span {
+  margin-top: 2px;
+
+  font-size: 9px;
+  line-height: 1.2;
+
+  color: var(--color-gray-mid);
+}
+
+/* ── Cabeçalho ───────────────────────────────────────── */
+
+.painel-entrar__cabecalho {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-bottom: 6px;
+}
+
+.painel-entrar__cabecalho h1 {
+  margin: 0;
+
+  font-size: 21px;
+  line-height: 1.25;
+
+  color: var(--color-dark);
+}
+
+.painel-entrar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50%;
+
+  background: var(--color-blue);
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* ── Texto introdutório ──────────────────────────────── */
+
+.painel-entrar__intro {
+  margin: 0 0 18px;
+
+  font-size: 12px;
+  line-height: 1.55;
+
+  color: var(--color-gray-mid);
+}
+
+/* ── Perfis ───────────────────────────────────────────── */
+
+.painel-entrar__perfis {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.painel-entrar__perfil {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  min-height: 62px;
+
+  padding: 10px 11px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  text-decoration: none;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.painel-entrar__perfil:hover {
+  border-color: rgba(251, 109, 29, 0.45);
+
+  background: #fffaf7;
+
+  transform: translateY(-1px);
+}
+
+.painel-entrar__inicial {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: rgba(251, 109, 29, 0.12);
+
+  color: var(--color-orange);
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.painel-entrar__perfil-texto {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.painel-entrar__perfil-texto strong {
+  color: var(--color-dark);
+
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.painel-entrar__perfil-texto span {
+  color: var(--color-gray-mid);
+
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.painel-entrar__seta {
+  flex: 0 0 auto;
+
+  color: var(--color-dark);
+
+  font-size: 14px;
+}
+
+/* ── Voltar ───────────────────────────────────────────── */
+
+.painel-entrar__voltar {
+  display: inline-block;
+
+  margin-top: 17px;
+
+  color: var(--color-gray-mid);
+
+  font-size: 11px;
+
+  text-decoration: none;
+}
+
+.painel-entrar__voltar:hover {
+  color: var(--color-orange);
+}
+
+/* ── Responsivo ───────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .painel-entrar {
+    min-height: calc(100vh - 70px);
+
+    padding: 40px 16px;
+  }
+
+  .painel-entrar__card {
+    padding: 23px 18px 21px;
+  }
+}
