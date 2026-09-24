@@ -209,7 +209,7 @@ export default function Maratonas() {
           <div className="maratonas-numeros__grid">
 
             <div className="maratonas-numero">
-              <strong>165</strong>
+              <strong>147</strong>
               <span>estudantes inscritos</span>
             </div>
 
@@ -219,7 +219,7 @@ export default function Maratonas() {
             </div>
 
             <div className="maratonas-numero">
-              <strong>1.600</strong>
+              <strong>330</strong>
               <span>exercícios resolvidos</span>
             </div>
 

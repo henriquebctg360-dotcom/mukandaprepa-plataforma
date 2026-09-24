@@ -149,7 +149,7 @@ export default function Hero() {
             </div>
 
             <div className="hero__stat">
-              <strong>18</strong>
+              <strong>12</strong>
               <span>aulas de correcção ao vivo</span>
             </div>
 

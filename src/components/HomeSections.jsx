@@ -686,7 +686,7 @@ export default function HomeSections() {
           <div className="testimonials-header">
 
             <div>
-              <h2>
+              <h2 id='est'>
                 O que dizem os estudantes
               </h2>
             </div>
