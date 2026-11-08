@@ -1,10 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
 import './ConteudoDetalhe.css';
 import { useConteudos } from '../prototipo/useConteudos';
-import { TIPOS } from '../prototipo/painelPerfis';
+import { TIPOS } from '../config/tiposConteudo';
 import { MarcadorEsp } from '../prototipo/NotasDev';
 import PaginaNaoEncontrada from './PaginaNaoEncontrada';
 import TextoRico from '../components/TextoRico';
+import { useMeta } from '../components/useMeta';
 
 // ESP-05 — página de uma notícia ou de um artigo (/noticias/:id, /artigos/:id).
 // ESP-13: o texto completo das notícias vem de src/config/noticias.js. A
@@ -12,6 +13,14 @@ import TextoRico from '../components/TextoRico';
 export default function ConteudoDetalhe({ tipo }) {
   const { id } = useParams();
   const item = useConteudos().find((c) => c.id === id && c.tipo === tipo && c.estado === 'publicado');
+
+  // ESP-22: o título e a descrição desta página vêm do próprio conteúdo.
+  useMeta({
+    titulo: item ? `${item.titulo} · MUKANDA PREPA` : '',
+    descricao: item?.resumo,
+    caminho: `${TIPOS[tipo].rota}/${id}`,
+  });
+
   if (!item) return <PaginaNaoEncontrada />;
 
   const info = TIPOS[tipo];

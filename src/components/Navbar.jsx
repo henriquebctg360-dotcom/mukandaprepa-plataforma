@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ARTIGOS_VISIVEIS } from '../config/artigos';
-import { ROTA_ENTRAR_NA_APP } from '../config/appLinks';
 import { MarcadorEsp } from '../prototipo/NotasDev';
 import './Navbar.css';
 
@@ -35,12 +34,6 @@ export default function Navbar() {
         <Link to="/" className="navbar__logo">
           <img src="/logo-icon.png" alt="" className="navbar__logo-img" />
           <span className="navbar__logo-nome">MUKANDA<br />PREPA</span>
-        </Link>
-
-        {/* ESP-01: um único botão "Entrar na app" substitui Login e
-            Inscrever-me. Em telemóvel fica à vista na barra, ao lado do menu. */}
-        <Link to={ROTA_ENTRAR_NA_APP} className="navbar__app-movel">
-          Entrar na app
         </Link>
 
         {/* Abaixo de 1023px os links eram apenas escondidos e não havia nada
@@ -84,16 +77,15 @@ export default function Navbar() {
           <Link to="/contactos">Contactos</Link>
         </nav>
 
+        {/* ESP-21: saiu o botão "Entrar na app". Enquanto a app estiver em
+            manutenção não se anuncia na barra — a página inicial e a secção
+            "Ponto de situação" explicam a situação e levam lá quem quiser
+            saber mais. Quando a app mobile sair, entra aqui um botão novo
+            com as ligações às lojas. */}
         <div className="navbar__actions">
-          <Link to={ROTA_ENTRAR_NA_APP} className="btn btn-primary navbar__app">
-            Entrar na app
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
           <MarcadorEsp
-            esp="ESP-01"
-            texto="Substitui os antigos botões Login e Inscrever-me. Leva à página /entrar-na-app, que informa que a app web está em manutenção."
+            esp="ESP-21"
+            texto="Aqui estava o botão “Entrar na app”. Saiu: a app está em manutenção e o site não deve mandar ninguém para uma porta fechada."
           />
         </div>
       </div>

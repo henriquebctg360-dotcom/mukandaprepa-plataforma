@@ -1,68 +1,22 @@
-import { useState } from 'react';
 import './Contactos.css';
-import { CONTACTO } from '../config/contactos';
-import { API_BASE } from '../config/api';
-import { MarcadorEsp } from '../prototipo/NotasDev';
+import {
+  CONTACTO,
+  MENSAGEM_WHATSAPP_CONTACTO,
+  ASSUNTO_EMAIL_CONTACTO,
+  COMUNIDADE_URL,
+  whatsappCom,
+  emailCom,
+} from '../config/contactos';
+import { IconeComunidade, IconeWhatsApp } from '../components/hero/partes';
+import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
-// ESP-10: no protótipo o formulário NÃO envia nada — só simula o envio, para
-// quem testa não mandar emails reais para a caixa de suporte. Na versão final
-// pôr a false (volta a usar POST /contacto no backend).
-const ENVIO_SIMULADO = true;
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+// ESP-21 — o formulário saiu.
+//
+// O site passou a ser informativo, sem ligação ao backend: não havia quem
+// recebesse as mensagens do formulário sem reacender a API. Por decisão da
+// direcção (08 Nov 2026), quem quiser falar connosco usa o WhatsApp — que é
+// o canal onde a equipa já responde todos os dias — ou o e-mail.
 export default function Contactos() {
-  const [form, setForm] = useState({ nome: '', email: '', assunto: '', mensagem: '' });
-  const [error, setError] = useState('');
-  const [enviado, setEnviado] = useState(false);
-  const [aEnviar, setAEnviar] = useState(false);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const validate = () => {
-    if (!form.nome.trim()) return 'Preenche o teu nome.';
-    if (!form.email.trim() || !EMAIL_REGEX.test(form.email)) return 'Introduz um email válido.';
-    if (!form.mensagem.trim()) return 'Escreve a tua mensagem.';
-    return '';
-  };
-
-  // Entrega a mensagem ao backend (POST /contacto), que a envia por email
-  // para a caixa de suporte. Só se mostra "enviada" com resposta positiva —
-  // a versão anterior confirmava sucesso sem enviar nada.
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationError = validate();
-    setError(validationError);
-    if (validationError) return;
-
-    setAEnviar(true);
-    if (ENVIO_SIMULADO) {
-      await new Promise((r) => setTimeout(r, 700));
-      setEnviado(true);
-      setAEnviar(false);
-      return;
-    }
-    try {
-      const resposta = await fetch(`${API_BASE}/contacto`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      const dados = await resposta.json().catch(() => ({}));
-      if (!resposta.ok) {
-        setError(dados.mensagem || 'Não foi possível enviar a mensagem. Tenta de novo.');
-        return;
-      }
-      setEnviado(true);
-    } catch {
-      setError('Sem ligação. Verifica a internet e tenta de novo.');
-    } finally {
-      setAEnviar(false);
-    }
-  };
-
   return (
     <>
       <section className="contactos-hero">
@@ -74,76 +28,43 @@ export default function Contactos() {
 
       <section className="contactos-conteudo">
         <div className="container contactos-conteudo__grid">
-          <div className="contactos-form-card">
-            {enviado ? (
-              <div className="contactos-form-card__sucesso">
-                <h2>
-                  Mensagem enviada
-                  <MarcadorEsp
-                    esp="ESP-10"
-                    balao="direita"
-                    texto="Envio simulado: no protótipo nenhuma mensagem sai do navegador. Na versão final, ENVIO_SIMULADO = false em Contactos.jsx."
-                  />
-                </h2>
-                <p>Obrigado pelo contacto. Vamos responder-te em breve.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate>
-                <label>
-                  Nome
-                  <input
-                    type="text"
-                    name="nome"
-                    placeholder="O teu nome"
-                    value={form.nome}
-                    onChange={handleChange}
-                  />
-                </label>
+          <div className="contactos-falar">
+            <h2>
+              Como falar connosco
+              <MarcadorEsp
+                esp="ESP-21"
+                balao="direita"
+                texto="Saiu o formulário. O site deixou de ter backend, por isso ninguém receberia as mensagens. Fica o WhatsApp, onde a equipa responde todos os dias, e o e-mail."
+              />
+            </h2>
+            <p className="contactos-falar__texto">
+              O WhatsApp é o caminho mais rápido — é onde a equipa está todos os dias.
+              Se preferires escrever, o e-mail também chega a nós.
+            </p>
 
-                <label>
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="teu@email.com"
-                    value={form.email}
-                    onChange={handleChange}
-                  />
-                </label>
+            <div className="contactos-falar__botoes">
+              <a
+                href={whatsappCom(MENSAGEM_WHATSAPP_CONTACTO)}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary contactos-falar__principal"
+              >
+                <IconeWhatsApp /> Falar no WhatsApp
+              </a>
+              <a
+                href={emailCom(CONTACTO.emailSuporte, ASSUNTO_EMAIL_CONTACTO)}
+                className="btn btn-outline contactos-falar__secundario"
+              >
+                Enviar e-mail
+              </a>
+            </div>
 
-                <label>
-                  Assunto
-                  <input
-                    type="text"
-                    name="assunto"
-                    placeholder="Sobre o que é a tua mensagem?"
-                    value={form.assunto}
-                    onChange={handleChange}
-                  />
-                </label>
-
-                <label>
-                  Mensagem
-                  <textarea
-                    name="mensagem"
-                    placeholder="Escreve aqui a tua mensagem"
-                    rows={5}
-                    value={form.mensagem}
-                    onChange={handleChange}
-                  />
-                </label>
-
-                {error && <p className="contactos-form-card__error">{error}</p>}
-
-                <button
-                  type="submit"
-                  className="btn btn-primary contactos-form-card__submit"
-                  disabled={aEnviar}
-                >
-                  {aEnviar ? 'A enviar…' : 'Enviar mensagem'}
-                </button>
-              </form>
-            )}
+            <div className="contactos-falar__comunidade">
+              <p>Queres acompanhar tudo em primeira mão?</p>
+              <a href={COMUNIDADE_URL} target="_blank" rel="noreferrer">
+                <IconeComunidade /> Entrar na MUKANDA Community
+              </a>
+            </div>
           </div>
 
           <div className="contactos-info">
@@ -152,18 +73,18 @@ export default function Contactos() {
               <p>Luanda, Angola</p>
             </div>
             <div className="contactos-info__card">
-              <h3>Email</h3>
-              <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>
-            </div>
-            <div className="contactos-info__card">
-              <h3>Telefone</h3>
-              <a href={CONTACTO.telefoneLink}>{CONTACTO.telefoneLegivel}</a>
-            </div>
-            <div className="contactos-info__card">
               <h3>WhatsApp</h3>
               <a href={CONTACTO.whatsappLink} target="_blank" rel="noreferrer">
                 {CONTACTO.telefoneLegivel}
               </a>
+            </div>
+            <div className="contactos-info__card">
+              <h3>Apoio ao estudante</h3>
+              <a href={`mailto:${CONTACTO.emailSuporte}`}>{CONTACTO.emailSuporte}</a>
+            </div>
+            <div className="contactos-info__card">
+              <h3>E-mail geral</h3>
+              <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>
             </div>
 
             <div className="contactos-mapa">
@@ -177,6 +98,16 @@ export default function Contactos() {
           </div>
         </div>
       </section>
+
+      <div className="container contactos-nota">
+        <NotaDev esp="ESP-21" titulo="Formulário retirado">
+          <ul>
+            <li>O site deixou de depender de <code>api.mukandaprepa.com</code>. O ficheiro <code>src/config/api.js</code> foi apagado — não havia mais nada a usá-lo.</li>
+            <li>Sem backend, não há caixa de entrada a receber mensagens nem CORS para configurar. Um link de WhatsApp não avaria.</li>
+            <li>Mensagens e assuntos já preenchidos em <code>src/config/contactos.js</code>, para se mudarem num sítio só.</li>
+          </ul>
+        </NotaDev>
+      </div>
     </>
   );
 }

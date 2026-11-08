@@ -26,80 +26,64 @@
   align-items: start;
 }
 
-.contactos-form-card {
-  background: var(--color-bg);
-  border-radius: var(--radius-card);
-  padding: 32px;
-}
-
-.contactos-form-card form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.contactos-form-card label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--color-dark);
-  font-weight: 500;
-}
-
-.contactos-form-card input,
-.contactos-form-card textarea {
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 14px;
-  font-family: var(--font-body);
-  color: var(--color-dark);
+/* ESP-21 — no lugar do formulário, os caminhos para falar connosco. */
+.contactos-falar {
   background: #FFFFFF;
-  resize: vertical;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 34px 30px;
+  align-self: start;
 }
 
-.contactos-form-card input {
-  height: 48px;
+.contactos-falar h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
 }
 
-.contactos-form-card input::placeholder,
-.contactos-form-card textarea::placeholder {
+.contactos-falar__texto {
+  font-size: 16px;
+  line-height: 1.7;
   color: var(--color-gray-mid);
+  margin-bottom: 26px;
 }
 
-.contactos-form-card input:focus,
-.contactos-form-card textarea:focus {
-  outline: none;
-  border-color: var(--color-orange);
+.contactos-falar__botoes {
+  display: grid;
+  gap: 12px;
 }
 
-.contactos-form-card__error {
-  color: #D14343;
-  font-size: 13px;
-  margin: -4px 0 0;
+.contactos-falar__botoes .btn {
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  padding: 15px 20px;
 }
 
-.contactos-form-card__submit {
-  height: 48px;
-  margin-top: 4px;
+.contactos-falar__comunidade {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border);
 }
 
-.contactos-form-card__sucesso {
-  text-align: center;
-  padding: 24px 0;
+.contactos-falar__comunidade p {
+  font-size: 14.5px;
+  color: var(--color-gray-mid);
+  margin-bottom: 10px;
 }
 
-.contactos-form-card__sucesso h2 {
+.contactos-falar__comunidade a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--color-orange);
-  font-size: 20px;
-  margin-bottom: 8px;
 }
 
-.contactos-form-card__sucesso p {
-  color: var(--color-gray-mid);
-  font-size: 14px;
-}
+.contactos-falar__comunidade a:hover { text-decoration: underline; }
+
+.contactos-nota { padding-bottom: 56px; }
 
 .contactos-info {
   display: flex;

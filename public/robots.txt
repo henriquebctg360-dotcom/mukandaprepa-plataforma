@@ -1,0 +1,11 @@
+# MUKANDA PREPA — www.mukandaprepa.com
+# As páginas do site podem ser todas indexadas. O protótipo no Vercel está
+# protegido por um cabeçalho X-Robots-Tag: noindex, que manda sobre isto.
+
+User-agent: *
+Allow: /
+
+# Página de trabalho da equipa, não é para aparecer nas pesquisas.
+Disallow: /especificacoes
+
+Sitemap: https://www.mukandaprepa.com/sitemap.xml

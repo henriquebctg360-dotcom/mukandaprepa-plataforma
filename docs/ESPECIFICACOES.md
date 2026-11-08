@@ -30,6 +30,8 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-18 — Imagens provisórias para as notícias](#esp-18)
 - [ESP-19 — Artigos escondidos até os professores escreverem](#esp-19)
 - [ESP-20 — Fotografias da equipa](#esp-20)
+- [ESP-21 — Limpeza antes do lançamento](#esp-21)
+- [ESP-22 — Título e descrição próprios para cada página](#esp-22)
 
 ---
 
@@ -759,3 +761,85 @@ Doze das dezassete pessoas já têm retrato. Faltam cinco: Mariana Baptista, Leo
 
 - [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
 - [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
+
+---
+
+<a id="esp-21"></a>
+## ESP-21 — Limpeza antes do lançamento
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Executar as decisões que estavam tomadas mas por fazer, e tirar do site o que já não serve.
+
+### Decisão
+
+Decisões da direcção: o site é informativo e sem backend; o formulário de contacto passa a botões de WhatsApp e e-mail (08 Nov 2026).
+
+### O que muda
+
+- Saiu o botão “Entrar na app” da barra de navegação, no computador e no telemóvel. A app está em manutenção e o site não deve mandar ninguém para uma porta fechada.
+- A página /entrar-na-app mantém-se, e continua a ser alcançada pelo “Ponto de situação” da página inicial e pela página A Nossa Missão, para quem quiser saber mais.
+- Saiu o painel de publicação: o link “Painel da equipa” do rodapé, as rotas /painel e /painel/entrar, e os quatro ecrãs.
+- O formulário de contacto deu lugar a dois botões — “Falar no WhatsApp”, com a mensagem já preenchida, e “Enviar e-mail”, para a caixa de apoio ao estudante — mais o convite para a Comunidade.
+- O link da MUKANDA Community estava vazio: todos os botões “Entrar na comunidade” abriam uma conversa com a equipa. Passou a ter o endereço oficial.
+- Saíram seis ficheiros de public/ que nenhuma página usava.
+
+### Notas técnicas
+
+- O site deixou de depender de api.mukandaprepa.com: src/config/api.js foi apagado e não há mais nada a chamar o backend. Sem backend não há CORS para configurar nem caixa de entrada a vigiar.
+- As mensagens e assuntos já preenchidos estão em src/config/contactos.js (MENSAGEM_WHATSAPP_CONTACTO, ASSUNTO_EMAIL_CONTACTO, emailCom).
+- TIPOS mudou de src/prototipo/painelPerfis.js, que saiu com o painel, para src/config/tiposConteudo.js — a página de notícia precisa dele.
+- O build desceu de 388 kB para 372 kB de JavaScript e de 74 kB para 63 kB de CSS.
+
+### Questões em aberto
+
+- Quando a app mobile sair, entra na barra um botão novo com as ligações às lojas. O sítio está marcado no Navbar.
+
+### Ver no protótipo
+
+- [Contactos](https://mukandaprepa-prototipo.vercel.app/contactos)
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+
+---
+
+<a id="esp-22"></a>
+## ESP-22 — Título e descrição próprios para cada página
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Preparar o site para ser encontrado no Google: cada página com o seu título e a sua descrição, mais o sitemap e o robots.
+
+### Decisão
+
+As doze páginas partilhavam o mesmo título e a mesma descrição — no Google apareciam todas iguais, sem se distinguirem.
+
+### O que muda
+
+- Cada página passa a ter título e descrição próprios: “Sobre nós · MUKANDA PREPA”, “A Nossa Equipa · MUKANDA PREPA”, e assim por diante.
+- As páginas de notícia e de artigo tiram o título e a descrição do próprio conteúdo — quem publicar uma notícia nova não tem de escrever mais nada.
+- A página “não encontrada” também tem texto próprio.
+- Novo sitemap.xml com 17 endereços: as 11 páginas públicas e as 6 notícias.
+- Novo robots.txt, que aponta para o sitemap e esconde a página /especificacoes, que é de trabalho.
+- Cada página passa a declarar o seu endereço canónico, e as etiquetas de partilha (og: e twitter:) acompanham o título e a descrição.
+
+### Notas técnicas
+
+- Textos em src/config/seo.js — um sítio só. Descrições entre 120 e 160 caracteres, que é o que o Google mostra.
+- src/components/useMeta.js escreve no <head>; src/components/MetaPagina.jsx está montado no MainLayout e trata das páginas de texto fixo. A página de notícia chama o useMeta directamente.
+- O sitemap foi gerado a partir de PAGINAS_PUBLICAS e da lista de notícias. Quando houver notícias ou páginas novas, é preciso gerá-lo outra vez — vale a pena passar isso para um script do build.
+- O robots.txt permite indexar tudo. No protótipo isso não tem efeito: o Vercel envia um cabeçalho X-Robots-Tag: noindex, que manda sobre o ficheiro. Esse cabeçalho está em vercel.json e NÃO pode ir para o site real.
+
+### Questões em aberto
+
+- O Google executa JavaScript e lê estes títulos; o WhatsApp e o Facebook não. Para eles vale sempre o que está no index.html, por isso todas as partilhas mostram o mesmo texto. Ter pré-visualização diferente por página obriga a gerar um ficheiro HTML por endereço no build — decisão por tomar.
+- Falta inscrever o site no Google Search Console e submeter o sitemap. Só se faz com o domínio real.
+
+### Ver no protótipo
+
+- [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
+- [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
+- [Notícia completa (exemplo)](https://mukandaprepa-prototipo.vercel.app/noticias/noticia-vem-ai-a-app-mobile-mukanda-prepa)

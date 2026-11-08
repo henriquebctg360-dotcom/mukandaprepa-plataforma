@@ -13,10 +13,6 @@ import Noticias from './pages/Noticias';
 import Artigos from './pages/Artigos';
 import Equipa from './pages/Equipa';
 import ConteudoDetalhe from './pages/ConteudoDetalhe';
-import PainelLayout from './pages/painel/PainelLayout';
-import PainelEntrar from './pages/painel/PainelEntrar';
-import PainelConteudos from './pages/painel/PainelConteudos';
-import PainelEditor from './pages/painel/PainelEditor';
 import EntrarNaApp from './pages/EntrarNaApp';
 import Especificacoes from './pages/Especificacoes';
 import PaginaNaoEncontrada from './pages/PaginaNaoEncontrada';
@@ -49,14 +45,6 @@ export default function App() {
           <Route path="/entrar-na-app" element={<EntrarNaApp />} />
           <Route path="/especificacoes" element={<Especificacoes />} />
           <Route path="*" element={<PaginaNaoEncontrada />} />
-        </Route>
-
-        {/* ESP-05: painel de publicação — layout próprio, sem menu nem rodapé do site. */}
-        <Route path="/painel/entrar" element={<PainelEntrar />} />
-        <Route path="/painel" element={<PainelLayout />}>
-          <Route index element={<PainelConteudos />} />
-          <Route path="novo/:tipo" element={<PainelEditor />} />
-          <Route path="editar/:id" element={<PainelEditor />} />
         </Route>
       </Routes>
     </>

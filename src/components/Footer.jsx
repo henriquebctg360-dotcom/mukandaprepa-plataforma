@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="footer__col">
           <h4>
             Links úteis{' '}
-            <MarcadorEsp esp="ESP-04" balao="direita" texto="Rodapé: saiu Planos & Preços; entraram Notícias e Artigos. Novo link para o painel de publicação da equipa (ESP-05)." />
+            <MarcadorEsp esp="ESP-04" balao="direita" texto="Rodapé: saiu Planos &amp; Preços; entraram Notícias e Artigos. O link para o painel da equipa saiu em ESP-21, com o painel." />
           </h4>
           <Link to="/maratonas">Maratonas 2026</Link>
           <Link to="/aulas-online">Aulas Online 2026</Link>
@@ -42,7 +42,6 @@ export default function Footer() {
           <Link to="/equipa">A Nossa Equipa</Link>
           <Link to="/missao">A Nossa Missão</Link>
           <Link to="/recursos">Recursos</Link>
-          <Link to="/painel">Painel da equipa</Link>
         </div>
 
         <div className="footer__col">
