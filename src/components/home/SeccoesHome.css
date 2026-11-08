@@ -29,7 +29,7 @@
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   margin-bottom: 10px;
 }
 
@@ -55,7 +55,7 @@
   flex-shrink: 0;
   font-weight: 600;
   font-size: 15px;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   white-space: nowrap;
 }
 
@@ -110,7 +110,7 @@
   height: 22px;
   border-radius: 50%;
   background: rgba(251, 109, 29, .14);
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -291,7 +291,7 @@
   height: 44px;
   border-radius: 12px;
   background: rgba(251, 109, 29, .1);
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,7 +308,7 @@
   margin-bottom: 16px;
 }
 
-.home-recurso__abrir { font-size: 14px; font-weight: 600; color: var(--color-orange); }
+.home-recurso__abrir { font-size: 14px; font-weight: 600; color: var(--color-orange-texto); }
 
 /* ── 6. Comunidade ──────────────────────────────────────────────── */
 .home-comunidade {
@@ -408,7 +408,7 @@ a.home-artigo:hover { border-color: var(--color-orange); }
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 64px;
   line-height: .6;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   height: 24px;
 }
 
@@ -486,7 +486,7 @@ a.home-artigo:hover { border-color: var(--color-orange); }
   height: 28px;
   border-radius: 50%;
   background: rgba(251, 109, 29, .1);
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-size: 18px;
   display: flex;
   align-items: center;

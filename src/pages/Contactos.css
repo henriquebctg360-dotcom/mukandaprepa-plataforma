@@ -78,7 +78,7 @@
   gap: 8px;
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 .contactos-falar__comunidade a:hover { text-decoration: underline; }

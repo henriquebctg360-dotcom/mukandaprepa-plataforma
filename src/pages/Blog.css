@@ -56,7 +56,7 @@
 .categoria-card__cta {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 .blog-previews {
@@ -190,7 +190,7 @@
 }
 
 .blog-seccao__topo h2 { font-size: 28px; }
-.blog-seccao__topo a { font-size: 14px; font-weight: 600; color: var(--color-orange); white-space: nowrap; }
+.blog-seccao__topo a { font-size: 14px; font-weight: 600; color: var(--color-orange-texto); white-space: nowrap; }
 
 .blog-tipo {
   display: inline-block;
@@ -198,7 +198,7 @@
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 .blog-tipo--azul { color: var(--color-blue); }

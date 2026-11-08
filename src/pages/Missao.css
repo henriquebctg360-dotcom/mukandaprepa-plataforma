@@ -46,7 +46,7 @@
 }
 
 .missao-stats__aviso {
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -70,7 +70,7 @@
   font-family: var(--font-title);
   font-size: 36px;
   font-weight: 700;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 .stat-card__label {
@@ -127,7 +127,7 @@
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   margin-bottom: 8px;
 }
 
@@ -139,5 +139,5 @@
 .missao-fase-actual a {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }

@@ -34,6 +34,7 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-22 — Título e descrição próprios para cada página](#esp-22)
 - [ESP-23 — Imagem e texto de partilha](#esp-23)
 - [ESP-24 — Velocidade: fontes, código e imagens](#esp-24)
+- [ESP-25 — Acessibilidade](#esp-25)
 
 ---
 
@@ -923,3 +924,42 @@ Três frentes: tirar a dependência do Google para as fontes, dividir o código 
 
 - [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
 - [Maratonas 2026](https://mukandaprepa-prototipo.vercel.app/maratonas)
+
+---
+
+<a id="esp-25"></a>
+## ESP-25 — Acessibilidade
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Deixar o site utilizável por quem navega com o teclado, por quem não suporta movimento no ecrã e por quem tem dificuldade em ler texto de baixo contraste.
+
+### Decisão
+
+Corrigido tudo o que não obriga a mexer na identidade visual. O que obriga ficou em aberto, com a medição feita.
+
+### O que muda
+
+- Novo atalho “Saltar para o conteúdo”, o primeiro elemento da página. Só aparece quando recebe o foco pelo teclado, e leva directamente ao conteúdo sem passar por toda a navegação.
+- Foco visível: um anel azul à volta do que está seleccionado. Antes não havia nenhum — quem navegava por teclado não fazia ideia de onde estava. Sobre fundos escuros ou laranja o anel é branco, para se ver.
+- O anel só aparece na navegação por teclado, por isso não incomoda quem usa o rato.
+- Quem pede ao sistema para reduzir o movimento deixa de ter animações e transições em todo o site. Os números da página inicial já respeitavam esse pedido; faltava o resto.
+- O laranja do texto sobre fundo claro passou a ser um tom mais escuro: o da marca dá 2,87:1 de contraste, abaixo do mínimo de 4,5:1, e o novo dá 4,59:1. É o mesmo laranja, só mais fechado. Mudaram 54 regras de estilo.
+
+### Notas técnicas
+
+- Estilos no fim de src/index.css. O token novo é --color-orange-texto (#C94E08) e usa-se SÓ em texto sobre fundo claro; os fundos, botões e desenhos continuam com --color-orange, que não se toca.
+- O <main> tem id="conteudo" e tabIndex={-1}, para o atalho poder levar o foco para lá. O contorno dele está desligado, senão aparecia uma caixa à volta da página inteira.
+- O contraste foi medido no próprio navegador, elemento a elemento, comparando a cor do texto com o fundo que lhe calha por baixo — não a olho.
+
+### Questões em aberto
+
+- Falta uma decisão da direcção: o texto branco sobre o laranja da marca (botões principais e a etiqueta “Agora”) dá 2,87:1, e o mínimo é 4,5:1. Usar o laranja mais escuro (#C94E08) também como fundo desses botões resolve todos os casos de uma vez e dá 4,59:1 — mas muda o aspecto de todos os botões principais do site. É uma decisão de identidade visual, não minha.
+- Falta testar com um leitor de ecrã e num telemóvel real, com dados móveis.
+
+### Ver no protótipo
+
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+- [Contactos](https://mukandaprepa-prototipo.vercel.app/contactos)

@@ -3,6 +3,12 @@
 
 :root {
   --color-orange: #FB6D1D;
+  /* ESP-25: o laranja da marca sobre branco dá 2,87:1 de contraste, abaixo do
+     mínimo de 4,5:1 — texto pequeno a laranja era difícil de ler para muita
+     gente. Este tom, mais escuro, dá 4,59:1 e é o mesmo laranja. Usa-se só
+     em TEXTO sobre fundo claro; os fundos, botões e desenhos continuam com
+     o laranja da marca, que não se toca. */
+  --color-orange-texto: #C94E08;
   --color-orange-dark: #e35f13;
   --color-blue: #1742E7;
   --color-dark: #14141F;
@@ -80,13 +86,13 @@ img {
 
 .btn-outline {
   background: transparent;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   border: 1.5px solid var(--color-orange);
 }
 
 .btn-white {
   background: #FFFFFF;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 @media (max-width: 767px) {
@@ -116,4 +122,65 @@ img {
 /* ESP-24: espaço reservado enquanto a página pedida está a chegar. */
 .a-esperar {
   min-height: 70vh;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+   ESP-25 — Acessibilidade
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Saltar para o conteúdo. Fica escondido até receber o foco pelo teclado. */
+.saltar-conteudo {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 1000;
+  padding: 12px 20px;
+  border-radius: 0 0 10px 10px;
+  background: var(--color-dark);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 15px;
+  transition: top .15s ease;
+}
+
+.saltar-conteudo:focus {
+  top: 0;
+}
+
+/* O <main> recebe o foco quando se salta para lá, mas não deve ganhar
+   contorno por isso — quem clica com o rato não tem nada a ver com isto. */
+main:focus {
+  outline: none;
+}
+
+/* Foco visível. Antes não havia nenhum: quem navegava por teclado não fazia
+   ideia de onde estava. Só aparece na navegação por teclado (:focus-visible),
+   por isso não incomoda quem usa o rato. */
+:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Sobre fundo laranja ou escuro o azul não se vê: usa-se branco. */
+.btn-primary:focus-visible,
+.home-comunidade :focus-visible,
+.equipa-cta :focus-visible,
+.edicao-fecho :focus-visible,
+.footer :focus-visible,
+.edicao-numeros :focus-visible {
+  outline-color: #FFFFFF;
+}
+
+/* Quem pediu ao sistema para reduzir o movimento deixa de ter animações.
+   É uma necessidade real: há pessoas a quem o movimento provoca enjoo. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

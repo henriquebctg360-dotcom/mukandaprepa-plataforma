@@ -98,7 +98,7 @@
 }
 
 .feature-check {
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-weight: 700;
 }
 
@@ -192,7 +192,7 @@
 }
 
 .faq-item__icon {
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-size: 20px;
   font-weight: 700;
 }
@@ -221,7 +221,7 @@
 
 .planos-cta-final .btn-primary {
   background: #FFFFFF;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 @media (max-width: 1023px) {

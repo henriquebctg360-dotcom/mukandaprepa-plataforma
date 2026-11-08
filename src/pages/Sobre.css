@@ -38,7 +38,7 @@
 
 .sobre-historia__link {
   display: inline-block;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-weight: 600;
   font-size: 14px;
   margin-top: 4px;
@@ -76,7 +76,7 @@
 }
 
 .valor-card h3 {
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-size: 17px;
   margin-bottom: 8px;
 }
@@ -131,7 +131,7 @@
   margin: 0 auto 12px;
   border-radius: 50%;
   background: rgba(251, 109, 29, 0.14);
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-family: var(--font-title);
   font-weight: 800;
   font-size: 20px;
@@ -207,7 +207,7 @@
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   margin-bottom: 14px;
 }
 
@@ -223,6 +223,6 @@
 
 /* ESP-10: link para Recursos dentro do texto. */
 .sobre-historia__texto p a {
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
   font-weight: 600;
 }

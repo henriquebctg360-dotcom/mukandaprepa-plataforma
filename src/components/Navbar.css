@@ -98,7 +98,7 @@
 
 .navbar__megamenu a:hover {
   background: #FBFBFB;
-  color: var(--color-orange);
+  color: var(--color-orange-texto);
 }
 
 .navbar__actions {
