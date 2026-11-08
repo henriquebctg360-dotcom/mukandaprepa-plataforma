@@ -4,9 +4,17 @@
 # correr `npm install` e `npm run build` no servidor. Quem compila é o GitHub,
 # que depois envia só a pasta dist/ — os ficheiros prontos. Acabam os zips.
 #
+# Vai por SFTP, sobre SSH, com chave. O alojamento não oferece contas de FTP,
+# e ainda bem: a chave é mais segura do que uma palavra-passe e não anda a
+# viajar em cada ligação.
+#
+# Usa-se o `lftp` em modo espelho e NÃO o rsync, de propósito: o rsync precisa
+# de uma shell a sério do outro lado, e aqui não sabemos se há. O SFTP funciona
+# mesmo em contas sem shell.
+#
 # O que é preciso configurar uma vez (ver README, secção "Publicação"):
-#   Secrets  → FTP_SERVIDOR, FTP_UTILIZADOR, FTP_PALAVRA_PASSE
-#   Variable → FTP_PASTA (por omissão public_html/)
+#   Secret   → SSH_CHAVE_PRIVADA
+#   Variable → SSH_SERVIDOR, SSH_UTILIZADOR, SSH_PORTA, SSH_PASTA
 
 name: Publicar no cPanel
 
@@ -24,6 +32,12 @@ jobs:
     name: Compilar e enviar
     runs-on: ubuntu-latest
 
+    env:
+      SERVIDOR: ${{ vars.SSH_SERVIDOR }}
+      UTILIZADOR: ${{ vars.SSH_UTILIZADOR }}
+      PORTA: ${{ vars.SSH_PORTA || '22' }}
+      PASTA: ${{ vars.SSH_PASTA || 'public_html' }}
+
     steps:
       - name: Ir buscar o código
         uses: actions/checkout@v4
@@ -40,26 +54,38 @@ jobs:
       - name: Compilar o site
         run: npm run build
 
-      - name: Confirmar que o .htaccess foi junto
+      - name: Confirmar que o build está completo
         run: |
-          test -f dist/.htaccess || { echo "Falta o .htaccess em dist/ — sem ele as rotas dão 404"; exit 1; }
           test -f dist/index.html || { echo "Falta o index.html em dist/"; exit 1; }
-          echo "dist/ tem $(find dist -type f | wc -l) ficheiros"
+          test -f dist/.htaccess || { echo "Falta o .htaccess em dist/ — sem ele as rotas dão 404"; exit 1; }
+          echo "dist/ tem $(find dist -type f | wc -l) ficheiros, $(du -sh dist | cut -f1)"
+
+      - name: Preparar a chave e conhecer o servidor
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_CHAVE_PRIVADA }}" > ~/.ssh/chave
+          chmod 600 ~/.ssh/chave
+          ssh-keyscan -p "$PORTA" -H "$SERVIDOR" >> ~/.ssh/known_hosts 2>/dev/null
+          test -s ~/.ssh/known_hosts || { echo "O servidor não respondeu na porta $PORTA"; exit 1; }
 
       - name: Enviar para o cPanel
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVIDOR }}
-          username: ${{ secrets.FTP_UTILIZADOR }}
-          password: ${{ secrets.FTP_PALAVRA_PASSE }}
-          protocol: ftps
-          local-dir: ./dist/
-          server-dir: ${{ vars.FTP_PASTA || 'public_html/' }}
-          # NUNCA pôr isto a true: apagaria tudo o que está na pasta, incluindo
-          # as pastas api.mukandaprepa.com e app.mukandaprepa.com, que o cPanel
-          # criou dentro de public_html.
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -c "
+            set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/chave -p $PORTA';
+            open -u $UTILIZADOR, sftp://$SERVIDOR;
+            mirror --reverse --verbose --parallel=4 \
+                   --exclude-glob .git* \
+                   ./dist/ $PASTA
+          "
+          # mirror --reverse envia; SEM --delete, de propósito. Dentro do
+          # public_html estão as pastas api.mukandaprepa.com e
+          # app.mukandaprepa.com, criadas pelo cPanel. Apagar o que não
+          # reconhece levá-las-ia à frente.
+
+      - name: Confirmar que o site responde
+        run: |
+          sleep 5
+          codigo=$(curl -s -o /dev/null -m 30 -w '%{http_code}' "https://www.mukandaprepa.com/" || echo 000)
+          echo "https://www.mukandaprepa.com/ respondeu $codigo"
+          test "$codigo" = "200" || echo "AVISO: o site não devolveu 200. Verificar o .htaccess e o SSL no painel."

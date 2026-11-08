@@ -68,34 +68,41 @@ O site vive no **cPanel da Fluxo**, no domínio principal, servido de `/home/muk
 
 ### Configurar, uma vez
 
-**1. No cPanel** — *Contas FTP* → criar uma conta só para isto:
+O alojamento não oferece contas de FTP, mas oferece **SSH com chave** — e é melhor assim: a chave é mais segura do que uma palavra-passe e não viaja em cada ligação.
 
-| Campo | Valor |
-|---|---|
-| Utilizador | `deploy` (fica `deploy@mukandaprepa.com`) |
-| Directório | `/home/mukandaprep/public_html` |
-| Quota | Ilimitada |
+**1. No cPanel** — *SSH Access* → *Manage SSH Keys*:
+
+1. **Generate a New Key.** Nome à escolha (por exemplo `github`), **sem passphrase** — o GitHub tem de a usar sozinho, sem ninguém para a escrever.
+2. Na lista das chaves públicas, carregar em **Manage** → **Authorize**. Sem este passo a chave não serve para nada.
+3. Na lista das chaves privadas, **View/Download** e copiar o conteúdo todo, desde o `-----BEGIN` até ao `-----END`.
 
 **2. No GitHub** — *Settings → Secrets and variables → Actions*:
 
-| Onde | Nome | Valor |
+| Tipo | Nome | Valor |
 |---|---|---|
-| Secret | `FTP_SERVIDOR` | `ftp.mukandaprepa.com` |
-| Secret | `FTP_UTILIZADOR` | `deploy@mukandaprepa.com` |
-| Secret | `FTP_PALAVRA_PASSE` | a palavra-passe da conta FTP |
-| Variable | `FTP_PASTA` | `./` se a conta já aponta para `public_html`; `public_html/` se aponta para a raiz da conta |
+| **Secret** | `SSH_CHAVE_PRIVADA` | a chave privada, inteira, com as linhas `BEGIN` e `END` |
+| Variable | `SSH_SERVIDOR` | `mukandaprepa.com` (ou `102.219.126.171`) |
+| Variable | `SSH_UTILIZADOR` | `mukandaprep` |
+| Variable | `SSH_PORTA` | `22`, salvo se o alojamento indicar outra |
+| Variable | `SSH_PASTA` | `public_html` |
 
-A palavra-passe escreve-se no GitHub e mais lado nenhum. Não entra no código, nem em mensagens, nem em documentos.
+Só a chave é *secret*; o resto são *variables*, que ficam à vista no painel e ajudam a perceber o que está configurado.
+
+**A chave privada escreve-se no GitHub e mais lado nenhum.** Não entra no código, nem em mensagens, nem em documentos. Se algum dia for exposta, basta apagar a chave pública no cPanel e gerar outra.
 
 ### Publicar
 
 Entrar com alterações no `main`. É tudo. Para acompanhar ou repetir: separador **Actions** do repositório — o botão *Run workflow* publica outra vez sem ser preciso mudar código.
 
+No fim, a publicação confirma sozinha que `https://www.mukandaprepa.com/` responde.
+
 ### Dois cuidados
 
-- **Nunca apagar o conteúdo de `public_html` de uma vez.** O cPanel criou lá dentro as pastas `api.mukandaprepa.com` e `app.mukandaprepa.com`. O envio está configurado para nunca limpar a pasta (`dangerous-clean-slate: false`): acrescenta e substitui, não apaga o que não conhece.
-- **O `.htaccess` tem de ir.** É ele que faz as rotas do React funcionarem, liga a compressão e define a cache. O workflow pára com erro se ele não estiver em `dist/`.
+- **Nunca apagar o conteúdo de `public_html` de uma vez.** O cPanel criou lá dentro as pastas `api.mukandaprepa.com` e `app.mukandaprepa.com`. O envio é um espelho **sem apagar**: acrescenta e substitui, nunca remove o que não conhece.
+- **O `.htaccess` tem de ir.** É ele que faz as rotas do React funcionarem, liga a compressão e define a cache. A publicação pára com erro se ele não estiver em `dist/`.
 
-### Se o FTPS estiver bloqueado
+### Notas sobre este alojamento
 
-Alternativa sem alterar nada do resto: *Git Version Control* do cPanel, com um ramo que contenha o `dist/` já compilado e um `.cpanel.yml` a copiá-lo para `public_html`. Dá mais passos e obriga a carregar num botão a cada publicação.
+- **Não há Terminal** no painel, por isso não se compila no servidor. Quem compila é o GitHub.
+- **Não há contas de FTP** disponíveis — daí o SSH.
+- **As cópias de segurança automáticas estão desligadas** pelo administrador do servidor. Antes de uma mudança grande, vale a pena descarregar uma cópia em *Backup → Download a Home Directory Backup*.
