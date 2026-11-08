@@ -291,7 +291,7 @@ const PERGUNTAS = [
   },
   {
     p: 'Como falo com a equipa?',
-    r: `Pelo WhatsApp ${CONTACTO.telefoneLegivel}, pelo email ${CONTACTO.email} ou pelo formulário da página Contactos.`,
+    r: `Pelo WhatsApp ${CONTACTO.telefoneLegivel}, que é o caminho mais rápido, ou por e-mail para ${CONTACTO.emailSuporte}. Está tudo na página Contactos.`,
   },
 ];
 
