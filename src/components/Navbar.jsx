@@ -31,7 +31,7 @@ export default function Navbar() {
             lado do nome em duas linhas. Antes era uma imagem única (01.png)
             de 1920x720, que a 36px de altura deixava o nome quase ilegível. */}
         <Link to="/" className="navbar__logo">
-          <img src="/logo-icon.png" alt="" width="64" height="64" className="navbar__logo-img" />
+          <img src="/logo-icon.png" alt="" width="256" height="256" className="navbar__logo-img" />
           <span className="navbar__logo-nome">MUKANDA<br />PREPA</span>
         </Link>
 
