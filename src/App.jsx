@@ -24,7 +24,6 @@ const Artigos = lazy(() => import('./pages/Artigos'));
 const Equipa = lazy(() => import('./pages/Equipa'));
 const ConteudoDetalhe = lazy(() => import('./pages/ConteudoDetalhe'));
 const EntrarNaApp = lazy(() => import('./pages/EntrarNaApp'));
-const Especificacoes = lazy(() => import('./pages/Especificacoes'));
 
 // Enquanto a página não chega. Em segundos de ligação lenta é isto que se vê,
 // por isso ocupa a altura de um ecrã para o rodapé não saltar para cima.
@@ -59,7 +58,6 @@ export default function App() {
           <Route path="/noticias/:id" element={<ConteudoDetalhe tipo="noticia" />} />
           <Route path="/artigos/:id" element={<ConteudoDetalhe tipo="artigo" />} />
           <Route path="/entrar-na-app" element={<EntrarNaApp />} />
-          <Route path="/especificacoes" element={<Especificacoes />} />
           <Route path="*" element={<PaginaNaoEncontrada />} />
         </Route>
       </Routes>

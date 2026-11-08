@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ARTIGOS_VISIVEIS } from '../config/artigos';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -59,11 +58,6 @@ export default function Navbar() {
             <Link to="/blog" className="navbar__dropdown-trigger">
               Blog <span className="navbar__caret">&#9662;</span>
             </Link>
-            <MarcadorEsp
-              esp="ESP-04"
-              balao="direita"
-              texto="Menu: saiu “Planos & Preços” (tudo foi gratuito; volta quando houver novos planos). Notícias e Artigos voltaram ao submenu do Blog."
-            />
             {blogOpen && (
               <div className="navbar__megamenu">
                 <Link to="/maratonas">Maratonas 2026</Link>
@@ -83,10 +77,6 @@ export default function Navbar() {
             saber mais. Quando a app mobile sair, entra aqui um botão novo
             com as ligações às lojas. */}
         <div className="navbar__actions">
-          <MarcadorEsp
-            esp="ESP-21"
-            texto="Aqui estava o botão “Entrar na app”. Saiu: a app está em manutenção e o site não deve mandar ninguém para uma porta fechada."
-          />
         </div>
       </div>
     </header>

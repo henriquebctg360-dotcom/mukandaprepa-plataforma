@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import './Missao.css';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 
 // Decisão da equipa (D5, 3 Ago 2026): a plataforma lança sem histórico, por
 // isso esta secção não anuncia números — anuncia compromissos. Quando houver
@@ -53,11 +52,6 @@ export default function Missao() {
           <div className="missao-fase-actual">
             <span className="missao-fase-actual__rotulo">
               Onde estamos agora
-              <MarcadorEsp
-                esp="ESP-09"
-                balao="direita"
-                texto="Único acréscimo à página: contextualiza a fase actual (edição 2026 concluída, app em manutenção, app mobile a caminho). O texto da missão ficou igual; só o 3.º parágrafo passou ao passado."
-              />
             </span>
             <p>
               Concluída a primeira edição, estamos a preparar a próxima fase: a app

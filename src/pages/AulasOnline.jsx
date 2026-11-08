@@ -1,6 +1,5 @@
 import './AulasOnline.css';
 import { SeloEdicao, NumerosEdicao, FechoEdicao } from '../components/Edicao2026';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 
 // ESP-08 — a página passa a descrever o que foi realizado nas Aulas Online
 // MUKANDA 2026 (fase gratuita, 20 Ago – 15 Set 2026). Textos no passado,
@@ -32,11 +31,6 @@ export default function AulasOnline() {
             <SeloEdicao />
             <h1>
               Aulas Online MUKANDA 2026
-              <MarcadorEsp
-                esp="ESP-08"
-                balao="direita"
-                texto="A página passa a ser o balanço da edição 2026: textos no passado e sem botão de começar/inscrever."
-              />
             </h1>
             <p>
               Depois de cada maratona, um professor explicou ao vivo a resolução de
@@ -72,7 +66,6 @@ export default function AulasOnline() {
       <NumerosEdicao
         titulo="As aulas em números"
         chaves={['aulas', 'professores', 'estudantes']}
-        marcador="Secção nova: números da edição 2026, da mesma fonte da hero (config/estatisticas.js)."
       />
 
       <section className="aulas-horario">

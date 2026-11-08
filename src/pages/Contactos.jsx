@@ -8,7 +8,6 @@ import {
   emailCom,
 } from '../config/contactos';
 import { IconeComunidade, IconeWhatsApp } from '../components/hero/partes';
-import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 // ESP-21 — o formulário saiu.
 //
@@ -31,11 +30,6 @@ export default function Contactos() {
           <div className="contactos-falar">
             <h2>
               Como falar connosco
-              <MarcadorEsp
-                esp="ESP-21"
-                balao="direita"
-                texto="Saiu o formulário. O site deixou de ter backend, por isso ninguém receberia as mensagens. Fica o WhatsApp, onde a equipa responde todos os dias, e o e-mail."
-              />
             </h2>
             <p className="contactos-falar__texto">
               O WhatsApp é o caminho mais rápido — é onde a equipa está todos os dias.
@@ -100,13 +94,6 @@ export default function Contactos() {
       </section>
 
       <div className="container contactos-nota">
-        <NotaDev esp="ESP-21" titulo="Formulário retirado">
-          <ul>
-            <li>O site deixou de depender de <code>api.mukandaprepa.com</code>. O ficheiro <code>src/config/api.js</code> foi apagado — não havia mais nada a usá-lo.</li>
-            <li>Sem backend, não há caixa de entrada a receber mensagens nem CORS para configurar. Um link de WhatsApp não avaria.</li>
-            <li>Mensagens e assuntos já preenchidos em <code>src/config/contactos.js</code>, para se mudarem num sítio só.</li>
-          </ul>
-        </NotaDev>
       </div>
     </>
   );

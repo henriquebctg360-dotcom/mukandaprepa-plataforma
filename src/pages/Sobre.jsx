@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
 import { DIRECCAO } from '../config/equipa.jsx';
-import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 function Perfil({ pessoa }) {
   return (
@@ -82,11 +81,6 @@ export default function Sobre() {
               <Link to="/recursos">Recursos</Link> —
               pensada para o contexto angolano, incluindo o acesso
               maioritariamente via telemóvel e ligações 3G/4G.
-              <MarcadorEsp
-                esp="ESP-10"
-                balao="direita"
-                texto="Antes: “com uma biblioteca de exames passados a caminho”. Os exames passados já estão na página Recursos."
-              />
             </p>
             <Link to="/missao" className="sobre-historia__link">
               Conhece a nossa Visão 2030 →
@@ -137,11 +131,6 @@ export default function Sobre() {
       {/* ESP-06: saiu o fecho "Queres fazer parte desta comunidade? / Criar Conta
           Grátis" — já não se pedem inscrições na app. */}
       <div className="container sobre-nota-removida">
-        <NotaDev esp="ESP-06" titulo="Secção retirada">
-          Aqui estava o fecho “Queres fazer parte desta comunidade? — Criar Conta Grátis”.
-          Saiu porque o site já não pede inscrições na app (em manutenção). O resto da
-          página Sobre fica igual.
-        </NotaDev>
       </div>
     </>
   );

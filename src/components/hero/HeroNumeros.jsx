@@ -1,8 +1,7 @@
 // Proposta A — Números em destaque.
 // Os números da fase gratuita ocupam o lugar da imagem: são a mensagem.
 import { ESTATISTICAS, PERIODO_FASE_GRATUITA } from '../../config/estatisticas';
-import { MarcadorEsp } from '../../prototipo/NotasDev';
-import { BotoesContacto, EtiquetaExemplo, NumeroAnimado } from './partes';
+import { BotoesContacto, NumeroAnimado } from './partes';
 
 export default function HeroNumeros() {
   return (
@@ -25,11 +24,6 @@ export default function HeroNumeros() {
 
         <div className="hero-a__numeros">
           <div className="hero-a__numeros-topo">
-            <EtiquetaExemplo />
-            <MarcadorEsp
-              esp="ESP-02"
-              texto="Números da fase gratuita. Vêm de src/config/estatisticas.js; os reais estão no painel de administração da app (Estatísticas globais)."
-            />
           </div>
           <div className="hero-a__grelha">
             {ESTATISTICAS.map((e) => (

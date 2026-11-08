@@ -1,8 +1,7 @@
 // Peças partilhadas pelas três propostas de hero (ESP-02).
 import { useEffect, useRef, useState } from 'react';
-import { CONTACTO, MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../../config/contactos';
-import { DADOS_DE_EXEMPLO, formatarNumero } from '../../config/estatisticas';
-import { ComMarcador } from '../../prototipo/NotasDev';
+import { MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../../config/contactos';
+import { formatarNumero } from '../../config/estatisticas';
 
 const semAnimacao = () =>
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -33,17 +32,6 @@ export function NumeroAnimado({ valor, duracao = 1400 }) {
   return <span ref={ref}>{formatarNumero(atual)}</span>;
 }
 
-// Etiqueta amarela para conteúdo que ainda não é real. Por omissão segue o
-// interruptor DADOS_DE_EXEMPLO dos números; outras secções passam `mostrar`.
-export function EtiquetaExemplo({ escuro = false, texto = 'Valores de exemplo', mostrar = DADOS_DE_EXEMPLO }) {
-  if (!mostrar) return null;
-  return (
-    <span className={`hero-v__exemplo${escuro ? ' hero-v__exemplo--escuro' : ''}`}>
-      {texto}
-    </span>
-  );
-}
-
 export function IconeWhatsApp() {
   return (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
@@ -69,21 +57,10 @@ export function BotoesContacto({ claro = false, centrado = false }) {
   const whatsapp = whatsappCom(MENSAGEM_WHATSAPP_HERO);
   return (
     <div className={`hero-v__botoes${centrado ? ' hero-v__botoes--centro' : ''}`}>
-      <ComMarcador
-        esp="ESP-02"
-        balao="direita"
-        texto={`Substitui "Inscrever-me agora gratuitamente". Abre o WhatsApp da equipa (${CONTACTO.telefoneLegivel}) com uma mensagem já escrita.`}
-      >
-        <a href={whatsapp} target="_blank" rel="noreferrer" className="btn hero-v__btn-whatsapp">
+      <a href={whatsapp} target="_blank" rel="noreferrer" className="btn hero-v__btn-whatsapp">
           <IconeWhatsApp /> Falar no WhatsApp
         </a>
-      </ComMarcador>
-      <ComMarcador
-        esp="ESP-02"
-        balao="direita"
-        texto="Leva à MUKANDA Community (Comunidade do WhatsApp). Link a colocar em config/contactos.js; vazio, abre o WhatsApp a pedir a entrada."
-      >
-        <a
+      <a
           href={linkComunidade()}
           target="_blank"
           rel="noreferrer"
@@ -91,7 +68,6 @@ export function BotoesContacto({ claro = false, centrado = false }) {
         >
           <IconeComunidade /> Entrar na comunidade
         </a>
-      </ComMarcador>
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import './Footer.css';
 import { CONTACTO } from '../config/contactos';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 
 export default function Footer() {
   return (
@@ -32,7 +31,6 @@ export default function Footer() {
         <div className="footer__col">
           <h4>
             Links úteis{' '}
-            <MarcadorEsp esp="ESP-04" balao="direita" texto="Rodapé: saiu Planos &amp; Preços; entraram Notícias e Artigos. O link para o painel da equipa saiu em ESP-21, com o painel." />
           </h4>
           <Link to="/maratonas">Maratonas 2026</Link>
           <Link to="/aulas-online">Aulas Online 2026</Link>

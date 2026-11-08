@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import './Blog.css';
-import { usePublicados } from '../prototipo/useConteudos';
-import { MarcadorEsp } from '../prototipo/NotasDev';
+import { publicados } from '../config/conteudos';
 
 // ESP-07 — o Blog passa a reunir as notícias e os artigos (publicados no painel,
 // ESP-05). Filtro por tipo; a notícia mais recente fica em destaque.
@@ -59,8 +58,8 @@ function CartaoArtigo({ a }) {
 
 export default function Blog() {
   const [filtro, setFiltro] = useState('tudo');
-  const noticias = usePublicados('noticia');
-  const todosArtigos = usePublicados('artigo');
+  const noticias = publicados('noticia');
+  const todosArtigos = publicados('artigo');
   const artigos = ARTIGOS_VISIVEIS ? todosArtigos : [];
   const [destaque, ...outrasNoticias] = noticias;
 
@@ -73,11 +72,6 @@ export default function Blog() {
         <div className="container">
           <h1>
             Blog MUKANDA PREPA
-            <MarcadorEsp
-              esp="ESP-07"
-              balao="direita"
-              texto="O Blog passa a mostrar as notícias e os artigos publicados no painel (ESP-05), com filtro por tipo. Antes tinha só dois cartões (Aulas e Maratonas)."
-            />
           </h1>
           <p>Notícias da MUKANDA PREPA e artigos para te preparares para o exame de acesso.</p>
 

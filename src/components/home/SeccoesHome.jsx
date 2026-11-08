@@ -8,22 +8,20 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SeccoesHome.css';
 import { DIRECCAO } from '../../config/equipa.jsx';
-import { usePublicados } from '../../prototipo/useConteudos';
 import { RECURSOS } from '../../config/recursos';
 import { DEPOIMENTOS } from '../../config/depoimentos';
 import { CONTACTO, MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../../config/contactos';
 import { PERIODO_FASE_GRATUITA } from '../../config/estatisticas';
 import { ROTA_ENTRAR_NA_APP } from '../../config/appLinks';
-import { MarcadorEsp } from '../../prototipo/NotasDev';
-import { EtiquetaExemplo, IconeComunidade, IconeWhatsApp } from '../hero/partes';
+import { IconeComunidade, IconeWhatsApp } from '../hero/partes';
+import { publicados } from '../../config/conteudos';
 
-function Cabecalho({ rotulo, titulo, texto, link, marcador, children }) {
+function Cabecalho({ rotulo, titulo, texto, link, children }) {
   return (
     <header className="home-cab">
       <div>
         <span className="home-cab__rotulo">
           {rotulo}
-          {marcador && <MarcadorEsp esp="ESP-03" balao="direita" texto={marcador} />}
         </span>
         <h2>{titulo}</h2>
         {texto && <p>{texto}</p>}
@@ -55,7 +53,6 @@ export function SobreNosHome() {
             rotulo="Quem somos"
             titulo="A MUKANDA PREPA prepara estudantes para o acesso à universidade"
             texto="Somos uma plataforma educativa angolana. Juntamos maratonas de exercícios com questões de exames reais e aulas ao vivo, para que nenhum estudante chegue ao exame de acesso sem preparação."
-            marcador="Secção nova, logo a seguir à hero: dá contexto a quem ainda não conhece o projecto. Substitui o antigo bloco “Sobre nós” (só três frases)."
           />
           <ul className="home-sobre__factos">
             {FACTOS.map((f) => (
@@ -117,7 +114,6 @@ export function SituacaoHome() {
           rotulo="Ponto de situação"
           titulo="O que está a acontecer na MUKANDA PREPA"
           link={{ href: ROTA_ENTRAR_NA_APP, label: 'Saber mais sobre a nova app' }}
-          marcador="Secção nova: resume o estado actual do projecto (fase gratuita concluída, app em manutenção, app mobile a caminho). Liga à página de manutenção da ESP-01."
         />
         <ol className="home-situacao__lista">
           {SITUACAO.map((s) => (
@@ -135,8 +131,7 @@ export function SituacaoHome() {
 
 // ── 3. Notícias ──────────────────────────────────────────────────────────
 export function NoticiasHome() {
-  const noticias = usePublicados('noticia').slice(0, 3);
-  const exemplo = noticias.some((n) => n.exemplo);
+  const noticias = publicados('noticia').slice(0, 3);
   return (
     <section className="home-secao home-noticias">
       <div className="container">
@@ -144,10 +139,8 @@ export function NoticiasHome() {
           rotulo="Notícias"
           titulo="As últimas novidades"
           link={{ href: '/noticias', label: 'Ver todas as notícias' }}
-          marcador="Secção nova: as três notícias publicadas mais recentes. Vêm do painel de publicação (ESP-05): o que for publicado lá aparece aqui."
-        >
-          <EtiquetaExemplo mostrar={exemplo} texto="Textos de exemplo" />
-        </Cabecalho>
+        
+        />
         <div className="home-grelha home-grelha--3">
           {noticias.map((n) => (
             <Link to={`/noticias/${n.id}`} className="home-noticia" key={n.id}>
@@ -167,8 +160,7 @@ export function NoticiasHome() {
 
 // ── 4. Artigos ───────────────────────────────────────────────────────────
 export function ArtigosHome() {
-  const artigos = usePublicados('artigo').slice(0, 3);
-  const exemplo = artigos.some((a) => a.exemplo);
+  const artigos = publicados('artigo').slice(0, 3);
   return (
     <section className="home-secao home-artigos">
       <div className="container">
@@ -177,10 +169,8 @@ export function ArtigosHome() {
           titulo="Dicas e explicações para o exame"
           texto="Conteúdo pedagógico gratuito, organizado por matéria e nível."
           link={{ href: '/artigos', label: 'Ver todos os artigos' }}
-          marcador="Secção nova: os três artigos publicados mais recentes. Vêm do painel de publicação (ESP-05). A página /artigos tem filtros por matéria e nível."
-        >
-          <EtiquetaExemplo mostrar={exemplo} texto="Artigos de exemplo" />
-        </Cabecalho>
+        
+        />
         <div className="home-grelha home-grelha--3">
           {artigos.map((a) => (
             <Link to={`/artigos/${a.id}`} className="home-artigo" key={a.id}>
@@ -216,7 +206,6 @@ export function RecursosHome() {
           titulo="Continua a estudar enquanto preparamos a nova app"
           texto="Exames passados, materiais e livros reunidos pela equipa pedagógica, sempre disponíveis."
           link={{ href: '/recursos', label: 'Ver recursos' }}
-          marcador="Secção nova: as quatro pastas do Google Drive que já existem na página Recursos. É o que o estudante pode usar hoje, com a app em manutenção."
         />
         <div className="home-grelha home-grelha--4">
           {RECURSOS.map((r) => (
@@ -248,7 +237,6 @@ export function TestemunhosHome() {
           rotulo="Testemunhos"
           titulo="O que dizem os estudantes"
           texto="Estudantes que fizeram as maratonas e as aulas de correcção da MUKANDA PREPA 2026."
-          marcador="Secção nova (pedida a 14 Set 2026). Os testemunhos de exemplo deram lugar aos reais, recolhidos pela direcção (29 Set 2026), todos com autorização escrita do estudante. Sem fotografias, por decisão da direcção: fica a inicial de cada um."
         />
         <div className="home-grelha home-grelha--2">
           {DEPOIMENTOS.map((d) => (
@@ -316,10 +304,8 @@ export function PerguntasHome() {
           rotulo="Perguntas frequentes"
           titulo="Tens dúvidas? Começa por aqui"
           texto="As perguntas que mais recebemos desde que a app entrou em manutenção."
-          marcador="Secção nova (pedida a 14 Set 2026): perguntas frequentes sobre a situação actual. Respostas escritas só com o que já foi decidido; a validar pela equipa."
-        >
-          <EtiquetaExemplo mostrar texto="Respostas a validar" />
-        </Cabecalho>
+        
+        />
         <div className="home-faq__lista">
           {PERGUNTAS.map((q, i) => (
             <div className={`home-faq__item${aberta === i ? ' is-aberta' : ''}`} key={q.p}>
@@ -344,10 +330,6 @@ export function ComunidadeHome() {
         <div>
           <h2>
             A conversa continua na MUKANDA Community
-            <MarcadorEsp
-              esp="ESP-03"
-              texto="Fecho da página. Substitui “Começa hoje, é grátis! / Criar Conta”: em vez de criar conta, convida a entrar na Comunidade do WhatsApp ou a falar com a equipa."
-            />
           </h2>
           <p>
             Entra na Comunidade do WhatsApp para saberes em primeira mão quando as

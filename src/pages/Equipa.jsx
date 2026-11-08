@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Equipa.css';
 import { DIRECCAO, EQUIPAS, DOCENTES } from '../config/equipa.jsx';
-import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 // ESP-11 — A Nossa Equipa: fotografia, nome e função de cada pessoa.
 // Os dados vivem em src/config/equipa.jsx.
@@ -53,11 +52,6 @@ export default function Equipa() {
         <div className="container">
           <h1>
             A Nossa Equipa
-            <MarcadorEsp
-              esp="ESP-17"
-              balao="direita"
-              texto="ESP-17 (08 Nov 2026): lista alinhada com a Lista de Membros oficial de 31/10 e com as Especificações das Equipas. 17 membros activos. Dados em src/config/equipa.jsx."
-            />
           </h1>
           <p>As {total} pessoas que constroem a MUKANDA PREPA, da direcção ao corpo docente.</p>
         </div>
@@ -69,15 +63,6 @@ export default function Equipa() {
 
       <section className="equipa-secao equipa-nota">
         <div className="container">
-          <NotaDev esp="ESP-17" titulo="Fotografias em falta">
-            <ul>
-              <li>As {total} pessoas têm fotografia. O círculo com iniciais continua no código, para quem entrar de novo.</li>
-              <li>Originais em <code>DOCUMENTOS RECENTES › Grupo Geral › Membros › Fotos pro</code>. Para o site: recortar quadrado, 600×600, gravar em <code>public/equipa-nome-apelido.webp</code> e acrescentar <code>foto:</code> à pessoa em <code>src/config/equipa.jsx</code>.</li>
-              <li>Quem está em duas equipas aparece uma só vez, com as duas na função: o Leonel Macaia e o Wagner Cazanza.</li>
-              <li>As duas vagas em aberto — Designer de Maratonas e Professor(a) de Língua Portuguesa — ainda não aparecem no site. Decisão por tomar.</li>
-              <li>A página Sobre e a home mostram só os fundadores e directores, e ligam para aqui.</li>
-            </ul>
-          </NotaDev>
         </div>
       </section>
 

@@ -2,8 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Artigos.css';
 import { MATERIAS, NIVEIS } from '../config/artigos';
-import { usePublicados } from '../prototipo/useConteudos';
-import { NotaDev } from '../prototipo/NotasDev';
+import { publicados } from '../config/conteudos';
 
 const ITEMS_POR_PAGINA = 6;
 
@@ -14,7 +13,7 @@ export default function Artigos() {
   const [materia, setMateria] = useState('');
   const [nivel, setNivel] = useState('');
   const [pagina, setPagina] = useState(1);
-  const artigos = usePublicados('artigo');
+  const artigos = publicados('artigo');
 
   const filtrados = useMemo(() => {
     return artigos.filter((a) => {
@@ -88,15 +87,6 @@ export default function Artigos() {
               ))}
             </div>
           )}
-
-          <NotaDev esp="ESP-15" titulo="Artigo-modelo">
-            <ul>
-              <li><strong>Como resolver a equação do 1.º grau</strong> é o artigo-modelo, pedido pelos professores, e por agora o único artigo do site.</li>
-              <li>ESP-19: os artigos estão escondidos do menu, do rodapé, da página inicial e do Blog até os professores entregarem os seus. Esta página só se abre por link directo — é o endereço que o corpo docente recebeu.</li>
-              <li>A estrutura a seguir: resumo de duas linhas → exemplo concreto do dia-a-dia → definições apoiadas nesse exemplo → regras e propriedades → passo a passo, exemplos resolvidos, erros mais comuns e exercícios.</li>
-              <li>Texto em <code>src/config/artigos.js</code>. Marcas de formatação: <code>##</code> subtítulo, <code>-</code> lista, <code>1.</code> passos numerados, <code>&gt;</code> destaque.</li>
-            </ul>
-          </NotaDev>
 
           {totalPaginas > 1 && (
             <div className="artigos-paginacao">

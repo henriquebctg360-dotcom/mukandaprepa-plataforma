@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import './EntrarNaApp.css';
 import { linkComunidade, whatsappCom } from '../config/contactos';
-import { ComMarcador } from '../prototipo/NotasDev';
 import { IconeComunidade } from '../components/hero/partes';
-import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 // ESP-01 — Página para onde levam todos os botões "Entrar na app".
 // A app web está em manutenção enquanto a MUKANDA PREPA passa para uma app
@@ -47,11 +45,6 @@ export default function EntrarNaApp() {
               <span className="manut-estado__ponto" aria-hidden="true" />
               App web em manutenção
             </span>
-            <MarcadorEsp
-              esp="ESP-01"
-              balao="direita"
-              texto="Página nova. É o destino do botão “Entrar na app” e de todos os botões que antes abriam a app web."
-            />
 
             <h1>Estamos a preparar a nova app MUKANDA PREPA</h1>
 
@@ -74,15 +67,9 @@ export default function EntrarNaApp() {
               >
                 Avisem-me pelo WhatsApp
               </a>
-              <ComMarcador
-                esp="ESP-10"
-                balao="direita"
-                texto="Botão novo: entrar na MUKANDA Community, como no resto do site. “Voltar ao site” passou a link simples por baixo."
-              >
-                <a href={linkComunidade()} className="btn btn-outline manut-hero__comunidade" target="_blank" rel="noreferrer">
+              <a href={linkComunidade()} className="btn btn-outline manut-hero__comunidade" target="_blank" rel="noreferrer">
                   <IconeComunidade /> Entrar na comunidade
                 </a>
-              </ComMarcador>
             </div>
             <Link to="/" className="manut-hero__voltar">← Voltar ao site</Link>
           </div>
@@ -154,13 +141,6 @@ export default function EntrarNaApp() {
 
       <section className="manut-notas">
         <div className="container">
-          <NotaDev esp="ESP-01" titulo="Como esta página funciona">
-            <ul>
-              <li>Rota interna <code>/entrar-na-app</code>. É o destino do botão “Entrar na app” da barra e de todos os outros botões que antes abriam a app web.</li>
-              <li>O destino está centralizado em <code>src/config/appLinks.js</code>. Quando a app mobile sair, muda-se só ali.</li>
-              <li>Textos provisórios. Por decidir: data de regresso, formulário “avisa-me”, e o que acontece às contas actuais. <Link to="/especificacoes">Ver questões em aberto →</Link></li>
-            </ul>
-          </NotaDev>
         </div>
       </section>
     </>

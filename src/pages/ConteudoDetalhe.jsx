@@ -1,8 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import './ConteudoDetalhe.css';
-import { useConteudos } from '../prototipo/useConteudos';
+import { porId } from '../config/conteudos';
 import { TIPOS } from '../config/tiposConteudo';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 import PaginaNaoEncontrada from './PaginaNaoEncontrada';
 import TextoRico from '../components/TextoRico';
 import { useMeta } from '../components/useMeta';
@@ -12,7 +11,7 @@ import { useMeta } from '../components/useMeta';
 // formatação (subtítulos, listas, citações) é feita pelo TextoRico.
 export default function ConteudoDetalhe({ tipo }) {
   const { id } = useParams();
-  const item = useConteudos().find((c) => c.id === id && c.tipo === tipo && c.estado === 'publicado');
+  const item = porId(tipo, id);
 
   // ESP-22: o título e a descrição desta página vêm do próprio conteúdo.
   useMeta({
@@ -39,11 +38,6 @@ export default function ConteudoDetalhe({ tipo }) {
               </>
             )}
             <time>{item.data}</time>
-            <MarcadorEsp
-              esp="ESP-05"
-              balao="direita"
-              texto="Página nova: abre cada notícia/artigo. Título, resumo, texto, autor e data vêm do painel de publicação."
-            />
           </div>
           <h1>{item.titulo}</h1>
           <p className="detalhe__resumo">{item.resumo}</p>

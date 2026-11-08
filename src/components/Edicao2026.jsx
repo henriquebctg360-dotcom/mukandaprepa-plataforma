@@ -3,8 +3,7 @@
 import './Edicao2026.css';
 import { TODAS_ESTATISTICAS, PERIODO_FASE_GRATUITA, formatarNumero } from '../config/estatisticas';
 import { CONTACTO, MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../config/contactos';
-import { EtiquetaExemplo, IconeComunidade, IconeWhatsApp } from './hero/partes';
-import { MarcadorEsp } from '../prototipo/NotasDev';
+import { IconeComunidade, IconeWhatsApp } from './hero/partes';
 
 export function SeloEdicao() {
   return (
@@ -16,15 +15,13 @@ export function SeloEdicao() {
 }
 
 // Faixa de números da edição. `chaves` escolhe quais (ver config/estatisticas.js).
-export function NumerosEdicao({ titulo, chaves, marcador }) {
+export function NumerosEdicao({ titulo, chaves }) {
   const numeros = chaves.map((c) => TODAS_ESTATISTICAS.find((e) => e.chave === c)).filter(Boolean);
   return (
     <section className="edicao-numeros">
       <div className="container">
         <div className="edicao-numeros__topo">
           <h2>{titulo}</h2>
-          <EtiquetaExemplo escuro />
-          {marcador && <MarcadorEsp esp="ESP-08" texto={marcador} />}
         </div>
         <div className="edicao-numeros__grelha">
           {numeros.map((e) => (
@@ -47,10 +44,6 @@ export function FechoEdicao({ titulo, texto }) {
         <div>
           <h2>
             {titulo}
-            <MarcadorEsp
-              esp="ESP-08"
-              texto="Fecho novo: em vez de pedir inscrição ou mostrar planos, convida a acompanhar a próxima edição na comunidade ou pelo WhatsApp."
-            />
           </h2>
           <p>{texto}</p>
         </div>

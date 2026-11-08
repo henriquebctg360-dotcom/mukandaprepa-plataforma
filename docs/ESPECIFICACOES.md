@@ -1,12 +1,10 @@
 # Especificações da nova versão do site
 
-Documento gerado a partir do protótipo (ramo `prototipo`, ficheiro `src/prototipo/especificacoes.js`).
+Registo de todas as alterações pedidas pela direcção para a nova versão do site, da primeira à última.
 
-- **Protótipo navegável:** https://mukandaprepa-prototipo.vercel.app
-- **Mesma lista, com links:** https://mukandaprepa-prototipo.vercel.app/especificacoes
-- **Ponto de partida do código:** ramo `main` (versão em produção)
+- **Site navegável:** https://mukandaprepa-prototipo.vercel.app
 
-No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com a explicação ao passar o rato. A barra "Protótipo", no canto inferior esquerdo, liga e desliga as notas.
+Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificacoes.js`, e o protótipo mostrava as explicações em cima do próprio ecrã, em marcadores azuis numerados. **A ESP-26 retirou essa camada**: o site passou a ser o site, e este ficheiro passou a ser o único registo. Daqui para a frente escreve-se à mão.
 
 ## Índice
 
@@ -35,6 +33,7 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-23 — Imagem e texto de partilha](#esp-23)
 - [ESP-24 — Velocidade: fontes, código e imagens](#esp-24)
 - [ESP-25 — Acessibilidade](#esp-25)
+- [ESP-26 — Fim do protótipo: o site passa a ser o site](#esp-26)
 
 ---
 
@@ -963,3 +962,41 @@ Corrigido tudo o que não obriga a mexer na identidade visual. O que obriga fico
 
 - [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
 - [Contactos](https://mukandaprepa-prototipo.vercel.app/contactos)
+
+---
+
+<a id="esp-26"></a>
+## ESP-26 — Fim do protótipo: o site passa a ser o site
+
+**Estado:** Implementada · **Data:** 08 Nov 2026
+
+### Pedido
+
+Retirar a camada do protótipo, depois de a direcção rever e aprovar o site.
+
+### Decisão
+
+O protótipo cumpriu o que tinha a cumprir: mostrar as ideias, deixá-las discutir e registar cada decisão. Com o site aprovado, as notas deixam de fazer sentido em cima do ecrã — e passam a viver neste documento.
+
+### O que muda
+
+- Saem os marcadores azuis numerados, as notas para programadores e a barra "Protótipo" do canto inferior esquerdo.
+- Sai a página `/especificacoes`. O registo das 26 passa a ser este ficheiro.
+- Sai a pasta `src/prototipo/` inteira: as notas, o registo das especificações e o armazém de conteúdos do painel cancelado.
+- Os conteúdos passam a vir de `src/config/conteudos.js`, que lê as notícias e os artigos dos ficheiros de configuração. Antes juntava-os com o que fosse criado no painel, que já não existe.
+- **A hero ficou numa só.** Havia três propostas em comparação (`?hero=a|b|c`); fica a dos números da edição 2026, que é a que a direcção reviu e aprovou. As outras duas estão no histórico do git, no ramo `prototipo`, até ao commit da ESP-25.
+- Saem cinco componentes e duas páginas que já não estavam ligados a nada: `CtaFinal`, `MaratonaCountdown`, `Pilares`, `PlanosPreview`, `SobreResumo`, e as páginas `Planos` e `IdentidadeVisual`.
+- Saem as regras de estilo das duas heros que não ficaram.
+- Sai a etiqueta amarela de "valores de exemplo", que já não tinha nada para assinalar.
+
+### Notas técnicas
+
+- O JavaScript que o visitante descarrega na primeira visita desceu de 340 kB para 284 kB (de 110 kB para 91 kB comprimidos), e o CSS principal de 27 kB para 21 kB.
+- O `README.md` passou a ter a lista do que é preciso fazer antes de publicar, e o mapa de onde vivem os conteúdos. Com as notas fora do ecrã, é lá que um programador novo se orienta.
+- O `sitemap.xml` é escrito à mão: quando houver páginas ou notícias novas, é preciso acrescentá-las.
+
+### Questões em aberto
+
+- **A validar antes de publicar:** as respostas das perguntas frequentes nunca foram confirmadas pela direcção. Tinham uma etiqueta "Respostas a validar" que saiu com a camada do protótipo, por isso agora aparecem como se estivessem fechadas.
+- O `vercel.json` mantém o cabeçalho que manda não indexar. É do endereço de pré-visualização; o cPanel não lê este ficheiro. Está explicado no README.
+- Continuam por decidir: o contraste do branco sobre o laranja da marca (ESP-25), a pré-visualização por página no WhatsApp (ESP-22 e ESP-23), as imagens definitivas do designer (ESP-18 e ESP-23), quem assina o artigo-modelo (ESP-15) e a fotografia do Leonel Macaia (ESP-20).

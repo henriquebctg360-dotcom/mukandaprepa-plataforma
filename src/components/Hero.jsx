@@ -1,22 +1,14 @@
-import { useSearchParams } from 'react-router-dom';
 import './Hero.css';
 import './hero/HeroVariantes.css';
 import HeroNumeros from './hero/HeroNumeros';
-import HeroClassica from './hero/HeroClassica';
-import HeroComunidade from './hero/HeroComunidade';
-import { lerVarianteHero } from '../prototipo/varianteHero';
 
-// ESP-02 — a hero deixa de pedir inscrição na app (em manutenção) e passa a
-// mostrar os números da fase gratuita, com contacto por WhatsApp e entrada
-// na comunidade. Há três propostas em comparação; a barra do protótipo
-// alterna entre elas (?hero=a|b|c). Escolhida uma, as outras saem.
+// ESP-02 / ESP-26 — a hero mostra os números da edição 2026, com contacto
+// por WhatsApp e entrada na comunidade. Deixou de pedir inscrição na app,
+// que está em manutenção.
 //
-// A hero anterior (texto + imagem + "Inscrever-me agora gratuitamente")
-// está no histórico do git, na versão de produção de 16 Ago 2026.
-const VARIANTES = { a: HeroNumeros, b: HeroClassica, c: HeroComunidade };
-
+// Houve três propostas em comparação durante o protótipo. A direcção ficou
+// com esta. As outras duas estão no histórico do git, no ramo `prototipo`,
+// até ao commit da ESP-25.
 export default function Hero() {
-  const [params] = useSearchParams();
-  const Variante = VARIANTES[lerVarianteHero(params)];
-  return <Variante />;
+  return <HeroNumeros />;
 }

@@ -91,10 +91,6 @@ export const META_PAGINAS = {
       'A app web da MUKANDA PREPA está em manutenção enquanto preparamos a próxima fase. As maratonas e as aulas online retomam brevemente.',
   },
 
-  '/especificacoes': {
-    titulo: 'Especificações do protótipo · MUKANDA PREPA',
-    descricao: 'Lista das alterações pedidas pela direcção para a nova versão do site. Documento de trabalho da equipa.',
-  },
 };
 
 export const META_NAO_ENCONTRADA = {
@@ -102,8 +98,7 @@ export const META_NAO_ENCONTRADA = {
   descricao: 'A página que procuras não existe ou mudou de endereço. Volta à página inicial da MUKANDA PREPA.',
 };
 
-// As páginas que entram no sitemap.xml. A /especificacoes fica de fora: é do
-// protótipo e não deve aparecer no Google.
+// As páginas que entram no sitemap.xml.
 export const PAGINAS_PUBLICAS = [
   '/', '/sobre', '/missao', '/equipa', '/maratonas', '/aulas-online',
   '/recursos', '/noticias', '/blog', '/contactos', '/entrar-na-app',

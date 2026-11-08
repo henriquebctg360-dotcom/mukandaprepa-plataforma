@@ -1,6 +1,5 @@
 import './Maratonas.css';
 import { SeloEdicao, NumerosEdicao, FechoEdicao } from '../components/Edicao2026';
-import { MarcadorEsp } from '../prototipo/NotasDev';
 
 // ESP-08 — a página passa a descrever o que foi realizado nas Maratonas
 // MUKANDA 2026 (fase gratuita, 20 Ago – 15 Set 2026). Saíram o botão
@@ -63,11 +62,6 @@ export default function Maratonas() {
             <SeloEdicao />
             <h1>
               Maratonas MUKANDA 2026
-              <MarcadorEsp
-                esp="ESP-08"
-                balao="direita"
-                texto="A página passa a ser o balanço da edição 2026: textos no passado, sem “Inscrever-me numa Maratona” e sem contador."
-              />
             </h1>
             <p>
               Na fase gratuita de 2026, estudantes de todo o país treinaram com
@@ -104,7 +98,6 @@ export default function Maratonas() {
       <NumerosEdicao
         titulo="As maratonas em números"
         chaves={['maratonas', 'participacoes', 'conclusao', 'estudantes']}
-        marcador="Secção nova: números da edição 2026, da mesma fonte da hero (config/estatisticas.js)."
       />
 
       <section className="maratonas-percurso">
