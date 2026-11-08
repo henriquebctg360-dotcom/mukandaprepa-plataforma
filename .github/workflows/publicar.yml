@@ -1,0 +1,65 @@
+# Publica o site no cPanel sempre que algo entra no ramo main.
+#
+# Porquê assim: o cPanel da Fluxo não tem Terminal, por isso não há maneira de
+# correr `npm install` e `npm run build` no servidor. Quem compila é o GitHub,
+# que depois envia só a pasta dist/ — os ficheiros prontos. Acabam os zips.
+#
+# O que é preciso configurar uma vez (ver README, secção "Publicação"):
+#   Secrets  → FTP_SERVIDOR, FTP_UTILIZADOR, FTP_PALAVRA_PASSE
+#   Variable → FTP_PASTA (por omissão public_html/)
+
+name: Publicar no cPanel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # permite publicar à mão, pelo botão do GitHub
+
+concurrency:
+  group: publicar-cpanel
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    name: Compilar e enviar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ir buscar o código
+        uses: actions/checkout@v4
+
+      - name: Preparar o Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Instalar as dependências
+        run: npm ci
+
+      - name: Compilar o site
+        run: npm run build
+
+      - name: Confirmar que o .htaccess foi junto
+        run: |
+          test -f dist/.htaccess || { echo "Falta o .htaccess em dist/ — sem ele as rotas dão 404"; exit 1; }
+          test -f dist/index.html || { echo "Falta o index.html em dist/"; exit 1; }
+          echo "dist/ tem $(find dist -type f | wc -l) ficheiros"
+
+      - name: Enviar para o cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVIDOR }}
+          username: ${{ secrets.FTP_UTILIZADOR }}
+          password: ${{ secrets.FTP_PALAVRA_PASSE }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_PASTA || 'public_html/' }}
+          # NUNCA pôr isto a true: apagaria tudo o que está na pasta, incluindo
+          # as pastas api.mukandaprepa.com e app.mukandaprepa.com, que o cPanel
+          # criou dentro de public_html.
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
