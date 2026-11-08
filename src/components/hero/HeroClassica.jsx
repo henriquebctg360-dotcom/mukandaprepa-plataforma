@@ -19,8 +19,12 @@ export default function HeroClassica() {
           <BotoesContacto />
         </div>
         <div className="hero-b__imagem">
+          {/* ESP-24: é a primeira imagem do ecrã, por isso carrega cedo —
+              mas em três tamanhos, para o telemóvel não levar a maior. */}
           <img
             src="/home-hero.webp"
+            srcSet="/home-hero-650.webp 650w, /home-hero-980.webp 980w, /home-hero.webp 1300w"
+            sizes="(max-width: 1023px) 92vw, 620px"
             alt="Estudante da MUKANDA PREPA com tutores, maratonas gratuitas e apoio 24h"
             width="1300"
             height="813"

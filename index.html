@@ -12,6 +12,12 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#FB6D1D" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ESP-24 — as duas fontes que aparecem logo no primeiro ecrã. Sem isto
+         o navegador só as descobre depois de ler a folha de estilos, e o
+         texto fica a trocar de letra à frente de quem está a ler. -->
+    <link rel="preload" href="/fontes/montserrat-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fontes/poppins-400.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="description" content="Plataforma angolana de preparação para os exames de acesso ao ensino superior: maratonas de exercícios, aulas online e uma comunidade de estudantes." />
     <title>MUKANDA PREPA — Preparação para o acesso à universidade</title>
 

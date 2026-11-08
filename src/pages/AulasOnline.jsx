@@ -44,7 +44,16 @@ export default function AulasOnline() {
             </p>
           </div>
           <div className="aulas-hero__illustration">
-            <img src="/aulas-online.webp" alt="Aulas Online MUKANDA" width="940" height="788" />
+            {/* ESP-24: três tamanhos — o telemóvel leva 19 kB em vez de 118. */}
+            <img
+              src="/aulas-online.webp"
+              srcSet="/aulas-online-470.webp 470w, /aulas-online-700.webp 700w, /aulas-online.webp 940w"
+              sizes="(max-width: 767px) 92vw, 470px"
+              alt="Aulas Online MUKANDA"
+              width="940"
+              height="788"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

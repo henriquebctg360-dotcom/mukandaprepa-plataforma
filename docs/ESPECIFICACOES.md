@@ -33,6 +33,7 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-21 — Limpeza antes do lançamento](#esp-21)
 - [ESP-22 — Título e descrição próprios para cada página](#esp-22)
 - [ESP-23 — Imagem e texto de partilha](#esp-23)
+- [ESP-24 — Velocidade: fontes, código e imagens](#esp-24)
 
 ---
 
@@ -882,3 +883,43 @@ Imagem feita com as cores e o logótipo da marca, até haver uma do designer. Pa
 ### Ver no protótipo
 
 - [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+
+---
+
+<a id="esp-24"></a>
+## ESP-24 — Velocidade: fontes, código e imagens
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Deixar o site rápido para quem o abre no telemóvel, com dados móveis.
+
+### Decisão
+
+Três frentes: tirar a dependência do Google para as fontes, dividir o código por página e dar ao telemóvel imagens do tamanho do telemóvel.
+
+### O que muda
+
+- As fontes Montserrat e Poppins passaram a estar no próprio site. Antes vinham do Google por @import dentro do CSS — a pior forma: o navegador só as descobria depois de ler a folha de estilos, e ainda tinha de resolver dois domínios novos. O site deixou de fazer qualquer pedido a servidores de terceiros.
+- As duas fontes do primeiro ecrã são pedidas logo no início, para o texto não trocar de letra à frente de quem está a ler.
+- Cada página passou a ser um ficheiro próprio. Quem abre os Contactos deixou de descarregar também o código da Equipa, das Notícias e de tudo o resto. O ficheiro principal desceu de 383 kB para 246 kB, e o CSS de 64 kB para 27 kB.
+- As três imagens pesadas passaram a ter três tamanhos. Num telemóvel, a ilustração das Maratonas desceu de 119 kB para 19 kB.
+- O logótipo passou a declarar as medidas, para a barra de navegação não saltar enquanto a imagem carrega.
+
+### Notas técnicas
+
+- Fontes em public/fontes/ (5 ficheiros woff2, 92 kB, só o subconjunto latino) e declaradas em src/fontes.css. Foram geradas a partir do CSS do Google; licença SIL Open Font License.
+- Divisão do código com React.lazy em src/App.jsx. A página inicial e a de erro ficam de fora: a primeira é quase sempre a porta de entrada, a segunda tem de estar sempre pronta. O ecrã de espera é a classe .a-esperar, com 70vh, para o rodapé não saltar.
+- Imagens: srcSet com 470/700/940 nas ilustrações e 650/980/1300 na hero. A hero mantém fetchPriority="high" por ser a primeira coisa que se vê; as outras passaram a loading="lazy".
+- Falta ligar a compressão (gzip) e a validade da cache no cPanel — isso é configuração do servidor, não do código.
+
+### Questões em aberto
+
+- O registo das especificações são 94 kB que ainda viajam em todas as páginas, porque a barra do protótipo mostra a contagem. Desaparece quando a camada do protótipo sair.
+- Falta medir com o PageSpeed Insights antes e depois, no domínio real, e guardar os dois resultados.
+
+### Ver no protótipo
+
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+- [Maratonas 2026](https://mukandaprepa-prototipo.vercel.app/maratonas)

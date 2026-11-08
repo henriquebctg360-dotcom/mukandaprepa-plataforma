@@ -1,26 +1,42 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import ScrollToTop from './components/ScrollToTop';
 import Homepage from './pages/Homepage';
-import Maratonas from './pages/Maratonas';
-import AulasOnline from './pages/AulasOnline';
-import Sobre from './pages/Sobre';
-import Contactos from './pages/Contactos';
-import Blog from './pages/Blog';
-import Missao from './pages/Missao';
-import Recursos from './pages/Recursos';
-import Noticias from './pages/Noticias';
-import Artigos from './pages/Artigos';
-import Equipa from './pages/Equipa';
-import ConteudoDetalhe from './pages/ConteudoDetalhe';
-import EntrarNaApp from './pages/EntrarNaApp';
-import Especificacoes from './pages/Especificacoes';
 import PaginaNaoEncontrada from './pages/PaginaNaoEncontrada';
+
+// ESP-24 — cada página no seu ficheiro.
+//
+// Até aqui o site era um único ficheiro de JavaScript: quem abria a página
+// de Contactos descarregava também o código da Equipa, das Notícias e de
+// tudo o resto. Com `lazy`, o navegador só vai buscar a página que a pessoa
+// pediu. A inicial e a de erro ficam de fora: a primeira é quase sempre a
+// porta de entrada, a segunda tem de estar sempre pronta.
+const Maratonas = lazy(() => import('./pages/Maratonas'));
+const AulasOnline = lazy(() => import('./pages/AulasOnline'));
+const Sobre = lazy(() => import('./pages/Sobre'));
+const Contactos = lazy(() => import('./pages/Contactos'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Missao = lazy(() => import('./pages/Missao'));
+const Recursos = lazy(() => import('./pages/Recursos'));
+const Noticias = lazy(() => import('./pages/Noticias'));
+const Artigos = lazy(() => import('./pages/Artigos'));
+const Equipa = lazy(() => import('./pages/Equipa'));
+const ConteudoDetalhe = lazy(() => import('./pages/ConteudoDetalhe'));
+const EntrarNaApp = lazy(() => import('./pages/EntrarNaApp'));
+const Especificacoes = lazy(() => import('./pages/Especificacoes'));
+
+// Enquanto a página não chega. Em segundos de ligação lenta é isto que se vê,
+// por isso ocupa a altura de um ecrã para o rodapé não saltar para cima.
+function AEsperar() {
+  return <div className="a-esperar" role="status" aria-label="A carregar" />;
+}
 
 export default function App() {
   return (
     <>
       <ScrollToTop />
+      <Suspense fallback={<AEsperar />}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Homepage />} />
@@ -47,6 +63,7 @@ export default function App() {
           <Route path="*" element={<PaginaNaoEncontrada />} />
         </Route>
       </Routes>
+      </Suspense>
     </>
   );
 }

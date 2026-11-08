@@ -76,7 +76,16 @@ export default function Maratonas() {
             </p>
           </div>
           <div className="maratonas-hero__illustration">
-            <img src="/maratonas.webp" alt="Maratonas MUKANDA" width="940" height="788" />
+            {/* ESP-24: três tamanhos — o telemóvel leva 19 kB em vez de 119. */}
+            <img
+              src="/maratonas.webp"
+              srcSet="/maratonas-470.webp 470w, /maratonas-700.webp 700w, /maratonas.webp 940w"
+              sizes="(max-width: 767px) 92vw, 470px"
+              alt="Maratonas MUKANDA"
+              width="940"
+              height="788"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

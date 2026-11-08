@@ -637,4 +637,33 @@ export const ESPECIFICACOES = [
       'A imagem é provisória: vale a pena pedir uma ao Leonel Macaia, com o mesmo formato 1200 × 630.',
     ],
   },
+  {
+    id: 'ESP-24',
+    titulo: 'Velocidade: fontes, código e imagens',
+    data: '08 Nov 2026',
+    estado: 'implementada',
+    pedido: 'Deixar o site rápido para quem o abre no telemóvel, com dados móveis.',
+    decisao: 'Três frentes: tirar a dependência do Google para as fontes, dividir o código por página e dar ao telemóvel imagens do tamanho do telemóvel.',
+    alteracoes: [
+      'As fontes Montserrat e Poppins passaram a estar no próprio site. Antes vinham do Google por @import dentro do CSS — a pior forma: o navegador só as descobria depois de ler a folha de estilos, e ainda tinha de resolver dois domínios novos. O site deixou de fazer qualquer pedido a servidores de terceiros.',
+      'As duas fontes do primeiro ecrã são pedidas logo no início, para o texto não trocar de letra à frente de quem está a ler.',
+      'Cada página passou a ser um ficheiro próprio. Quem abre os Contactos deixou de descarregar também o código da Equipa, das Notícias e de tudo o resto. O ficheiro principal desceu de 383 kB para 246 kB, e o CSS de 64 kB para 27 kB.',
+      'As três imagens pesadas passaram a ter três tamanhos. Num telemóvel, a ilustração das Maratonas desceu de 119 kB para 19 kB.',
+      'O logótipo passou a declarar as medidas, para a barra de navegação não saltar enquanto a imagem carrega.',
+    ],
+    paginas: [
+      { label: 'Página inicial', href: '/' },
+      { label: 'Maratonas 2026', href: '/maratonas' },
+    ],
+    notasDev: [
+      'Fontes em public/fontes/ (5 ficheiros woff2, 92 kB, só o subconjunto latino) e declaradas em src/fontes.css. Foram geradas a partir do CSS do Google; licença SIL Open Font License.',
+      'Divisão do código com React.lazy em src/App.jsx. A página inicial e a de erro ficam de fora: a primeira é quase sempre a porta de entrada, a segunda tem de estar sempre pronta. O ecrã de espera é a classe .a-esperar, com 70vh, para o rodapé não saltar.',
+      'Imagens: srcSet com 470/700/940 nas ilustrações e 650/980/1300 na hero. A hero mantém fetchPriority="high" por ser a primeira coisa que se vê; as outras passaram a loading="lazy".',
+      'Falta ligar a compressão (gzip) e a validade da cache no cPanel — isso é configuração do servidor, não do código.',
+    ],
+    questoesEmAberto: [
+      'O registo das especificações são 94 kB que ainda viajam em todas as páginas, porque a barra do protótipo mostra a contagem. Desaparece quando a camada do protótipo sair.',
+      'Falta medir com o PageSpeed Insights antes e depois, no domínio real, e guardar os dois resultados.',
+    ],
+  },
 ];
