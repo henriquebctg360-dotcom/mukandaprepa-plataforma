@@ -1,2 +1,16 @@
-.vercel
+# Dependências — nunca vão para o repositório. Instalam-se com `npm install`.
+node_modules/
+
+# Resultado do build
+dist/
+
+# Ambiente local e credenciais
 .env*.local
+.vercel
+
+# Configuração local de ferramentas
+.claude/
+
+# Lixo do sistema
+Thumbs.db
+.DS_Store

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
-import { FUNDADORES, DIRECTORES } from '../config/equipa.jsx';
+import { DIRECCAO } from '../config/equipa.jsx';
 import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 function Perfil({ pessoa }) {
@@ -114,26 +114,23 @@ export default function Sobre() {
           <h2>A equipa</h2>
           <p>
             A MUKANDA PREPA é liderada por Henrique Catraio, CEO &amp; Fundador,
-            e por Walter Sampaio, Co-fundador e Gestor de Redes Sociais, com uma
-            direcção responsável pela administração e pelo marketing. À volta
+            e pelos co-fundadores Walter Sampaio e Armando Baptista, cada um à
+            frente de uma das equipas. À volta
             deles trabalha uma equipa de professores, designers e programadores
             com um objectivo comum: que nenhum estudante angolano chegue ao
             exame de acesso sem preparação.
           </p>
 
           <div className="sobre-equipa__grupo">
-            <span className="sobre-equipa__rotulo">Fundadores</span>
+            <span className="sobre-equipa__rotulo">Fundadores e Directores</span>
             <div className="sobre-equipa__fundadores">
-              {FUNDADORES.map((f) => <Perfil key={f.nome} pessoa={f} />)}
+              {DIRECCAO.map((d) => <Perfil key={d.nome} pessoa={d} />)}
             </div>
           </div>
 
-          <div className="sobre-equipa__grupo">
-            <span className="sobre-equipa__rotulo">Direcção</span>
-            <div className="sobre-equipa__fundadores">
-              {DIRECTORES.map((d) => <Perfil key={d.nome} pessoa={d} />)}
-            </div>
-          </div>
+          <Link to="/equipa" className="sobre-historia__link">
+            Conhece toda a equipa →
+          </Link>
         </div>
       </section>
 

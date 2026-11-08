@@ -4,20 +4,22 @@ import { useConteudos } from '../prototipo/useConteudos';
 import { TIPOS } from '../prototipo/painelPerfis';
 import { MarcadorEsp } from '../prototipo/NotasDev';
 import PaginaNaoEncontrada from './PaginaNaoEncontrada';
+import TextoRico from '../components/TextoRico';
 
 // ESP-05 — página de uma notícia ou de um artigo (/noticias/:id, /artigos/:id).
-// O texto completo é escrito no painel; parágrafos separados por linha em branco.
+// ESP-13: o texto completo das notícias vem de src/config/noticias.js. A
+// formatação (subtítulos, listas, citações) é feita pelo TextoRico.
 export default function ConteudoDetalhe({ tipo }) {
   const { id } = useParams();
   const item = useConteudos().find((c) => c.id === id && c.tipo === tipo && c.estado === 'publicado');
   if (!item) return <PaginaNaoEncontrada />;
 
   const info = TIPOS[tipo];
-  const paragrafos = (item.corpo || '').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  const temTexto = Boolean(item.corpo) && item.corpo.trim() !== (item.resumo || '').trim();
 
   return (
-    <article className="detalhe">
-      <header className="detalhe__topo" style={tipo === 'noticia' ? { '--detalhe-cor': item.cor } : undefined}>
+    <article className="detalhe" style={tipo === 'noticia' && item.cor ? { '--detalhe-cor': item.cor } : undefined}>
+      <header className="detalhe__topo">
         <div className="container detalhe__estreito">
           <Link to={info.rota} className="detalhe__voltar">← {info.plural}</Link>
           <div className="detalhe__meta">
@@ -40,13 +42,19 @@ export default function ConteudoDetalhe({ tipo }) {
         </div>
       </header>
 
+      {item.imagem && (
+        <div className="container detalhe__estreito">
+          <img className="detalhe__imagem" src={item.imagem} alt="" width="1200" height="630" />
+        </div>
+      )}
+
       <div className="container detalhe__estreito detalhe__corpo">
-        {paragrafos.length > 0 && paragrafos.join('') !== item.resumo ? (
-          paragrafos.map((p, i) => <p key={i}>{p}</p>)
+        {temTexto ? (
+          <TextoRico texto={item.corpo} />
         ) : (
           <p className="detalhe__vazio">
-            O texto completo deste {info.nome.toLowerCase()} ainda não foi escrito. No painel de
-            publicação, a equipa acrescenta-o no campo “Texto completo”.
+            O texto completo deste {info.nome.toLowerCase()} ainda não foi escrito. É acrescentado
+            no campo “Texto completo” da folha de recolha e passa para src/config.
           </p>
         )}
       </div>

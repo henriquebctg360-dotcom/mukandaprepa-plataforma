@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import { ROTA_ENTRAR_NA_APP } from '../config/appLinks';
 import { MarcadorEsp } from '../prototipo/NotasDev';
 import './Navbar.css';
@@ -75,7 +76,7 @@ export default function Navbar() {
                 <Link to="/maratonas">Maratonas 2026</Link>
                 <Link to="/aulas-online">Aulas Online 2026</Link>
                 <Link to="/noticias">Not&iacute;cias</Link>
-                <Link to="/artigos">Artigos</Link>
+                {ARTIGOS_VISIVEIS && <Link to="/artigos">Artigos</Link>}
               </div>
             )}
           </div>

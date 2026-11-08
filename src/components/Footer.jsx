@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import './Footer.css';
 import { CONTACTO } from '../config/contactos';
 import { MarcadorEsp } from '../prototipo/NotasDev';
@@ -36,8 +37,9 @@ export default function Footer() {
           <Link to="/maratonas">Maratonas 2026</Link>
           <Link to="/aulas-online">Aulas Online 2026</Link>
           <Link to="/noticias">Notícias</Link>
-          <Link to="/artigos">Artigos</Link>
+          {ARTIGOS_VISIVEIS && <Link to="/artigos">Artigos</Link>}
           <Link to="/sobre">Sobre nós</Link>
+          <Link to="/equipa">A Nossa Equipa</Link>
           <Link to="/missao">A Nossa Missão</Link>
           <Link to="/recursos">Recursos</Link>
           <Link to="/painel">Painel da equipa</Link>

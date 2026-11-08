@@ -94,7 +94,7 @@ export default function Maratonas() {
 
       <NumerosEdicao
         titulo="As maratonas em números"
-        chaves={['maratonas', 'participacoes', 'estudantes']}
+        chaves={['maratonas', 'participacoes', 'conclusao', 'estudantes']}
         marcador="Secção nova: números da edição 2026, da mesma fonte da hero (config/estatisticas.js)."
       />
 

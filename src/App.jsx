@@ -11,6 +11,7 @@ import Missao from './pages/Missao';
 import Recursos from './pages/Recursos';
 import Noticias from './pages/Noticias';
 import Artigos from './pages/Artigos';
+import Equipa from './pages/Equipa';
 import ConteudoDetalhe from './pages/ConteudoDetalhe';
 import PainelLayout from './pages/painel/PainelLayout';
 import PainelEntrar from './pages/painel/PainelEntrar';
@@ -41,6 +42,8 @@ export default function App() {
           {/* ESP-03: páginas repostas — a página inicial liga para elas. */}
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/artigos" element={<Artigos />} />
+          {/* ESP-11: A Nossa Equipa volta a ter rota. */}
+          <Route path="/equipa" element={<Equipa />} />
           <Route path="/noticias/:id" element={<ConteudoDetalhe tipo="noticia" />} />
           <Route path="/artigos/:id" element={<ConteudoDetalhe tipo="artigo" />} />
           <Route path="/entrar-na-app" element={<EntrarNaApp />} />

@@ -1,7 +1,7 @@
 // ESP-08 — peças partilhadas pelas páginas Maratonas e Aulas Online, que
 // passam a descrever o que foi realizado na edição MUKANDA PREPA 2026.
 import './Edicao2026.css';
-import { ESTATISTICAS, PERIODO_FASE_GRATUITA, formatarNumero } from '../config/estatisticas';
+import { TODAS_ESTATISTICAS, PERIODO_FASE_GRATUITA, formatarNumero } from '../config/estatisticas';
 import { CONTACTO, MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../config/contactos';
 import { EtiquetaExemplo, IconeComunidade, IconeWhatsApp } from './hero/partes';
 import { MarcadorEsp } from '../prototipo/NotasDev';
@@ -17,7 +17,7 @@ export function SeloEdicao() {
 
 // Faixa de números da edição. `chaves` escolhe quais (ver config/estatisticas.js).
 export function NumerosEdicao({ titulo, chaves, marcador }) {
-  const numeros = ESTATISTICAS.filter((e) => chaves.includes(e.chave));
+  const numeros = chaves.map((c) => TODAS_ESTATISTICAS.find((e) => e.chave === c)).filter(Boolean);
   return (
     <section className="edicao-numeros">
       <div className="container">
@@ -29,7 +29,7 @@ export function NumerosEdicao({ titulo, chaves, marcador }) {
         <div className="edicao-numeros__grelha">
           {numeros.map((e) => (
             <div key={e.chave}>
-              <strong>{formatarNumero(e.valor)}</strong>
+              <strong>{formatarNumero(e.valor)}{e.sufixo}</strong>
               <span>{e.rotulo}</span>
             </div>
           ))}

@@ -73,6 +73,7 @@
   gap: 20px;
 }
 
+.home-grelha--2 { grid-template-columns: repeat(2, 1fr); }
 .home-grelha--3 { grid-template-columns: repeat(3, 1fr); }
 .home-grelha--4 { grid-template-columns: repeat(4, 1fr); }
 
@@ -377,6 +378,7 @@
 
 @media (max-width: 640px) {
   .home-cab { flex-direction: column; align-items: flex-start; }
+  .home-grelha--2,
   .home-grelha--3,
   .home-grelha--4 { grid-template-columns: 1fr; }
   .home-sobre__equipa { gap: 12px; }
@@ -443,35 +445,6 @@ a.home-artigo:hover { border-color: var(--color-orange); }
 .home-testemunho strong { font-size: 14.5px; }
 .home-testemunho figcaption > span:last-child > span { font-size: 13px; color: var(--color-gray-mid); }
 
-/* ── 7. Parceiros ───────────────────────────────────────────────── */
-.home-parceiros__grelha {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-}
-
-.home-parceiros__logo {
-  height: 88px;
-  border: 1.5px dashed #D4D4DC;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 8px;
-  font-size: 12px;
-  color: #A1A1AA;
-  background: #FFFFFF;
-}
-
-.home-parceiros__convite {
-  margin-top: 24px;
-  font-size: 15px;
-  color: var(--color-gray-mid);
-}
-
-.home-parceiros__convite a { color: var(--color-orange); font-weight: 600; }
-
 /* ── 8. Perguntas frequentes ────────────────────────────────────── */
 .home-faq__inner {
   display: grid;
@@ -528,10 +501,11 @@ a.home-artigo:hover { border-color: var(--color-orange); }
 }
 
 @media (max-width: 1023px) {
-  .home-parceiros__grelha { grid-template-columns: repeat(3, 1fr); }
   .home-faq__inner { grid-template-columns: 1fr; gap: 28px; }
 }
 
-@media (max-width: 640px) {
-  .home-parceiros__grelha { grid-template-columns: repeat(2, 1fr); }
+/* ESP-14: nota do protótipo no lugar da secção dos parceiros. */
+.home-nota-removida:has(.nota-dev) {
+  padding-top: 40px;
+  padding-bottom: 8px;
 }

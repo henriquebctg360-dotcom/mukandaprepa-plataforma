@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import './Blog.css';
 import { usePublicados } from '../prototipo/useConteudos';
 import { MarcadorEsp } from '../prototipo/NotasDev';
@@ -11,7 +12,8 @@ import { MarcadorEsp } from '../prototipo/NotasDev';
 const FILTROS = [
   { id: 'tudo', nome: 'Tudo' },
   { id: 'noticia', nome: 'Notícias' },
-  { id: 'artigo', nome: 'Artigos' },
+  // ESP-19: o separador dos artigos volta quando ARTIGOS_VISIVEIS for true.
+  ...(ARTIGOS_VISIVEIS ? [{ id: 'artigo', nome: 'Artigos' }] : []),
 ];
 
 const EDICAO_2026 = [
@@ -58,7 +60,8 @@ function CartaoArtigo({ a }) {
 export default function Blog() {
   const [filtro, setFiltro] = useState('tudo');
   const noticias = usePublicados('noticia');
-  const artigos = usePublicados('artigo');
+  const todosArtigos = usePublicados('artigo');
+  const artigos = ARTIGOS_VISIVEIS ? todosArtigos : [];
   const [destaque, ...outrasNoticias] = noticias;
 
   const mostrarNoticias = filtro !== 'artigo';

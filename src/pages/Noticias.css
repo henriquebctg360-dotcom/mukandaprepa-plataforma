@@ -32,9 +32,28 @@
 }
 
 .noticia-card__imagem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 140px;
+  object-fit: cover;
   opacity: 0.85;
 }
+
+/* Protótipo: marca o sítio da imagem enquanto o designer não a entrega. */
+.noticia-card__porcriar {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  border: 1px dashed rgba(255, 255, 255, .7);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.noticias-lista--nota { padding-top: 0; }
 
 .noticia-card__corpo {
   padding: 20px;

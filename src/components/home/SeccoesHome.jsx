@@ -7,9 +7,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SeccoesHome.css';
-import { FUNDADORES, DIRECTORES } from '../../config/equipa.jsx';
+import { DIRECCAO } from '../../config/equipa.jsx';
 import { usePublicados } from '../../prototipo/useConteudos';
 import { RECURSOS } from '../../config/recursos';
+import { DEPOIMENTOS } from '../../config/depoimentos';
 import { CONTACTO, MENSAGEM_WHATSAPP_HERO, linkComunidade, whatsappCom } from '../../config/contactos';
 import { PERIODO_FASE_GRATUITA } from '../../config/estatisticas';
 import { ROTA_ENTRAR_NA_APP } from '../../config/appLinks';
@@ -45,7 +46,7 @@ const FACTOS = [
 ];
 
 export function SobreNosHome() {
-  const pessoas = [...FUNDADORES, ...DIRECTORES];
+  const pessoas = DIRECCAO;
   return (
     <section className="home-secao home-sobre">
       <div className="container home-sobre__inner">
@@ -233,24 +234,11 @@ export function RecursosHome() {
 }
 
 // ── 6. Testemunhos ───────────────────────────────────────────────────────
-// Exemplos. Os reais precisam de autorização do estudante (nome, foto, texto).
-const TESTEMUNHOS = [
-  {
-    texto: 'As maratonas mostraram-me exactamente onde eu falhava. Na aula de correcção percebi erros que andava a repetir há meses.',
-    nome: 'Estudante de Luanda',
-    detalhe: 'Engenharia e Tecnologia',
-  },
-  {
-    texto: 'Estudei pelo telemóvel, com dados móveis, e consegui acompanhar tudo. Ter questões de exames reais fez toda a diferença.',
-    nome: 'Estudante de Benguela',
-    detalhe: 'Ciências Sociais',
-  },
-  {
-    texto: 'O melhor foi a comunidade: tirar dúvidas com outros estudantes e com os professores, no mesmo sítio.',
-    nome: 'Estudante do Huambo',
-    detalhe: 'Engenharia e Tecnologia',
-  },
-];
+// ESP-12: depoimentos reais, com autorização escrita. Dados em
+// src/config/depoimentos.js.
+function inicial(nome) {
+  return nome.trim()[0].toUpperCase();
+}
 
 export function TestemunhosHome() {
   return (
@@ -259,22 +247,19 @@ export function TestemunhosHome() {
         <Cabecalho
           rotulo="Testemunhos"
           titulo="O que dizem os estudantes"
-          marcador="Secção nova (pedida a 14 Set 2026): testemunhos de estudantes da fase gratuita. Textos, nomes e fotos reais só com autorização do estudante."
-        >
-          <EtiquetaExemplo mostrar texto="Testemunhos de exemplo" />
-        </Cabecalho>
-        <div className="home-grelha home-grelha--3">
-          {TESTEMUNHOS.map((t) => (
-            <figure className="home-testemunho" key={t.nome}>
+          texto="Estudantes que fizeram as maratonas e as aulas de correcção da MUKANDA PREPA 2026."
+          marcador="Secção nova (pedida a 14 Set 2026). Os testemunhos de exemplo deram lugar aos reais, recolhidos pela direcção (29 Set 2026), todos com autorização escrita do estudante. Sem fotografias, por decisão da direcção: fica a inicial de cada um."
+        />
+        <div className="home-grelha home-grelha--2">
+          {DEPOIMENTOS.map((d) => (
+            <figure className="home-testemunho" key={d.nome}>
               <span className="home-testemunho__aspas" aria-hidden="true">“</span>
-              <blockquote>{t.texto}</blockquote>
+              <blockquote>{d.texto}</blockquote>
               <figcaption>
-                <span className="home-testemunho__avatar" aria-hidden="true">
-                  {t.nome.split(' ').pop()[0]}
-                </span>
+                <span className="home-testemunho__avatar" aria-hidden="true">{inicial(d.nome)}</span>
                 <span>
-                  <strong>{t.nome}</strong>
-                  <span>{t.detalhe}</span>
+                  <strong>{d.nome}</strong>
+                  <span>{d.provincia} · {d.area}</span>
                 </span>
               </figcaption>
             </figure>
@@ -286,30 +271,9 @@ export function TestemunhosHome() {
 }
 
 // ── 7. Parceiros ─────────────────────────────────────────────────────────
-export function ParceirosHome() {
-  return (
-    <section className="home-secao home-parceiros">
-      <div className="container">
-        <Cabecalho
-          rotulo="Parceiros"
-          titulo="Quem caminha connosco"
-          texto="Escolas, universidades e empresas que apoiam a preparação dos estudantes angolanos."
-          marcador="Secção nova (pedida a 14 Set 2026): logótipos dos parceiros. Os espaços tracejados são para os logótipos reais (SVG ou PNG com fundo transparente)."
-        >
-          <EtiquetaExemplo mostrar texto="Espaços para logótipos" />
-        </Cabecalho>
-        <div className="home-parceiros__grelha">
-          {Array.from({ length: 6 }, (_, i) => (
-            <div className="home-parceiros__logo" key={i}>Logótipo do parceiro</div>
-          ))}
-        </div>
-        <p className="home-parceiros__convite">
-          A tua instituição quer apoiar a MUKANDA PREPA? <Link to="/contactos">Fala connosco →</Link>
-        </p>
-      </div>
-    </section>
-  );
-}
+// ESP-14 (29 Set 2026): secção retirada por decisão da direcção — ainda não há
+// parceiros. Quando houver, volta aqui, entre os testemunhos e as perguntas
+// frequentes (grelha de logótipos + convite para a página Contactos).
 
 // ── 8. Perguntas frequentes ──────────────────────────────────────────────
 const PERGUNTAS = [
