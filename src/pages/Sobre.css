@@ -214,3 +214,15 @@
 .sobre-equipa__grupo .sobre-equipa__fundadores {
   margin: 0;
 }
+
+/* ESP-06: nota do protótipo no lugar do fecho retirado. */
+.sobre-nota-removida:has(.nota-dev) {
+  padding-top: 8px;
+  padding-bottom: 56px;
+}
+
+/* ESP-10: link para Recursos dentro do texto. */
+.sobre-historia__texto p a {
+  color: var(--color-orange);
+  font-weight: 600;
+}

@@ -141,3 +141,158 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── ESP-07: notícias e artigos no Blog ───────────────────────────── */
+.blog-hero h1 .marcador-esp { margin-left: 10px; vertical-align: middle; }
+
+.blog-filtros {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 5px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.blog-filtros button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.blog-filtros button span {
+  font-size: 12px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #F1F1F4;
+  color: var(--color-gray-mid);
+}
+
+.blog-filtros button.is-activo { background: var(--color-orange); color: #FFFFFF; }
+.blog-filtros button.is-activo span { background: rgba(255, 255, 255, .25); color: #FFFFFF; }
+
+.blog-seccao { background: #FFFFFF; padding: 56px 0; }
+.blog-seccao--cinza { background: var(--color-bg); }
+
+.blog-seccao__topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.blog-seccao__topo h2 { font-size: 28px; }
+.blog-seccao__topo a { font-size: 14px; font-weight: 600; color: var(--color-orange); white-space: nowrap; }
+
+.blog-tipo {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.blog-tipo--azul { color: var(--color-blue); }
+
+/* Notícias: uma em destaque + lista */
+.blog-noticias {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+
+.blog-noticias__lista { display: grid; gap: 14px; align-content: start; }
+
+.blog-noticia {
+  display: flex;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color .15s ease, transform .15s ease;
+}
+
+.blog-noticia:hover { border-color: var(--color-orange); transform: translateY(-2px); }
+
+.blog-noticia__cor { width: 6px; flex-shrink: 0; }
+
+.blog-noticia__corpo { padding: 18px 20px; display: grid; gap: 6px; }
+
+.blog-noticia h3 { font-size: 16px; line-height: 1.35; }
+
+.blog-noticia p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-gray-mid);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-noticia time { font-size: 12.5px; font-weight: 600; color: var(--color-gray-mid); }
+
+.blog-noticia--destaque { flex-direction: column; }
+.blog-noticia--destaque .blog-noticia__cor { width: 100%; height: 160px; }
+.blog-noticia--destaque .blog-noticia__corpo { padding: 24px; gap: 10px; }
+.blog-noticia--destaque h3 { font-size: 24px; line-height: 1.25; }
+.blog-noticia--destaque p { font-size: 15.5px; -webkit-line-clamp: 4; }
+
+/* Artigos */
+.blog-artigos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.blog-artigo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 170px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: border-color .15s ease;
+}
+
+.blog-artigo:hover { border-color: var(--color-orange); }
+.blog-artigo__tags { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.blog-artigo h3 { font-size: 16px; line-height: 1.4; flex: 1; }
+.blog-artigo time { font-size: 12.5px; font-weight: 600; color: var(--color-gray-mid); }
+
+.blog-pill {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #F1F1F4;
+  color: var(--color-gray-mid);
+}
+
+/* Edição 2026 */
+.blog-categorias__titulo { font-size: 22px; margin-bottom: 18px; }
+.blog-categorias__grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 1023px) {
+  .blog-noticias { grid-template-columns: 1fr; }
+  .blog-artigos { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .blog-artigos,
+  .blog-categorias__grid--2 { grid-template-columns: 1fr; }
+  .blog-seccao__topo { flex-direction: column; }
+  .blog-filtros { display: flex; justify-content: center; }
+  .blog-filtros button { padding: 8px 12px; }
+}

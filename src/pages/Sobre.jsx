@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Sobre.css';
-
-import { FUNDADORES, DIRECTORES } from '../config/equipa.jsx';
+import { DIRECCAO } from '../config/equipa.jsx';
+import { MarcadorEsp, NotaDev } from '../prototipo/NotasDev';
 
 function Perfil({ pessoa }) {
   return (
@@ -78,9 +78,15 @@ export default function Sobre() {
             </p>
             <p>
               Juntamos maratonas de exercícios e aulas ao vivo numa só
-              plataforma — com uma biblioteca de exames passados a caminho —
+              plataforma — e exames passados disponíveis em{' '}
+              <Link to="/recursos">Recursos</Link> —
               pensada para o contexto angolano, incluindo o acesso
               maioritariamente via telemóvel e ligações 3G/4G.
+              <MarcadorEsp
+                esp="ESP-10"
+                balao="direita"
+                texto="Antes: “com uma biblioteca de exames passados a caminho”. Os exames passados já estão na página Recursos."
+              />
             </p>
             <Link to="/missao" className="sobre-historia__link">
               Conhece a nossa Visão 2030 →
@@ -108,29 +114,35 @@ export default function Sobre() {
           <h2>A equipa</h2>
           <p>
             A MUKANDA PREPA é liderada por Henrique Catraio, CEO &amp; Fundador,
-            e por Walter Sampaio, Co-fundador e Gestor de Redes Sociais, com uma
-            direcção responsável pela administração e pelo marketing. À volta
+            e pelos co-fundadores Walter Sampaio e Armando Baptista, cada um à
+            frente de uma das equipas. À volta
             deles trabalha uma equipa de professores, designers e programadores
             com um objectivo comum: que nenhum estudante angolano chegue ao
             exame de acesso sem preparação.
           </p>
 
           <div className="sobre-equipa__grupo">
-            <span className="sobre-equipa__rotulo">Fundadores</span>
+            <span className="sobre-equipa__rotulo">Fundadores e Directores</span>
             <div className="sobre-equipa__fundadores">
-              {FUNDADORES.map((f) => <Perfil key={f.nome} pessoa={f} />)}
+              {DIRECCAO.map((d) => <Perfil key={d.nome} pessoa={d} />)}
             </div>
           </div>
 
-          <div className="sobre-equipa__grupo">
-            <span className="sobre-equipa__rotulo">Direcção</span>
-            <div className="sobre-equipa__fundadores">
-              {DIRECTORES.map((d) => <Perfil key={d.nome} pessoa={d} />)}
-            </div>
-          </div>
+          <Link to="/equipa" className="sobre-historia__link">
+            Conhece toda a equipa →
+          </Link>
         </div>
       </section>
 
+      {/* ESP-06: saiu o fecho "Queres fazer parte desta comunidade? / Criar Conta
+          Grátis" — já não se pedem inscrições na app. */}
+      <div className="container sobre-nota-removida">
+        <NotaDev esp="ESP-06" titulo="Secção retirada">
+          Aqui estava o fecho “Queres fazer parte desta comunidade? — Criar Conta Grátis”.
+          Saiu porque o site já não pede inscrições na app (em manutenção). O resto da
+          página Sobre fica igual.
+        </NotaDev>
+      </div>
     </>
   );
 }

@@ -20,6 +20,16 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-08 — Maratonas e Aulas Online: balanço da edição 2026](#esp-08)
 - [ESP-09 — A Nossa Missão: contexto da fase actual (Recursos sem alterações)](#esp-09)
 - [ESP-10 — Revisão geral de botões e textos](#esp-10)
+- [ESP-11 — A Nossa Equipa: fotografia, nome e função](#esp-11)
+- [ESP-12 — Testemunhos reais dos estudantes](#esp-12)
+- [ESP-13 — Notícias reais, com texto completo](#esp-13)
+- [ESP-14 — Secção dos parceiros retirada](#esp-14)
+- [ESP-15 — Artigo-modelo: estrutura dos artigos](#esp-15)
+- [ESP-16 — Números reais da edição 2026](#esp-16)
+- [ESP-17 — Equipa alinhada com a lista oficial](#esp-17)
+- [ESP-18 — Imagens provisórias para as notícias](#esp-18)
+- [ESP-19 — Artigos escondidos até os professores escreverem](#esp-19)
+- [ESP-20 — Fotografias da equipa](#esp-20)
 
 ---
 
@@ -71,12 +81,6 @@ Redesenhar a hero com dois objectivos: (1) informar os visitantes dos dados esta
 
 As três propostas ficam no protótipo: a equipa de desenvolvimento escolhe qual segue para o site. Os números são de exemplo e a equipa coloca os reais.
 
-### Propostas em comparação
-
-- **A · Números em destaque** — Os quatro números ocupam o lugar da imagem, em cartões grandes. A mensagem é o balanço da fase gratuita. ([ver](https://mukandaprepa-prototipo.vercel.app/?hero=a))
-- **B · Clássica com faixa de números** — Mantém o título e a imagem actuais; os números aparecem numa faixa escura por baixo. A mudança mais pequena. ([ver](https://mukandaprepa-prototipo.vercel.app/?hero=b))
-- **C · Comunidade primeiro** — Fundo escuro, o número de estudantes no próprio título e dois cartões de acção grandes: WhatsApp e MUKANDA Community. ([ver](https://mukandaprepa-prototipo.vercel.app/?hero=c))
-
 ### O que muda
 
 - O botão “Inscrever-me agora gratuitamente” sai da hero. Entram “Falar no WhatsApp” (mensagem já escrita) e “Entrar na comunidade”.
@@ -127,8 +131,8 @@ Ordem aprovada pela direcção (14 Set 2026); reparos finos ficam com a equipa d
 - 3 · Notícias: as três mais recentes, com três novidades actuais escritas como exemplo (manutenção, app mobile, fim da fase gratuita).
 - 4 · Artigos: os três mais recentes, com matéria e nível.
 - 5 · Recursos gratuitos: as quatro pastas do Google Drive — o que o estudante pode usar hoje, com a app em manutenção.
-- 6 · Testemunhos: três cartões de estudantes (exemplo; os reais precisam de autorização).
-- 7 · Parceiros: seis espaços para logótipos e convite “Fala connosco”.
+- 6 · Testemunhos: cartões de estudantes — passaram a ser os reais em ESP-12.
+- 7 · Parceiros: retirada em ESP-14 — ainda não há parcerias fechadas.
 - 8 · Perguntas frequentes: sete perguntas sobre a situação actual, em acordeão.
 - 9 · Comunidade: fecho laranja com “Entrar na comunidade” e o WhatsApp da equipa.
 - As páginas /noticias e /artigos, que estavam escondidas, voltaram a ter rota (a home liga para elas).
@@ -142,7 +146,6 @@ Ordem aprovada pela direcção (14 Set 2026); reparos finos ficam com a equipa d
 
 ### Questões em aberto
 
-- Recolher testemunhos reais (com autorização escrita) e os logótipos dos parceiros.
 - Validar as respostas das perguntas frequentes, sobretudo a data de regresso das maratonas.
 
 ### Ver no protótipo
@@ -363,3 +366,396 @@ Verificar se ainda há botões ou páginas por actualizar e aplicar os cinco pon
 - [Contactos](https://mukandaprepa-prototipo.vercel.app/contactos)
 - [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
 - [Entrar na app](https://mukandaprepa-prototipo.vercel.app/entrar-na-app)
+
+---
+
+<a id="esp-11"></a>
+## ESP-11 — A Nossa Equipa: fotografia, nome e função
+
+**Estado:** Implementada no protótipo · **Data:** 29 Set 2026
+
+### Pedido
+
+Repor a página da equipa, com fotografia, nome e função de cada elemento.
+
+### Decisão
+
+Lista fornecida pela direcção na folha de recolha (29 Set 2026): 19 pessoas, incluindo o corpo docente com nomes — antes era só por disciplina. Fundadores e directores passaram a ser um grupo só, porque são as mesmas três pessoas, cada uma a dirigir uma equipa.
+
+### O que muda
+
+- Página /equipa reposta, com link no rodapé e na página Sobre.
+- Cinco grupos: Fundadores e Directores (3), Gestão e Administração (5), Suporte Informático (2), Marketing e Publicidade (5) e Corpo Docente (4 professores, com disciplina).
+- Fundadores e Directores: Henrique Catraio (CEO e Fundador, director de Suporte Informático), Walter Sampaio (Co-fundador, director de Marketing e Publicidade) e Armando Baptista (Co-fundador, director de Gestão e Administração).
+- Cada pessoa tem cartão com fotografia; quem ainda não tem foto aparece com as iniciais num círculo tracejado.
+- Sem o Tadeu Epalanga (decisão da direcção, 23 Set 2026) e sem o Waldemar D’Orey (confirmado pela direcção a 29 Set 2026).
+- A home e a página Sobre passaram a mostrar o mesmo grupo único de fundadores e directores.
+
+### Notas técnicas
+
+- Dados em src/config/equipa.jsx (DIRECCAO, EQUIPAS, DOCENTES). FUNDADORES e DIRECTORES foram fundidas em DIRECCAO; DISCIPLINAS deixou de ser usada.
+- Fotografias: public/equipa-nome-apelido.webp, quadradas 600x600. Basta acrescentar `foto:` à pessoa.
+
+### Questões em aberto
+
+- Faltam 16 fotografias (só os três fundadores e directores têm).
+- Confirmar: o Jason Matias foi posto em Suporte Informático (na folha vinha em Marketing, mas é programador).
+
+### Ver no protótipo
+
+- [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
+- [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
+
+---
+
+<a id="esp-12"></a>
+## ESP-12 — Testemunhos reais dos estudantes
+
+**Estado:** Implementada no protótipo · **Data:** 29 Set 2026
+
+### Pedido
+
+Substituir os testemunhos de exemplo da página inicial pelos depoimentos reais recolhidos junto dos estudantes.
+
+### Decisão
+
+Quatro depoimentos entregues pela direcção na folha de recolha (29 Set 2026), todos com autorização escrita do estudante para o nome e o texto. As fotografias ficam para depois.
+
+### O que muda
+
+- Secção “O que dizem os estudantes” passa a mostrar os quatro depoimentos reais, com nome, província e área.
+- Saiu a etiqueta amarela “Testemunhos de exemplo”.
+- Grelha de três passou a duas colunas, porque os textos reais são mais longos do que os de exemplo.
+- Sem fotografia, o cartão mostra a inicial do estudante; o cartão já aceita `foto:` quando as fotografias chegarem.
+- Decisão da direcção (29 Set 2026): ficam os quatro depoimentos na página inicial, incluindo os dois que trazem uma crítica (“devem melhorar o som”, “a dinâmica da correcção deve ser melhorada”). A escrita foi uniformizada com a do resto do site; as ideias e as críticas ficaram intactas.
+
+### Notas técnicas
+
+- Dados em src/config/depoimentos.js (DEPOIMENTOS). Acrescentar um depoimento é copiar um bloco — não é preciso mexer no código da página.
+- Os textos são os dos estudantes. Por decisão da direcção (29 Set 2026) seguem a grafia e a escrita da marca do resto do site (“correcção”, “MUKANDA PREPA”, “aulas online”); o sentido e as críticas ficam intactos.
+- Só entram depoimentos com autorização escrita — a coluna existe na folha de recolha e deve continuar a ser verificada.
+
+### Questões em aberto
+
+- Confirmar o nome “Miguane Lando Soares” (na folha vinha “Miguane lando Soares”).
+- Decisão da direcção (29 Set 2026): os depoimentos não levam fotografia. A inicial de cada estudante é a versão final, não um lugar à espera de foto.
+
+### Ver no protótipo
+
+- [Página inicial (Testemunhos)](https://mukandaprepa-prototipo.vercel.app/)
+
+---
+
+<a id="esp-13"></a>
+## ESP-13 — Notícias reais, com texto completo
+
+**Estado:** Implementada no protótipo · **Data:** 29 Set 2026
+
+### Pedido
+
+Actualizar as notícias do site com os textos reais. As imagens vão ser concebidas pelo designer Leonel Macaia.
+
+### Decisão
+
+Seis notícias entregues pela direcção na folha de recolha (29 Set 2026), com título, data, resumo e texto completo. Deixam de ser textos de exemplo.
+
+### O que muda
+
+- As seis notícias passam a ter texto completo: /noticias/:id deixa de dizer que o texto ainda não foi escrito.
+- Saiu a etiqueta amarela “Textos de exemplo” da página inicial.
+- Ordem por data, da mais recente para a mais antiga: app mobile (25 Set), manutenção da app web (16 Set), fim da fase gratuita (16 Set), Maratona Nacional (20 Ago), lançamento oficial (17 Ago) e fase 100% gratuita (17 Ago).
+- A página de cada notícia passou a mostrar subtítulos, listas e citações em destaque, e transforma endereços e e-mails em ligações.
+- Os cartões da página Notícias ficaram com espaço para a imagem; sem imagem mostram a cor da notícia com a marca “Imagem por criar”.
+- Decisões da direcção a 29 Set 2026: a marca passou a estar escrita “MUKANDA PREPA” também dentro dos textos; a grafia foi passada para a do resto do site (“projecto”, “actual”, “directo”, “objectivo”); as seis notícias ficam publicadas; e as notícias de Agosto mantêm os convites para a app web, como registo histórico.
+
+### Notas técnicas
+
+- Dados em src/config/noticias.js (NOTICIAS). Os blocos repetidos — canais oficiais e “Sobre a MUKANDA PREPA” — estão em duas constantes, para não andarem copiados seis vezes.
+- Formatação do texto: “## ” subtítulo, “- ” lista, “> ” citação, linha em branco entre parágrafos. Feita por src/components/TextoRico.jsx, que serve também para os artigos.
+- Imagens: public/noticia-nome.webp, 1200x630, e trocar `imagem: null` pelo caminho. Entram no cartão da página Notícias e no topo da notícia.
+- As notícias de Agosto ligam para https://app.mukandaprepa.com/registo, que está em manutenção (ver ESP-01). Por decisão da direcção (29 Set 2026) ficam como estão: são o registo histórico do que foi anunciado na altura.
+- Grafia do site: “projecto”, “actual”, “directo”, “objectivo” — sem o Acordo Ortográfico. Quem escrever notícias novas deve seguir a mesma grafia.
+
+### Questões em aberto
+
+- Faltam as seis imagens (Leonel Macaia).
+- Os artigos continuam por preencher: a folha só tem a linha de exemplo.
+
+### Ver no protótipo
+
+- [Notícias](https://mukandaprepa-prototipo.vercel.app/noticias)
+- [Notícia completa (exemplo)](https://mukandaprepa-prototipo.vercel.app/noticias/noticia-vem-ai-a-app-mobile-mukanda-prepa)
+- [Blog](https://mukandaprepa-prototipo.vercel.app/blog)
+
+---
+
+<a id="esp-14"></a>
+## ESP-14 — Secção dos parceiros retirada
+
+**Estado:** Implementada no protótipo · **Data:** 29 Set 2026
+
+### Pedido
+
+Tirar a secção dos parceiros da página inicial — a MUKANDA PREPA ainda não tem parceiros.
+
+### Decisão
+
+Decisão da direcção (29 Set 2026). A secção mostrava seis espaços tracejados à espera de logótipos que não existem, e isso não ajuda quem visita o site.
+
+### O que muda
+
+- Saiu a secção “Quem caminha connosco” da página inicial, entre os testemunhos e as perguntas frequentes.
+- Saiu também o convite “A tua instituição quer apoiar a MUKANDA PREPA?”.
+- A ordem da página inicial passa a ser: hero → quem somos → ponto de situação → notícias → artigos → recursos → testemunhos → perguntas frequentes → comunidade.
+- A aba “Parceiros” da folha de recolha deixa de ser precisa.
+
+### Notas técnicas
+
+- A secção foi retirada de src/pages/Homepage.jsx; o componente ParceirosHome e os estilos .home-parceiros__* saíram de src/components/home/.
+- Quando houver parcerias fechadas, a secção volta ao mesmo lugar: grelha de logótipos (SVG ou PNG com fundo transparente) e convite para a página Contactos.
+
+### Ver no protótipo
+
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+
+---
+
+<a id="esp-15"></a>
+## ESP-15 — Artigo-modelo: estrutura dos artigos
+
+**Estado:** Implementada no protótipo · **Data:** 09 Out 2026
+
+### Pedido
+
+Os professores pediram uma estrutura — um modelo de artigo publicado, para seguirem quando escreverem os seus.
+
+### Decisão
+
+A direcção estudou sites de referência (Mundo Educação, Brasil Escola) e fixou uma estrutura de cinco partes. O primeiro artigo real do site, “Como resolver a equação do 1.º grau”, é escrito nesse molde e serve de modelo.
+
+### O que muda
+
+- Estrutura fixada: 1) título e resumo de duas linhas; 2) um exemplo concreto do dia-a-dia, que põe toda a gente no mesmo ponto de partida; 3) as definições, apoiadas nesse mesmo exemplo; 4) as propriedades e regras a saber antes de resolver; 5) o passo a passo, com exemplos resolvidos, erros mais comuns e exercícios.
+- Exercícios do fim (09 Out 2026): escolha múltipla — duas equações e um problema, quatro opções cada, sem a resposta certa. As opções erradas são os enganos típicos (sinal trocado, esquecer de dividir, não multiplicar tudo dentro dos parênteses). As respostas discutem-se na aula de correcção.
+- Artigo “Como resolver a equação do 1.º grau” publicado, com texto completo — o primeiro artigo real do site.
+- Os outros doze artigos continuam a ser só títulos, marcados como exemplo, à espera do texto dos professores.
+- A página de artigo passou a mostrar passos numerados em círculos laranja, além dos subtítulos, listas e caixas de destaque que já tinha.
+- Cada artigo passa a ter resumo, texto e autor próprios, em vez da frase automática “Artigo de Matemática, nível básico”.
+
+### Notas técnicas
+
+- Texto em src/config/artigos.js (constante MODELO). Os campos novos são resumo, corpo, autor e exemplo.
+- Marcas de formatação, tratadas por src/components/TextoRico.jsx: “## ” subtítulo, “- ” lista, “1. ” passos numerados, “> ” caixa de destaque. As mesmas marcas servem para as notícias.
+- Fórmulas escritas em texto simples (3x + 500 = 2000, x ÷ 3). Se mais tarde forem precisas fórmulas a sério — fracções, raízes, expoentes —, é preciso uma biblioteca de matemática (KaTeX ou MathJax); fica para decidir.
+
+### Questões em aberto
+
+- Quem assina o artigo-modelo? Está como “Equipa Pedagógica MUKANDA PREPA”. Se for o Misael Cagiba a rever e assinar, troca-se o nome.
+- Os doze títulos de exemplo incluem Biologia e História, mas não há professores dessas disciplinas na lista da equipa.
+- Falta decidir se os artigos levam imagem ou esquema. Hoje não levam.
+
+### Ver no protótipo
+
+- [Artigo-modelo](https://mukandaprepa-prototipo.vercel.app/artigos/artigo-como-resolver-a-equacao-do-1-grau)
+- [Artigos](https://mukandaprepa-prototipo.vercel.app/artigos)
+
+---
+
+<a id="esp-16"></a>
+## ESP-16 — Números reais da edição 2026
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Substituir os números de exemplo da página inicial pelos números reais da edição 2026.
+
+### Decisão
+
+Os números oficiais estão na Apresentação Oficial do projeto (Novembro de 2026), secção “MUKANDA PREPA 2026 em números”. A fase gratuita terminou a 15/09, por isso estão fechados e não voltam a mudar.
+
+### O que muda
+
+- Hero: 166 estudantes registados · 22 maratonas criadas · 103 sessões de maratona concluídas · 15 aulas online de correcção.
+- Saiu a etiqueta amarela “Valores de exemplo” da hero e das páginas Maratonas e Aulas Online.
+- Dois números novos, que não cabiam na hero: 100% de taxa de conclusão das sessões e 7 professores participantes.
+- Maratonas mostra agora maratonas, sessões, taxa de conclusão e estudantes; Aulas Online mostra aulas, professores e estudantes.
+- Os números antigos eram muito maiores do que os reais (1.250 estudantes, 3.400 participações). Passam a 166 e 103.
+
+### Notas técnicas
+
+- Dados em src/config/estatisticas.js. DADOS_DE_EXEMPLO passou a false — é esse interruptor que mostra ou esconde a etiqueta amarela em todo o site.
+- ESTATISTICAS são os quatro números da hero; ESTATISTICAS_EXTRA os que só aparecem nas páginas da edição; TODAS_ESTATISTICAS junta os dois. O campo `sufixo` serve para a percentagem.
+- A ordem dos números em cada página é agora a ordem das `chaves` que a página pede.
+
+### Questões em aberto
+
+- A notícia de 20 de Agosto diz “juntar-se a centenas de colegas”. Com 166 contas registadas, a frase exagera. Corrigir o texto histórico ou deixar como foi publicado?
+- A “Visão 2030” da página A Nossa Missão foi escrita antes da visão oficial (“ser a plataforma número 1 em Angola e nos países de língua portuguesa”). Alinhar as duas?
+
+### Ver no protótipo
+
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+- [Maratonas 2026](https://mukandaprepa-prototipo.vercel.app/maratonas)
+- [Aulas Online 2026](https://mukandaprepa-prototipo.vercel.app/aulas-online)
+
+---
+
+<a id="esp-17"></a>
+## ESP-17 — Equipa alinhada com a lista oficial
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Actualizar a página da equipa pela lista de membros oficial.
+
+### Decisão
+
+Lista de Membros de 31/10/2026 (ata 013) e Especificações das Equipas (Novembro de 2026): 17 membros activos. A direcção confirmou que a Kassia António e a Kassia Kai são a mesma pessoa, e que a Anilde Aristóteles mantém “Criador de Conteúdo”.
+
+### O que muda
+
+- Passam a ser 17 pessoas, em vez de 19.
+- Kassia António e Kassia Kai eram a mesma pessoa: fica só Kassia Kai, Gestora Administrativa.
+- Ester Diahoha saiu e deixa de aparecer no Corpo Docente.
+- Leonel Macaia mudou do Marketing para o Suporte Informático, como Designer Web, com a nota de que também está no Marketing.
+- Wagner Cazanza passa a “Gestor Pedagógico · coordena o Corpo Docente”.
+- Fernanda Vilinga e Jason Matias passam a “Desenvolvedora/Desenvolvedor de Software”; Sebastião Paulo a “Designer Gráfico”; Arão António a “Videomaker e Designer”.
+- Anilde Aristóteles mantém “Criador de Conteúdo”, por decisão da direcção, embora os documentos oficiais escrevam “Criadora”.
+
+### Notas técnicas
+
+- Dados em src/config/equipa.jsx (DIRECCAO, EQUIPAS, DOCENTES). Substitui a ESP-11.
+- Quem está em duas equipas aparece uma só vez, com as duas na função — evita a mesma cara duas vezes na página.
+- Fonte oficial: DOCUMENTOS RECENTES › Grupo Geral › Membros › Lista-Membros-MukandaPrepa.xlsx e Apresentação do Projeto › Equipas-MukandaPrepa-Especificacoes.docx.
+
+### Questões em aberto
+
+- As duas vagas — Designer de Maratonas e Professor(a) de Língua Portuguesa — devem aparecer no site, junto ao “Queres trabalhar connosco?”, ou ficam fora?
+- Faltam 14 fotografias. A lista oficial diz que 13 destas pessoas já deram fotografia e autorização de imagem, mas os ficheiros não estão na pasta do projecto.
+- O documento das fotografias foi entregue à Kassia António; a tarefa é da Gestora Comercial, Mariana Baptista. Reemitir?
+- O documento dos artigos manda a Ester Diahoha escrever três artigos de Língua Portuguesa. Ela saiu — refazer o documento.
+
+### Ver no protótipo
+
+- [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
+- [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
+
+---
+
+<a id="esp-18"></a>
+## ESP-18 — Imagens provisórias para as notícias
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Enquanto o designer não entrega as seis imagens, criar uma figura simples para cada notícia e pô-la no protótipo.
+
+### Decisão
+
+Imagens provisórias. Refeitas a 08/11/2026 aproveitando elementos das propostas que o designer apresentou e que a equipa SI não validou. Saem assim que o Leonel Macaia entregar as definitivas.
+
+### O que muda
+
+- As seis notícias passam a ter imagem no cartão e no topo da página.
+- Saiu a marca “Imagem por criar” dos cartões.
+- Elementos aproveitados das propostas do designer: barra azul de categoria no topo com megafone, logótipo oficial, pincelada atrás do título, confetti, selo redondo “100% grátis”, cartões de data com calendário, assinatura “Mais conhecimento, mais conquistas!”, lista com vistos, chips das disciplinas e faixa laranja em baixo.
+- Cada imagem tem a sua categoria no topo: App mobile, App web, Fase gratuita, Maratona Nacional, Lançamento, Maratonas e Aulas.
+- Cores da marca: laranja, azul, azul-marinho e amarelo de realce.
+
+### Notas técnicas
+
+- Ficheiros em public/noticia-*.svg, 1200x630 — o mesmo formato das definitivas, que serve também para a partilha no WhatsApp e no Facebook.
+- São SVG, 24 a 37 kB cada (o logótipo vai lá dentro em PNG), e não desfocam em nenhum ecrã. Dentro de uma imagem o navegador não carrega as fontes da marca, por isso os títulos usam textLength para caberem sempre na pincelada, seja qual for a letra do sistema.
+- Para trocar pelas definitivas: mudar o caminho em src/config/noticias.js e apagar o .svg correspondente.
+
+### Questões em aberto
+
+- São um remendo até o Leonel Macaia entregar as seis imagens definitivas.
+
+### Ver no protótipo
+
+- [Notícias](https://mukandaprepa-prototipo.vercel.app/noticias)
+- [Notícia completa (exemplo)](https://mukandaprepa-prototipo.vercel.app/noticias/noticia-vem-ai-a-app-mobile-mukanda-prepa)
+
+---
+
+<a id="esp-19"></a>
+## ESP-19 — Artigos escondidos até os professores escreverem
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Esconder os artigos: os professores ainda não os escreveram e não adianta publicar.
+
+### Decisão
+
+Os doze títulos de exemplo saem do site. A página /artigos continua a funcionar por link directo, com o artigo-modelo, porque é o endereço que o corpo docente recebeu no seu documento.
+
+### O que muda
+
+- Saiu a entrada “Artigos” do menu Blog e do rodapé.
+- Saiu a secção dos artigos da página inicial.
+- Saiu o separador “Artigos” do Blog e a contagem deixa de os somar.
+- Saíram os doze títulos de exemplo. Fica só o artigo-modelo, acessível por link directo.
+
+### Notas técnicas
+
+- Interruptor único: ARTIGOS_VISIVEIS em src/config/artigos.js. A false esconde o menu, o rodapé, a secção da home e o separador do Blog.
+- Quando os artigos chegarem: acrescentá-los a ARTIGOS e pôr ARTIGOS_VISIVEIS a true. Não é preciso mexer em mais nada.
+
+### Questões em aberto
+
+- Os artigos voltam quando o corpo docente entregar. A estrutura está fixada na ESP-15.
+
+### Ver no protótipo
+
+- [Artigo-modelo (link directo)](https://mukandaprepa-prototipo.vercel.app/artigos/artigo-como-resolver-a-equacao-do-1-grau)
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)
+- [Blog](https://mukandaprepa-prototipo.vercel.app/blog)
+
+---
+
+<a id="esp-20"></a>
+## ESP-20 — Fotografias da equipa
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Pôr no site as fotografias profissionais da equipa, entregues pela Gestão e Administração.
+
+### Decisão
+
+Doze das dezassete pessoas já têm retrato. Faltam cinco: Mariana Baptista, Leonel Macaia, Misael Cagiba, Roberto Costa e Cornélio Catuca.
+
+### O que muda
+
+- A página da equipa passa de três para dezassete fotografias — toda a gente tem rosto.
+- As fotografias dos três fundadores e directores foram substituídas pelas do conjunto profissional, para toda a gente ter o mesmo estilo.
+- A home e a página Sobre mostram as novas fotografias dos fundadores e directores.
+
+### Notas técnicas
+
+- Originais em DOCUMENTOS RECENTES › Grupo Geral Mukanda Prepa › Membros › Fotos pro. Duas vieram dentro de PDF (Kassia Kai e Walter Sampaio) e quatro em RAW da máquina (.CR2), deitadas: foram extraídas e rodadas.
+- No site: recorte quadrado a partir do original, 600x600, WebP a 86% — entre 15 e 42 kB cada. Caminho em public/equipa-nome-apelido.webp.
+- O recorte é feito mais acima do centro, para não cortar a cabeça. Algumas precisaram de enquadramento próprio (Fernanda Vilinga, Leda Dias, Armando Baptista), por aparecerem mais afastadas na fotografia.
+- Só uma fotografia foi tratada: a do Roberto Costa, que estava escura. Levou um acerto automático de níveis e um ligeiro aumento de brilho. As restantes estão como vieram.
+- A do Leonel Macaia vinha num grande plano muito fechado, com a cabeça a tocar nos limites. Foi alargada com o próprio fundo preto (tela de 1080 px) para o rosto ficar do tamanho dos outros.
+- Saiu public/equipa-tadeu-epalanga.webp, que já não era usado.
+
+### Questões em aberto
+
+- A fotografia do Leonel Macaia é a preto e branco, ao contrário das outras dezasseis, que são a cores. Destoa na página. Manter ou pedir outra?
+- A fotografia do Leonel Macaia tem a marca de água “ZOLA STUDIO” no canto superior. O enquadramento de rosto e ombros deixa-a de fora, mas convém confirmar se há alguma obrigação de crédito ao estúdio.
+- A fotografia da Fernanda Vilinga é de um evento e destoa das outras. A direcção decidiu mantê-la por agora e pedir-lhe outra mais tarde.
+- As fotografias dos três professores foram tiradas num escritório, com flash e parede azul, e destoam das de estúdio. Mantidas; a direcção decide se vale a pena repetir.
+- A Leda Dias tem agora duas fotografias na pasta — a antiga, de interior, e uma nova em RAW, da mesma sessão dos professores. Ficou a antiga, que está melhor. Confirmar.
+
+### Ver no protótipo
+
+- [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
+- [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)

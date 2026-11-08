@@ -1,8 +1,8 @@
-﻿.navbar {
+.navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #fff;
+  background: #FFFFFF;
   transition: box-shadow 0.2s ease;
 }
 
@@ -15,56 +15,48 @@
   align-items: center;
   justify-content: space-between;
   height: 72px;
-  position: relative;
 }
 
 .navbar__logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   flex-shrink: 0;
 }
 
 .navbar__logo-img {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
+  display: block;
 }
 
 .navbar__logo-nome {
   font-family: var(--font-title);
   font-weight: 800;
   font-size: 16px;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: .02em;
-  color: #11111b;
+  color: var(--color-dark);
 }
 
-/* NAVEGAÇÃO CENTRAL */
 .navbar__links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 34px;
-}
-
-.navbar__links a,
-.navbar__dropdown-trigger {
-  color: #11111b;
-  text-decoration: none;
+  gap: 28px;
   font-size: 14px;
   font-weight: 500;
 }
 
-.navbar__links a:hover,
-.navbar__dropdown-trigger:hover {
-  color: var(--color-orange);
+.navbar__links a,
+.navbar__dropdown-trigger {
+  color: var(--color-dark);
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-/* BLOG */
 .navbar__dropdown {
   position: relative;
 }
@@ -72,151 +64,168 @@
 .navbar__dropdown-trigger {
   display: flex;
   align-items: center;
-  gap: 5px;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-family: inherit;
-  padding: 0;
+  gap: 4px;
 }
 
-
-.navbar__dropdown-trigger span {
-  font-size: 12px;
-  margin-top: 1px;
+.navbar__caret {
+  font-size: 10px;
 }
 
 .navbar__megamenu {
   position: absolute;
-  top: 32px;
+  /* Touches the trigger directly (top: 100%, no margin-top). A gap here
+     would be a dead zone: the mouse crosses it while over neither the
+     trigger nor the menu, firing mouseleave on .navbar__dropdown and
+     closing the menu before the pointer arrives. The box-shadow plus
+     inner padding gives enough visual separation without a real gap. */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
+  background: #FFFFFF;
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 24px rgba(20, 20, 31, 0.12);
   padding: 12px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(20, 20, 31, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  min-width: 200px;
 }
 
 .navbar__megamenu a {
   padding: 10px 12px;
   border-radius: 6px;
-  white-space: nowrap;
+  font-size: 14px;
 }
 
 .navbar__megamenu a:hover {
-  background: #fff4ed;
+  background: #FBFBFB;
   color: var(--color-orange);
 }
 
-/* BOTÃO APP */
 .navbar__actions {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.navbar__app-btn {
+.navbar__actions .btn {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* ESP-01 — botão único "Entrar na app". */
+.navbar__app {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 22px;
-  border-radius: 9px;
-  background: var(--color-orange);
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
+  gap: 8px;
+}
+
+.navbar__app svg { transition: transform .15s ease; }
+.navbar__app:hover svg { transform: translateX(3px); }
+
+/* Versão compacta, na barra, só em telemóvel e tablet. */
+.navbar__app-movel {
+  display: none;
+  align-items: center;
+  font-family: var(--font-title);
   font-weight: 700;
+  font-size: 14px;
+  color: #FBFBFB;
+  background: var(--color-orange);
+  border-radius: 8px;
+  padding: 10px 16px;
+  white-space: nowrap;
 }
 
-.navbar__app-btn span {
-  font-size: 18px;
-  line-height: 1;
+.navbar__app-movel:hover,
+.navbar__app-movel:active {
+  background: var(--color-orange-dark);
 }
 
-.navbar__app-btn:hover {
-  opacity: .92;
-}
-
-/* MENU MOBILE */
+/* Botão de menu — só existe abaixo de 1023px, onde a barra de links não cabe. */
 .navbar__toggle {
   display: none;
+  background: none;
+  border: 1.5px solid var(--color-border, #E4E4E7);
+  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
-  .navbar__links {
-    gap: 20px;
-  }
-}
+@media (max-width: 1023px) {
+  /* Espaço entre "Entrar na app" e o botão de menu, que ficam encostados. */
+  .navbar__inner { gap: 10px; }
 
-@media (max-width: 700px) {
-  .navbar__inner {
-    height: 64px;
+  .navbar__app-movel {
+    display: inline-flex;
+    order: 1;
+    margin-left: auto;
   }
 
   .navbar__toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: 0;
-    background: transparent;
-    font-size: 22px;
-    cursor: pointer;
+    display: inline-flex;
+    order: 2;
   }
 
+  /* Os links deixam de estar na barra e passam a painel por baixo dela.
+     Antes eram apenas escondidos — o site ficava sem navegação. */
+  /* Painel encostado à direita, por baixo do botão que o abriu, em vez de
+     atravessar o ecrã de ponta a ponta com os itens colados à esquerda. */
   .navbar__links {
     display: none;
     position: absolute;
-    top: 64px;
-    left: 12px;
+    top: 72px;
     right: 12px;
-    transform: none;
-    padding: 16px;
+    left: auto;
+    width: min(260px, calc(100vw - 24px));
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     background: #fff;
+    border: 1px solid var(--color-border, #E4E4E7);
     border-radius: 14px;
-    box-shadow: 0 12px 30px rgba(20, 20, 31, .12);
+    box-shadow: 0 12px 32px rgba(20, 20, 31, .12);
+    padding: 8px;
+    max-height: calc(100vh - 88px);
+    overflow-y: auto;
+    z-index: 40;
   }
-
-  .navbar__links--aberto {
-    display: flex;
-  }
-
-  .navbar__links a,
+  .navbar__links--aberto { display: flex; }
+  .navbar__links > a,
   .navbar__dropdown-trigger {
-    padding: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
   }
 
-  .navbar__actions {
-    margin-left: auto;
-    margin-right: 8px;
-  }
+  /* O submenu do Blog fica desligado em telemóvel: num painel estreito não
+     abria de forma utilizável. O item passa a ser um link simples para a
+     página do Blog, de onde se chega às subpáginas. */
+  .navbar__megamenu { display: none; }
+  .navbar__caret { display: none; }
 
-  .navbar__app-btn {
-    padding: 9px 13px;
-    font-size: 12px;
-  }
+  /* O botão da direita sai da barra: "Entrar na app" fica à vista ao lado
+     do menu, na versão compacta. */
+  .navbar__actions { display: none; }
+}
 
-  .navbar__logo-img {
-    width: 32px;
-    height: 32px;
-  }
+@media (max-width: 640px) {
+  .navbar { height: 64px; }
+  .navbar__app-movel { padding: 9px 12px; font-size: 13px; }
+  .navbar__logo-img { width: 34px; height: 34px; }
+  .navbar__logo { gap: 8px; }
+  .navbar__logo-nome { font-size: 13px; }
+  .navbar__links { top: 64px; right: 10px; }
+  .navbar__links { max-height: calc(100vh - 80px); }
+}
 
-  .navbar__logo-nome {
-    font-size: 13px;
-  }
-
-  .navbar__megamenu {
-    position: static;
-    transform: none;
-    width: auto;
-    box-shadow: none;
-    margin-top: 4px;
-  }
+/* Protótipo: o marcador da ESP-04 fica ao lado de "Blog", na mesma linha. */
+.navbar__dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

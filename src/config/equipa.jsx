@@ -1,93 +1,88 @@
 // Equipa MUKANDA PREPA — fonte única.
 //
-// A página Sobre mostra apenas os fundadores; a página A Nossa Equipa mostra
-// tudo. Ter os dados aqui evita que as duas páginas digam coisas diferentes
-// sobre as mesmas pessoas, que foi o que aconteceu com as datas da maratona.
+// A página Sobre e a home mostram a direcção; a página A Nossa Equipa mostra
+// toda a gente. Ter os dados aqui evita que as páginas digam coisas
+// diferentes sobre as mesmas pessoas.
+//
+// ESP-17 (08 Nov 2026): lista alinhada com os documentos oficiais —
+// Lista-Membros-MukandaPrepa.xlsx (31/10/2026, ata 013) e
+// Equipas-MukandaPrepa-Especificacoes.docx. São 17 membros activos.
+//
+// Mudou desde Setembro: a Kassia António e a Kassia Kai são a mesma pessoa
+// (fica Kassia Kai); a Ester Diahoha saiu; o Leonel Macaia passou a estar
+// também no Suporte Informático; as funções seguem a escrita dos documentos,
+// excepto "Criador de Conteúdo" da Anilde, que a direcção mandou manter.
+//
+// Quem pertence a duas equipas aparece uma só vez, com as duas na função:
+// o Leonel no Suporte Informático e o Wagner na Gestão e Administração.
+//
+// Há duas vagas por preencher — Designer de Maratonas (SI) e Professor(a) de
+// Língua Portuguesa — que, por decisão por tomar, ainda não aparecem no site.
+//
+// FOTOGRAFIAS (ESP-20, 08 Nov 2026): chegaram as fotografias profissionais,
+// recolhidas pela Gestão e Administração. Doze das dezassete pessoas já têm
+// retrato. Ficheiros em public/equipa-nome-apelido.webp, quadrados 600x600,
+// recortados a partir dos originais em
+// DOCUMENTOS RECENTES › Grupo Geral › Membros › Fotos pro.
+//
+// As dezassete pessoas têm retrato. Quatro vieram em RAW da máquina (.CR2),
+// deitadas, e foram rodadas; duas vieram dentro de PDF.
+//
+// A do Leonel Macaia é a preto e branco e vinha num grande plano muito
+// fechado: foi alargada com o próprio fundo preto para o rosto respirar e
+// ficar do tamanho dos outros.
 
-// Fotografias em public/, quadradas (600x600). Sem foto, a página Sobre
-// mostra as iniciais.
-export const FUNDADORES = [
-  { nome: 'Henrique Catraio', cargo: 'CEO & Fundador', foto: '/equipa-henrique-catraio.webp' },
-  { nome: 'Walter Sampaio', cargo: 'Co-fundador e Gestor de Redes Sociais', foto: '/equipa-walter-sampaio.webp' },
-];
-
-// Directores — sem menção a co-fundador, por decisão da direcção (27 Jul 2026).
-// Cargos e nomes tal como estão em produção desde 16 Ago 2026.
-export const DIRECTORES = [
-  { nome: 'Armando Baptista', cargo: 'Director de Administração e Gestão', foto: '/equipa-armando-baptista.webp' },
-
+// Fundadores e Directores. Cada um dirige uma das equipas.
+export const DIRECCAO = [
+  {
+    nome: 'Henrique Catraio',
+    cargo: 'CEO e Fundador · Director da equipa de Suporte Informático',
+    foto: '/equipa-henrique-catraio.webp',
+  },
+  {
+    nome: 'Walter Sampaio',
+    cargo: 'Co-fundador · Director da equipa de Marketing e Publicidade',
+    foto: '/equipa-walter-sampaio.webp',
+  },
+  {
+    nome: 'Armando Baptista',
+    cargo: 'Co-fundador · Director da equipa de Gestão e Administração',
+    foto: '/equipa-armando-baptista.webp',
+  },
 ];
 
 export const EQUIPAS = [
   {
     titulo: 'Equipa de Gestão e Administração',
     membros: [
-      { nome: 'Kassia António', cargo: 'Gestora Comercial' },
-      { nome: 'Dorivaldo Morais', cargo: 'Gestor Administrativo' },
+      { nome: 'Kassia Kai', cargo: 'Gestora Administrativa', foto: '/equipa-kassia-kai.webp' },
+      { nome: 'Dorivaldo Morais', cargo: 'Gestor Administrativo', foto: '/equipa-dorivaldo-morais.webp' },
+      { nome: 'Mariana Baptista', cargo: 'Gestora Comercial', foto: '/equipa-mariana-baptista.webp' },
+      { nome: 'Wagner Cazanza', cargo: 'Gestor Pedagógico · coordena o Corpo Docente', foto: '/equipa-wagner-cazanza.webp' },
     ],
   },
   {
     titulo: 'Equipa de Suporte Informático',
     membros: [
-      { nome: 'Fernanda Vilinga', cargo: 'Programadora' },
-      { nome: 'Waldemar D’Orey', cargo: 'Designer de Maratonas' },
+      { nome: 'Fernanda Vilinga', cargo: 'Desenvolvedora de Software', foto: '/equipa-fernanda-vilinga.webp' },
+      { nome: 'Jason Matias', cargo: 'Desenvolvedor de Software', foto: '/equipa-jason-matias.webp' },
+      { nome: 'Leonel Macaia', cargo: 'Designer Web · também na equipa de Marketing', foto: '/equipa-leonel-macaia.webp' },
     ],
   },
   {
     titulo: 'Equipa de Marketing e Publicidade',
     membros: [
-      { nome: 'Anilde Aristóteles', cargo: 'Criadora de Conteúdos' },
-      { nome: 'Leonel Macaia', cargo: 'Designer' },
-      { nome: 'Sebastião Paulo', cargo: 'Designer' },
+      { nome: 'Anilde Aristóteles', cargo: 'Criador de Conteúdo', foto: '/equipa-anilde-aristoteles.webp' },
+      { nome: 'Leda Dias', cargo: 'Criadora de Conteúdos', foto: '/equipa-leda-dias.webp' },
+      { nome: 'Sebastião Paulo', cargo: 'Designer Gráfico', foto: '/equipa-sebastiao-paulo.webp' },
+      { nome: 'Arão António', cargo: 'Videomaker e Designer', foto: '/equipa-arao-antonio.webp' },
     ],
   },
 ];
 
-// Corpo docente por disciplina, em vez de lugares individuais: cada disciplina
-// terá vários professores, e o número não está fechado.
-// Os ícones seguem o traço dos pilares da página inicial (24x24, contorno laranja).
-export const DISCIPLINAS = [
-  {
-    disciplina: 'Matemática',
-    // Esquadro e régua
-    icone: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 20 20 4M4 20h16" stroke="#FB6D1D" strokeWidth="2" strokeLinejoin="round" />
-        <path d="M9 20v-3M13 20v-3M17 20v-3" stroke="#FB6D1D" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    disciplina: 'Língua Portuguesa',
-    // Livro aberto
-    icone: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 6.5S10 5 6.5 5H3v13h3.5C10 18 12 19.5 12 19.5m0-13S14 5 17.5 5H21v13h-3.5C14 18 12 19.5 12 19.5m0-13v13"
-          stroke="#FB6D1D" strokeWidth="2" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    disciplina: 'Física',
-    // Átomo
-    icone: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="2" fill="#FB6D1D" />
-        <ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#FB6D1D" strokeWidth="1.8" />
-        <ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#FB6D1D" strokeWidth="1.8" transform="rotate(60 12 12)" />
-        <ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#FB6D1D" strokeWidth="1.8" transform="rotate(120 12 12)" />
-      </svg>
-    ),
-  },
-  {
-    disciplina: 'Química',
-    // Balão de erlenmeyer
-    icone: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 3h4M11 3v6.2L5.4 18.4A1.5 1.5 0 0 0 6.7 20.7h10.6a1.5 1.5 0 0 0 1.3-2.3L13 9.2V3"
-          stroke="#FB6D1D" strokeWidth="2" strokeLinejoin="round" />
-        <path d="M8.2 14.5h7.6" stroke="#FB6D1D" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    ),
-  },
+// Corpo docente, coordenado pelo Wagner Cazanza.
+export const DOCENTES = [
+  { nome: 'Misael Cagiba', cargo: 'Professor de Matemática', foto: '/equipa-misael-cagiba.webp', disciplina: 'Matemática' },
+  { nome: 'Roberto Costa', cargo: 'Professor de Física', foto: '/equipa-roberto-costa.webp', disciplina: 'Física' },
+  { nome: 'Cornélio Catuca', cargo: 'Professor de Química', foto: '/equipa-cornelio-catuca.webp', disciplina: 'Química' },
 ];

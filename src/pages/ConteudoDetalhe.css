@@ -1,0 +1,180 @@
+/* ESP-05 — página de notícia / artigo */
+
+.detalhe { --detalhe-cor: var(--color-orange); }
+
+.detalhe__topo {
+  background: var(--color-bg);
+  border-top: 6px solid var(--detalhe-cor);
+  padding: 48px 0 40px;
+}
+
+.detalhe__estreito { max-width: 760px; }
+
+.detalhe__voltar {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-orange);
+  margin-bottom: 24px;
+}
+
+.detalhe__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gray-mid);
+  margin-bottom: 14px;
+}
+
+.detalhe__pill {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #ECECEF;
+}
+
+.detalhe__pill--azul { background: rgba(23, 66, 231, .1); color: var(--color-blue); }
+
+.detalhe h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.detalhe__resumo {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-gray-mid);
+  margin-bottom: 16px;
+}
+
+.detalhe__autor { font-size: 14px; font-weight: 600; }
+
+.detalhe__corpo {
+  padding: 40px 24px 88px;
+}
+
+.detalhe__corpo p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.detalhe__corpo .detalhe__vazio {
+  font-size: 15px;
+  color: var(--color-gray-mid);
+  background: var(--color-bg);
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ESP-13 — textos completos das notícias: subtítulos, listas e citações. */
+.detalhe__imagem {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-top: 32px;
+}
+
+.detalhe__corpo h2 {
+  font-size: 22px;
+  line-height: 1.3;
+  margin: 36px 0 14px;
+}
+
+.detalhe__corpo h2:first-child { margin-top: 0; }
+
+.detalhe__corpo ul {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.detalhe__corpo li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.detalhe__corpo ul li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+/* ESP-15 — passos numerados dos artigos. */
+.detalhe__corpo ol {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  counter-reset: passo;
+  display: grid;
+  gap: 12px;
+}
+
+.detalhe__corpo ol li {
+  counter-increment: passo;
+  padding-left: 40px;
+}
+
+.detalhe__corpo ol li::before {
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--detalhe-cor, var(--color-orange));
+  color: #FFFFFF;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detalhe__corpo blockquote {
+  margin: 0 0 24px;
+  padding: 20px 22px;
+  background: var(--color-bg);
+  border-left: 4px solid var(--detalhe-cor, var(--color-orange));
+  border-radius: 0 12px 12px 0;
+  font-size: 17px;
+  line-height: 1.7;
+  font-style: italic;
+  color: var(--color-dark);
+}
+
+.detalhe__corpo a {
+  color: var(--color-blue);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.detalhe__corpo a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .detalhe__corpo h2 { font-size: 19px; }
+  .detalhe__corpo p,
+  .detalhe__corpo li,
+  .detalhe__corpo blockquote { font-size: 16px; }
+}

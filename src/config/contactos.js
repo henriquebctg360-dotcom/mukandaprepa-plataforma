@@ -24,3 +24,15 @@ export const whatsappCom = (mensagem) =>
   mensagem
     ? `${CONTACTO.whatsappLink}?text=${encodeURIComponent(mensagem)}`
     : CONTACTO.whatsappLink;
+
+// ── Comunidade (ESP-02) ─────────────────────────────────────────────────────
+// Link de convite da MUKANDA Community — a Comunidade do WhatsApp
+// (formato https://chat.whatsapp.com/…). Confirmado pela direcção (13 Set 2026).
+// A COLOCAR PELA EQUIPA: enquanto estiver vazio, o botão "Entrar na
+// comunidade" abre uma conversa de WhatsApp com a equipa a pedir a entrada.
+export const COMUNIDADE_URL = '';
+
+export const linkComunidade = () =>
+  COMUNIDADE_URL || whatsappCom('Olá! Quero entrar na MUKANDA Community.');
+
+export const MENSAGEM_WHATSAPP_HERO = 'Olá! Vim pelo site da MUKANDA PREPA e tenho uma pergunta.';

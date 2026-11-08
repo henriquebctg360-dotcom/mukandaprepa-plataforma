@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
 import './Missao.css';
+import { MarcadorEsp } from '../prototipo/NotasDev';
 
 // Decisão da equipa (D5, 3 Ago 2026): a plataforma lança sem histórico, por
 // isso esta secção não anuncia números — anuncia compromissos. Quando houver
 // dados reais de maratonas realizadas e estudantes inscritos, os números
 // entram aqui com fonte.
 const COMPROMISSOS = [
-  { valor: 'Gratuito', label: 'Maratonas e aulas online 2026 sem custos' },
+  // ESP-09: a fase gratuita terminou a 15/09 — o compromisso passa ao passado.
+  { valor: 'Gratuito', label: 'Maratonas e aulas online 2026 foram sem custos' },
   { valor: 'Nacional', label: 'Abertas a estudantes de todo o país' },
   { valor: 'No telemóvel', label: 'Pensado para dados móveis e ecrãs pequenos' },
   { valor: 'Comunidade', label: 'Estudantes e professores lado a lado' },
@@ -40,10 +43,29 @@ export default function Missao() {
           <p>
             Acreditamos que a preparação para a universidade não devia
             depender da capacidade financeira da família ou da província
-            onde se nasce. É por isso que, nesta primeira fase, as maratonas
-            e as aulas online são totalmente gratuitas para todos os
-            estudantes, com uma comunidade activa a acompanhar cada semana.
+            onde se nasce. É por isso que, na primeira fase — de 20 de Agosto
+            a 15 de Setembro de 2026 — as maratonas e as aulas online foram
+            totalmente gratuitas para todos os estudantes, com uma comunidade
+            activa a acompanhar cada semana.
           </p>
+
+          {/* ESP-09: contexto da fase actual do projecto. */}
+          <div className="missao-fase-actual">
+            <span className="missao-fase-actual__rotulo">
+              Onde estamos agora
+              <MarcadorEsp
+                esp="ESP-09"
+                balao="direita"
+                texto="Único acréscimo à página: contextualiza a fase actual (edição 2026 concluída, app em manutenção, app mobile a caminho). O texto da missão ficou igual; só o 3.º parágrafo passou ao passado."
+              />
+            </span>
+            <p>
+              Concluída a primeira edição, estamos a preparar a próxima fase: a app
+              web está em manutenção enquanto passamos para uma app mobile, com mais
+              funcionalidades. As maratonas e as aulas online retomam brevemente.
+            </p>
+            <Link to="/entrar-na-app">Saber mais sobre a nova app →</Link>
+          </div>
         </div>
       </section>
 

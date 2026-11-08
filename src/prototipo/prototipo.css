@@ -1,0 +1,233 @@
+/* Camada de protótipo — azul da marca com contorno tracejado, para nunca se
+   confundir com conteúdo real do site. */
+
+.nota-dev {
+  border: 1.5px dashed var(--color-blue);
+  background: #F1F4FF;
+  border-radius: 12px;
+  padding: 16px 18px;
+  color: #1B2559;
+  font-size: 14px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.nota-dev__topo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.nota-dev__esp {
+  background: var(--color-blue);
+  color: #fff;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.nota-dev__rotulo {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-blue);
+}
+
+.nota-dev__titulo {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.nota-dev__corpo ul {
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+}
+
+.nota-dev__corpo code {
+  font-size: 12.5px;
+  background: #fff;
+  border: 1px solid #D6DEFF;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+/* Marcador numerado */
+.marcador-esp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-blue);
+  color: #fff;
+  font-family: var(--font-title);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  box-shadow: 0 0 0 3px rgba(23, 66, 231, .18);
+  flex-shrink: 0;
+}
+
+.marcador-esp__balao {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -8px;
+  width: 260px;
+  background: #1B2559;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(20, 20, 31, .25);
+  /* display:none (e não só invisível): um balão escondido perto da margem
+     alargava a página e criava scroll horizontal. */
+  display: none;
+  z-index: 300;
+  text-align: left;
+  animation: marcador-balao .15s ease;
+}
+
+.marcador-esp:hover .marcador-esp__balao,
+.marcador-esp:focus .marcador-esp__balao {
+  display: block;
+}
+
+@keyframes marcador-balao {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Barra flutuante */
+.barra-prototipo {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #14141F;
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 10px 30px rgba(20, 20, 31, .3);
+  font-size: 13px;
+}
+
+.barra-prototipo__selo {
+  background: var(--color-blue);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.barra-prototipo__botao,
+.barra-prototipo__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.barra-prototipo__botao:hover,
+.barra-prototipo__link:hover {
+  background: rgba(255, 255, 255, .1);
+}
+
+.barra-prototipo__interruptor {
+  width: 28px;
+  height: 16px;
+  border-radius: 999px;
+  background: #4A4A5A;
+  position: relative;
+  transition: background .15s ease;
+}
+
+.barra-prototipo__interruptor::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform .15s ease;
+}
+
+.barra-prototipo__interruptor.is-on { background: var(--color-orange); }
+.barra-prototipo__interruptor.is-on::after { transform: translateX(12px); }
+
+@media (max-width: 480px) {
+  .barra-prototipo { left: 8px; right: 8px; bottom: 8px; justify-content: space-between; }
+  .barra-prototipo__selo { display: none; }
+}
+
+/* Marcador sobre o canto de um elemento */
+.marcador-ancora {
+  position: relative;
+  display: inline-block;
+}
+
+.marcador-ancora--bloco { display: block; }
+
+.marcador-esp--flutuante {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  z-index: 5;
+}
+
+.marcador-esp--balao-direita .marcador-esp__balao {
+  right: auto;
+  left: -8px;
+}
+
+/* Escolha da variante de hero (ESP-02) */
+.barra-prototipo__variantes {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 4px 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+}
+
+.barra-prototipo__variantes span {
+  font-size: 12px;
+  color: #B4B4C0;
+  margin-right: 4px;
+}
+
+.barra-prototipo__variantes button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.barra-prototipo__variantes button:hover { background: rgba(255, 255, 255, .12); }
+.barra-prototipo__variantes button.is-activa { background: var(--color-blue); }
