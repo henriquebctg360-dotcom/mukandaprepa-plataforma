@@ -43,6 +43,7 @@ export function useMeta({ titulo, descricao, caminho }) {
     escrever('meta[property="og:url"]', 'content', SITE_URL + (caminho || ''));
     escrever('meta[name="twitter:title"]', 'content', titulo);
     escrever('meta[name="twitter:description"]', 'content', descricao || META_PADRAO.descricao);
+    escrever('meta[property="og:image"]', 'content', `${SITE_URL}/og-mukandaprepa.png`);
     ligacaoCanonica(SITE_URL + (caminho || ''));
     return undefined;
   }, [titulo, descricao, caminho]);

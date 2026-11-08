@@ -32,6 +32,7 @@ No protótipo, cada alteração tem um marcador azul numerado (01, 02, …) com 
 - [ESP-20 — Fotografias da equipa](#esp-20)
 - [ESP-21 — Limpeza antes do lançamento](#esp-21)
 - [ESP-22 — Título e descrição próprios para cada página](#esp-22)
+- [ESP-23 — Imagem e texto de partilha](#esp-23)
 
 ---
 
@@ -843,3 +844,41 @@ As doze páginas partilhavam o mesmo título e a mesma descrição — no Google
 - [Sobre](https://mukandaprepa-prototipo.vercel.app/sobre)
 - [A Nossa Equipa](https://mukandaprepa-prototipo.vercel.app/equipa)
 - [Notícia completa (exemplo)](https://mukandaprepa-prototipo.vercel.app/noticias/noticia-vem-ai-a-app-mobile-mukanda-prepa)
+
+---
+
+<a id="esp-23"></a>
+## ESP-23 — Imagem e texto de partilha
+
+**Estado:** Implementada no protótipo · **Data:** 08 Nov 2026
+
+### Pedido
+
+Fazer com que o link do site, partilhado no WhatsApp ou no Facebook, apareça com imagem e título em vez de só o endereço.
+
+### Decisão
+
+Imagem feita com as cores e o logótipo da marca, até haver uma do designer. Para um projecto que vive do WhatsApp, partilhar um link sem imagem é desperdiçar a partilha.
+
+### O que muda
+
+- Nova imagem de partilha, 1200 × 630: logótipo, “Preparação para o acesso à universidade”, o slogan e o endereço do site.
+- O index.html passa a declarar og:title, og:description, og:image, og:url, og:site_name, og:locale e og:type, mais as equivalentes do Twitter/X.
+- A descrição do site foi reescrita: a antiga falava da app mobile, que já não é o próximo passo do projecto.
+- Cada página declara também o seu endereço canónico.
+
+### Notas técnicas
+
+- Ficheiro em public/og-mukandaprepa.png, 50 kB. Desenhado em Arial porque a Montserrat não está instalada na máquina — quando o Leonel Macaia fizer uma, substitui-se o ficheiro e não é preciso mexer no código.
+- O endereço da imagem é absoluto e aponta para https://www.mukandaprepa.com. É obrigatório: os pré-visualizadores não resolvem caminhos relativos. Enquanto a imagem não estiver no domínio real, a partilha do link do protótipo não mostra imagem.
+- O WhatsApp e o Facebook não executam JavaScript, por isso lêem sempre o que está no index.html. O título por página (ESP-22) serve ao Google, não às partilhas.
+- Testar com o depurador de partilhas do Facebook e enviando o link para um grupo de WhatsApp — o WhatsApp guarda em cache, por isso convém testar com o link limpo.
+
+### Questões em aberto
+
+- Para ter imagem e texto diferentes por página nas partilhas seria preciso gerar um ficheiro HTML por endereço no build. Fica por decidir (mesma questão da ESP-22).
+- A imagem é provisória: vale a pena pedir uma ao Leonel Macaia, com o mesmo formato 1200 × 630.
+
+### Ver no protótipo
+
+- [Página inicial](https://mukandaprepa-prototipo.vercel.app/)

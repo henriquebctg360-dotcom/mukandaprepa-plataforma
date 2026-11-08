@@ -610,4 +610,31 @@ export const ESPECIFICACOES = [
       'Falta inscrever o site no Google Search Console e submeter o sitemap. Só se faz com o domínio real.',
     ],
   },
+  {
+    id: 'ESP-23',
+    titulo: 'Imagem e texto de partilha',
+    data: '08 Nov 2026',
+    estado: 'implementada',
+    pedido: 'Fazer com que o link do site, partilhado no WhatsApp ou no Facebook, apareça com imagem e título em vez de só o endereço.',
+    decisao: 'Imagem feita com as cores e o logótipo da marca, até haver uma do designer. Para um projecto que vive do WhatsApp, partilhar um link sem imagem é desperdiçar a partilha.',
+    alteracoes: [
+      'Nova imagem de partilha, 1200 × 630: logótipo, “Preparação para o acesso à universidade”, o slogan e o endereço do site.',
+      'O index.html passa a declarar og:title, og:description, og:image, og:url, og:site_name, og:locale e og:type, mais as equivalentes do Twitter/X.',
+      'A descrição do site foi reescrita: a antiga falava da app mobile, que já não é o próximo passo do projecto.',
+      'Cada página declara também o seu endereço canónico.',
+    ],
+    paginas: [
+      { label: 'Página inicial', href: '/' },
+    ],
+    notasDev: [
+      'Ficheiro em public/og-mukandaprepa.png, 50 kB. Desenhado em Arial porque a Montserrat não está instalada na máquina — quando o Leonel Macaia fizer uma, substitui-se o ficheiro e não é preciso mexer no código.',
+      'O endereço da imagem é absoluto e aponta para https://www.mukandaprepa.com. É obrigatório: os pré-visualizadores não resolvem caminhos relativos. Enquanto a imagem não estiver no domínio real, a partilha do link do protótipo não mostra imagem.',
+      'O WhatsApp e o Facebook não executam JavaScript, por isso lêem sempre o que está no index.html. O título por página (ESP-22) serve ao Google, não às partilhas.',
+      'Testar com o depurador de partilhas do Facebook e enviando o link para um grupo de WhatsApp — o WhatsApp guarda em cache, por isso convém testar com o link limpo.',
+    ],
+    questoesEmAberto: [
+      'Para ter imagem e texto diferentes por página nas partilhas seria preciso gerar um ficheiro HTML por endereço no build. Fica por decidir (mesma questão da ESP-22).',
+      'A imagem é provisória: vale a pena pedir uma ao Leonel Macaia, com o mesmo formato 1200 × 630.',
+    ],
+  },
 ];
