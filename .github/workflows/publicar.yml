@@ -31,6 +31,9 @@ jobs:
   publicar:
     name: Compilar e enviar
     runs-on: ubuntu-latest
+    # Se alguma coisa encravar, morre em 15 minutos em vez de ficar horas a
+    # gastar minutos da conta. Um envio normal leva 2 a 3.
+    timeout-minutes: 15
 
     env:
       SERVIDOR: ${{ vars.SSH_SERVIDOR }}
@@ -62,21 +65,50 @@ jobs:
 
       - name: Preparar a chave e conhecer o servidor
         run: |
+          test -n "$SERVIDOR" || { echo "Falta a variable SSH_SERVIDOR"; exit 1; }
+          test -n "$UTILIZADOR" || { echo "Falta a variable SSH_UTILIZADOR"; exit 1; }
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "${{ secrets.SSH_CHAVE_PRIVADA }}" > ~/.ssh/chave
           chmod 600 ~/.ssh/chave
+          ssh-keygen -y -f ~/.ssh/chave > /dev/null 2>&1 \
+            || { echo "A chave privada não é válida. Copiar outra vez do cPanel, do -----BEGIN ao -----END."; exit 1; }
           ssh-keyscan -p "$PORTA" -H "$SERVIDOR" >> ~/.ssh/known_hosts 2>/dev/null
           test -s ~/.ssh/known_hosts || { echo "O servidor não respondeu na porta $PORTA"; exit 1; }
+          echo "Chave lida e servidor conhecido."
+
+      # Este passo existe para o envio nunca mais ficar pendurado.
+      # BatchMode=yes impede o ssh de pedir uma palavra-passe que ninguém vai
+      # escrever: em vez de esperar para sempre, falha em segundos e diz porquê.
+      - name: Testar a ligação antes de enviar
+        timeout-minutes: 2
+        run: |
+          if echo "pwd" | sftp -b - -i ~/.ssh/chave -P "$PORTA" \
+               -o BatchMode=yes -o ConnectTimeout=20 \
+               "$UTILIZADOR@$SERVIDOR"; then
+            echo "Ligação estabelecida."
+          else
+            echo ""
+            echo "Não entrou. As causas, por ordem de probabilidade:"
+            echo "  1. A chave pública não foi AUTORIZADA no cPanel"
+            echo "     SSH Access > Manage SSH Keys > (chave pública) Manage > Authorize"
+            echo "  2. O utilizador está errado — deve ser o do cPanel, sem @ nem domínio"
+            echo "  3. A chave privada foi colada incompleta no secret"
+            exit 1
+          fi
 
       - name: Enviar para o cPanel
+        timeout-minutes: 8
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
           lftp -c "
-            set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/chave -p $PORTA';
+            set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/chave -p $PORTA -o BatchMode=yes -o ConnectTimeout=20';
+            set sftp:auto-confirm yes;
+            set net:timeout 20;
+            set net:max-retries 3;
+            set net:reconnect-interval-base 5;
+            set xfer:clobber on;
             open -u $UTILIZADOR, sftp://$SERVIDOR;
-            mirror --reverse --verbose --parallel=4 \
-                   --exclude-glob .git* \
-                   ./dist/ $PASTA
+            mirror --reverse --verbose --parallel=4 --exclude-glob .git* ./dist/ $PASTA
           "
           # mirror --reverse envia; SEM --delete, de propósito. Dentro do
           # public_html estão as pastas api.mukandaprepa.com e
