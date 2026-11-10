@@ -64,17 +64,50 @@ jobs:
           echo "dist/ tem $(find dist -type f | wc -l) ficheiros, $(du -sh dist | cut -f1)"
 
       - name: Preparar a chave e conhecer o servidor
+        env:
+          CHAVE: ${{ secrets.SSH_CHAVE_PRIVADA }}
         run: |
           test -n "$SERVIDOR" || { echo "Falta a variable SSH_SERVIDOR"; exit 1; }
           test -n "$UTILIZADOR" || { echo "Falta a variable SSH_UTILIZADOR"; exit 1; }
+          test -n "$CHAVE" || { echo "O secret SSH_CHAVE_PRIVADA está vazio"; exit 1; }
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.SSH_CHAVE_PRIVADA }}" > ~/.ssh/chave
+
+          # Tira os fins de linha do Windows. Se a chave passou por um editor
+          # do Windows vem com caracteres que o OpenSSH recusa, e isso não se
+          # vê a olho nu. É das causas mais comuns.
+          printf '%s\n' "$CHAVE" | tr -d '\r' > ~/.ssh/chave
           chmod 600 ~/.ssh/chave
-          ssh-keygen -y -f ~/.ssh/chave > /dev/null 2>&1 \
-            || { echo "A chave privada não é válida. Copiar outra vez do cPanel, do -----BEGIN ao -----END."; exit 1; }
+
+          if erro=$(ssh-keygen -y -P "" -f ~/.ssh/chave 2>&1 >/dev/null); then
+            echo "Chave lida e válida."
+          else
+            echo "A chave privada não foi aceite."
+            echo ""
+            echo "O que o OpenSSH diz: $erro"
+            echo ""
+            echo "O que está no secret (sem mostrar a chave):"
+            echo "  linhas ............ $(wc -l < ~/.ssh/chave)"
+            echo "  primeira linha .... $(head -1 ~/.ssh/chave | cut -c1-45)"
+            echo "  última linha ...... $(tail -1 ~/.ssh/chave | cut -c1-45)"
+            if head -1 ~/.ssh/chave | grep -q '^ssh-'; then
+              echo ""
+              echo "  >> Isto é a chave PUBLICA, nao a privada."
+              echo "     A privada esta na tabela Private Keys do cPanel, mais abaixo"
+              echo "     na mesma pagina, e tem muitas linhas."
+            fi
+            case "$erro" in
+              *passphrase*)
+                echo ""
+                echo "  >> A chave tem passphrase. Gerar outra no cPanel deixando os"
+                echo "     campos da passphrase VAZIOS, autorizar, e usar essa."
+                ;;
+            esac
+            exit 1
+          fi
+
           ssh-keyscan -p "$PORTA" -H "$SERVIDOR" >> ~/.ssh/known_hosts 2>/dev/null
           test -s ~/.ssh/known_hosts || { echo "O servidor não respondeu na porta $PORTA"; exit 1; }
-          echo "Chave lida e servidor conhecido."
+          echo "Servidor conhecido."
 
       # Este passo existe para o envio nunca mais ficar pendurado.
       # BatchMode=yes impede o ssh de pedir uma palavra-passe que ninguém vai
@@ -92,7 +125,7 @@ jobs:
             echo "  1. A chave pública não foi AUTORIZADA no cPanel"
             echo "     SSH Access > Manage SSH Keys > (chave pública) Manage > Authorize"
             echo "  2. O utilizador está errado — deve ser o do cPanel, sem @ nem domínio"
-            echo "  3. A chave privada foi colada incompleta no secret"
+            echo "  3. O alojamento tem o acesso SSH desligado para esta conta"
             exit 1
           fi
 
