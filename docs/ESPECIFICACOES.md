@@ -1263,7 +1263,7 @@ As quatro ligações foram abertas uma a uma num navegador a sério, e não só 
 | LinkedIn | Página **MUKANDA PREPA**, acessível |
 | Facebook | Reencaminha para `/people/Mukanda-Prepa/61591268696768/`, acessível |
 | TikTok | Conta `mukandaprepa` existe |
-| Instagram | Exigiu início de sessão; não foi possível confirmar de fora |
+| Instagram | Exigiu início de sessão; confirmado depois pela direcção |
 
 ### Questões em aberto
 
@@ -1271,7 +1271,7 @@ O que se viu ao confirmar as ligações, e que é decisão da direcção e não 
 
 - **O TikTok está vazio:** 1 seguidor, nenhum vídeo, sem biografia. Uma ligação para uma conta vazia convida o visitante a sair do site para não encontrar nada. **A direcção vai pedir o endereço da conta nova** (11 Nov 2026); até lá a ligação do rodapé continua a apontar para esta.
 - **O Facebook é um perfil pessoal, e está certo assim.** Levantei isto como problema e a direcção corrigiu-me (11 Nov 2026): o perfil **já está em modo profissional**, que é o que o Facebook oferece hoje e que traz as mesmas definições de uma página — estatísticas incluídas. A conversão de perfil em página, que eu dei como caminho, **já não existe**. Nada a fazer.
-- O Instagram não foi possível confirmar sem sessão iniciada. Vale a pena a equipa de marketing abrir a ligação do rodapé no telemóvel e confirmar que chega à conta certa.
+- **O Instagram está confirmado** (11 Nov 2026). Não foi possível verificá-lo de fora, porque exige sessão iniciada; a direcção abriu a ligação do rodapé e chega à conta certa.
 
 ---
 
