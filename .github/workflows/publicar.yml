@@ -132,59 +132,51 @@ jobs:
       - name: Enviar para o cPanel
         timeout-minutes: 8
         run: |
-          # Instalar o lftp com paciência (ESP-35).
+          # Envio por sftp, sem instalar nada.
           #
-          # Um envio falhou aqui, e não no cPanel: o runner do GitHub não
-          # conseguiu resolver security.ubuntu.com e o apt-get saiu com
-          # código 100. O site e o servidor estavam bons — o passo nem
-          # chegou a tentar enviar nada.
+          # Isto era feito com o lftp, que e preciso instalar com o apt-get.
+          # Tres envios seguidos falharam ai — e nao no cPanel: o runner do
+          # GitHub nao conseguia resolver security.ubuntu.com. Pos-se a
+          # instalacao a tentar tres vezes e a avaria durou mais do que as
+          # tentativas, que gastaram os oito minutos do passo.
           #
-          # Três tentativas espaçadas resolvem uma falha de rede passageira.
-          # Se o lftp já estiver na imagem do runner, nem se instala.
-          if command -v lftp >/dev/null 2>&1; then
-            echo "lftp já está instalado."
-          else
-            instalado=nao
-            for tentativa in 1 2 3; do
-              echo "A instalar o lftp (tentativa $tentativa de 3)..."
-              if sudo apt-get update -qq && sudo apt-get install -y -qq lftp; then
-                instalado=sim
-                break
-              fi
-              echo "Falhou. Nova tentativa dentro de 20 segundos."
-              sleep 20
+          # O sftp ja vem no runner e ja e usado no passo anterior, aquele
+          # que liga ao servidor com exito todas as vezes. Uma dependencia a
+          # menos e uma causa de avaria a menos.
+          #
+          # O lote e gerado a partir do que esta em dist/, para nao haver uma
+          # lista de ficheiros escrita a mao que envelhece sozinha.
+          cd dist
+
+          {
+            # As pastas primeiro. O travessao a frente manda o sftp ignorar
+            # o erro de "ja existe", que e o caso normal.
+            find . -mindepth 1 -type d | sed 's|^\./||' | sort | while read -r d; do
+              printf -- '-mkdir "%s/%s"\n' "$PASTA" "$d"
             done
-            if [ "$instalado" != "sim" ]; then
-              echo ""
-              echo "Não foi possível instalar o lftp."
-              echo "Isto é da rede do GitHub, NÃO do site nem do cPanel:"
-              echo "o passo nem chegou a tentar enviar ficheiros."
-              echo "O site continua no ar na versão anterior."
-              echo "Correr o workflow outra vez daqui a uns minutos resolve."
-              exit 1
-            fi
-          fi
-          lftp -c "
-            set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/chave -p $PORTA -o BatchMode=yes -o ConnectTimeout=20';
-            set sftp:auto-confirm yes;
-            set net:timeout 20;
-            set net:max-retries 3;
-            set net:reconnect-interval-base 5;
-            set xfer:clobber on;
-            open -u $UTILIZADOR, sftp://$SERVIDOR;
-            mirror --reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
-            put -O $PASTA ./dist/index.html
-          "
-          # mirror --reverse envia; SEM --delete, de propósito. Dentro do
-          # public_html estão as pastas api.mukandaprepa.com e
-          # app.mukandaprepa.com, criadas pelo cPanel. Apagar o que não
-          # reconhece levá-las-ia à frente.
+
+            # Depois os ficheiros, menos o index.html.
+            find . -type f ! -name index.html | sed 's|^\./||' | sort | while read -r f; do
+              printf 'put "%s" "%s/%s"\n' "$f" "$PASTA" "$f"
+            done
+
+            # O index.html em ULTIMO lugar, sozinho. E ele que nomeia os
+            # ficheiros de assets/: se chegasse primeiro, quem abrisse o site
+            # nesse intervalo pedia um JavaScript que ainda nao existia.
+            printf 'put "index.html" "%s/index.html"\n' "$PASTA"
+          } > /tmp/lote.sftp
+
+          echo "$(grep -c '^put' /tmp/lote.sftp) ficheiros a enviar, $(grep -c '^-mkdir' /tmp/lote.sftp) pastas a garantir."
+
+          # Sem o travessao, um put que falhe aborta o lote e o passo falha —
+          # que e o que se quer: mais vale parar do que publicar metade.
           #
-          # O index.html vai em ÚLTIMO lugar, sozinho, e por isso está
-          # excluído do espelho. É ele que nomeia os ficheiros de assets/:
-          # se chegar primeiro, quem abrir o site nesse intervalo pede um
-          # JavaScript que ainda não existe. Enviado no fim, os ficheiros
-          # que ele nomeia já lá estão todos.
+          # NAO se apaga nada no servidor, de proposito. Dentro do public_html
+          # estao as pastas api.mukandaprepa.com e app.mukandaprepa.com,
+          # criadas pelo cPanel; uma limpeza levava-as a frente.
+          sftp -b /tmp/lote.sftp -i ~/.ssh/chave -P "$PORTA" \
+               -o BatchMode=yes -o ConnectTimeout=20 \
+               "$UTILIZADOR@$SERVIDOR"
 
       - name: Confirmar que o site responde
         run: |
