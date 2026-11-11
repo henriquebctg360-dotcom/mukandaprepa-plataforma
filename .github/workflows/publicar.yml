@@ -132,7 +132,38 @@ jobs:
       - name: Enviar para o cPanel
         timeout-minutes: 8
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          # Instalar o lftp com paciência (ESP-35).
+          #
+          # Um envio falhou aqui, e não no cPanel: o runner do GitHub não
+          # conseguiu resolver security.ubuntu.com e o apt-get saiu com
+          # código 100. O site e o servidor estavam bons — o passo nem
+          # chegou a tentar enviar nada.
+          #
+          # Três tentativas espaçadas resolvem uma falha de rede passageira.
+          # Se o lftp já estiver na imagem do runner, nem se instala.
+          if command -v lftp >/dev/null 2>&1; then
+            echo "lftp já está instalado."
+          else
+            instalado=nao
+            for tentativa in 1 2 3; do
+              echo "A instalar o lftp (tentativa $tentativa de 3)..."
+              if sudo apt-get update -qq && sudo apt-get install -y -qq lftp; then
+                instalado=sim
+                break
+              fi
+              echo "Falhou. Nova tentativa dentro de 20 segundos."
+              sleep 20
+            done
+            if [ "$instalado" != "sim" ]; then
+              echo ""
+              echo "Não foi possível instalar o lftp."
+              echo "Isto é da rede do GitHub, NÃO do site nem do cPanel:"
+              echo "o passo nem chegou a tentar enviar ficheiros."
+              echo "O site continua no ar na versão anterior."
+              echo "Correr o workflow outra vez daqui a uns minutos resolve."
+              exit 1
+            fi
+          fi
           lftp -c "
             set sftp:connect-program 'ssh -a -x -i $HOME/.ssh/chave -p $PORTA -o BatchMode=yes -o ConnectTimeout=20';
             set sftp:auto-confirm yes;
@@ -141,20 +172,9 @@ jobs:
             set net:reconnect-interval-base 5;
             set xfer:clobber on;
             open -u $UTILIZADOR, sftp://$SERVIDOR;
-            mirror --reverse --verbose --no-perms --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
+            mirror --reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
             put -O $PASTA ./dist/index.html
           "
-          # UMA ligação de cada vez, e não quatro em paralelo (ESP-35).
-          # O envio passou a falhar sempre no mesmo sítio, com a ligação a
-          # ser testada com sucesso cinco segundos antes — o sinal de um
-          # alojamento partilhado a limitar ligações SFTP simultâneas. O site
-          # tem poucos megabytes: em série demora mais uns segundos e deixa
-          # de depender de o servidor aceitar quatro sessões ao mesmo tempo.
-          #
-          # --no-perms porque não interessa replicar permissões: os ficheiros
-          # já lá estão com as do cPanel, e tentar mudá-las é mais uma coisa
-          # que o servidor pode recusar.
-          #
           # mirror --reverse envia; SEM --delete, de propósito. Dentro do
           # public_html estão as pastas api.mukandaprepa.com e
           # app.mukandaprepa.com, criadas pelo cPanel. Apagar o que não
