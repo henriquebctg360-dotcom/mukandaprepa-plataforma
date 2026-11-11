@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 34 especificações aplicadas |
+| `main` | A nova versão do site, com as 36 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 34 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 36 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -64,7 +64,7 @@ O site não tem backend: não há contas, autenticação nem formulários que en
 
 O site vive no **cPanel da Fluxo**, no domínio principal, servido de `/home/mukandaprep/public_html`.
 
-**Não se enviam zips.** Sempre que alguma coisa entra no ramo `main`, o GitHub compila o site e envia a pasta `dist/` por FTPS para o cPanel. O painel não tem Terminal, por isso não há maneira de correr `npm run build` no servidor — quem compila é o GitHub. O ficheiro que trata disto é [`.github/workflows/publicar.yml`](.github/workflows/publicar.yml).
+**Não se enviam zips.** Sempre que alguma coisa entra no ramo `main`, o GitHub compila o site e envia a pasta `dist/` por SFTP para o cPanel. O painel não tem Terminal, por isso não há maneira de correr `npm run build` no servidor — quem compila é o GitHub. O ficheiro que trata disto é [`.github/workflows/publicar.yml`](.github/workflows/publicar.yml).
 
 ### Configurar, uma vez
 

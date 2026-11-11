@@ -42,6 +42,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-32 — Inscrição no Google Search Console](#esp-32)
 - [ESP-33 — Redes sociais à vista, e numa fonte única](#esp-33)
 - [ESP-34 — O menu de telemóvel e duas incoerências do rodapé](#esp-34)
+- [ESP-35 e ESP-36 — Três envios falhados, e a dependência que os causava](#esp-35)
 
 ---
 
@@ -1269,3 +1270,49 @@ Duas coisas que se viram ao confirmar as ligações e que são decisão da direc
 - **O TikTok está vazio:** 1 seguidor, nenhum vídeo, sem biografia. Uma ligação para uma conta vazia convida o visitante a sair do site para não encontrar nada. Ou se alimenta, ou se tira do rodapé até haver conteúdo.
 - **O Facebook é um perfil pessoal, não uma página.** Tem 56 seguidores. Um perfil pessoal não dá estatísticas, não se gere a várias mãos e não pode ser promovido. Converter num perfil de empresa é uma operação que o próprio Facebook oferece.
 - O Instagram não foi possível confirmar sem sessão iniciada. Vale a pena a equipa de marketing abrir a ligação do rodapé no telemóvel e confirmar que chega à conta certa.
+
+---
+
+<a id="esp-35"></a>
+## ESP-35 e ESP-36 — Três envios falhados, e a dependência que os causava
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Nenhum: as correcções da ESP-34 não chegavam ao site. O envio falhava sempre no mesmo passo.
+
+### Decisão
+
+O erro verdadeiro estava no fim do registo, e não no princípio:
+
+```
+Temporary failure resolving 'security.ubuntu.com'
+E: Unable to fetch some archives
+Error: Process completed with exit code 100
+```
+
+O envio **nunca chegou a enviar um único ficheiro**. O que falhava era a instalação do `lftp`, que o passo fazia com o `apt-get` a cada publicação. O cPanel, a chave e a ligação estavam todos bons — o passo anterior, que testa a ligação ao servidor, passou cinco segundos antes em todas as tentativas falhadas.
+
+A primeira correcção foi pôr a instalação a tentar três vezes. Não chegou: a avaria da rede do runner durou mais do que as tentativas, e o envio seguinte gastou os oito minutos do passo a insistir.
+
+A lição não é "mais tentativas", é **menos dependências**. O `sftp` já vem no runner e já era usado no passo que liga ao servidor com êxito todas as vezes. Não havia razão para instalar um segundo programa só para enviar 80 ficheiros.
+
+### O que muda
+
+- Sai o `lftp` e sai o `apt-get` do passo de envio. Entra o `sftp`, que já lá está.
+- O lote de comandos é gerado a partir do que está em `dist/`, para não haver uma lista de ficheiros escrita à mão que envelhece sozinha: as pastas primeiro (com travessão à frente, que manda ignorar o "já existe"), depois os ficheiros, e o `index.html` em último lugar, como já ia desde a ESP-31.
+- Um `put` que falhe aborta o lote e o passo falha. Mais vale parar do que publicar metade.
+- Continua a **não apagar nada** no servidor: dentro do `public_html` estão as pastas `api.mukandaprepa.com` e `app.mukandaprepa.com`, criadas pelo cPanel.
+
+### Notas técnicas
+
+Fica registado o que correu mal no diagnóstico, que demorou três envios a chegar ao sítio certo.
+
+Antes de ler o fim do registo, propus duas explicações e as duas estavam erradas: primeiro um limite de ligações SFTP em paralelo do alojamento partilhado, depois disco cheio por causa da cópia de segurança feita nesse dia. Cheguei a mudar o envio para uma ligação de cada vez por causa da primeira — mudança que este trabalho desfez, por não ter nada a ver com o problema.
+
+O que as duas hipóteses tinham em comum era partirem dos **tempos** (falhava aos 1m49, aos 2m34, aos 4m44) em vez do **texto do erro**, que estava a umas dezenas de linhas de distância. Os tempos davam uma história plausível e falsa.
+
+### Questões em aberto
+
+- Esta dependência era a última coisa que a publicação instalava a cada vez. Não ficou nenhuma: o envio usa agora só o que o runner já traz.
