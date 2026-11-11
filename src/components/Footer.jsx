@@ -19,11 +19,12 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <h4>Siga-nos</h4>
+          {/* "Siga-nos" era o único tratamento formal do site: as notícias,
+              a página de contactos e a home tratam o estudante por tu. */}
+          <h4>Segue-nos</h4>
           {/* Os endereços vivem em src/config/contactos.js (ESP-33). Estavam
               escritos aqui à mão, e repetidos noutro formato nas notícias. */}
           <Redes variante="icones" />
-          <p className="footer__redes-nota">@mukandaprepa</p>
         </div>
 
         <div className="footer__col">

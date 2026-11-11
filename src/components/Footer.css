@@ -64,9 +64,3 @@
   }
 }
 
-/* A nota por baixo dos ícones das redes (ESP-33): as quatro contas usam o
-   mesmo nome, e dizê-lo uma vez poupa quatro linhas de texto repetido. */
-.footer__redes-nota {
-  font-size: 13px;
-  color: var(--color-gray-mid);
-}

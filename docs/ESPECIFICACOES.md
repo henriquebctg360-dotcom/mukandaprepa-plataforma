@@ -41,6 +41,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-31 — Um ficheiro que falta deixa de devolver o index.html](#esp-31)
 - [ESP-32 — Inscrição no Google Search Console](#esp-32)
 - [ESP-33 — Redes sociais à vista, e numa fonte única](#esp-33)
+- [ESP-34 — O menu de telemóvel e duas incoerências do rodapé](#esp-34)
 
 ---
 
@@ -1226,3 +1227,45 @@ Confirmado com a direcção que as redes oficiais continuam a ser quatro, com os
 ### Questões em aberto
 
 - Não há canal de YouTube. Se vier a haver, acrescenta-se uma entrada em `REDES` e um ícone — o resto do site acompanha sozinho.
+
+---
+
+<a id="esp-34"></a>
+## ESP-34 — O menu de telemóvel e duas incoerências do rodapé
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção, depois de ver as redes publicadas: *"Sim, trata do erro do Navbar. Verifica esses erros."*
+
+### Decisão
+
+Três coisas, duas delas visíveis a olho nu quando se punham o rodapé e a página de contactos lado a lado.
+
+### O que muda
+
+**1. O menu de telemóvel fechava tarde demais.** Fechá-lo ao mudar de página estava escrito num `useEffect`, e o eslint recusava-o — com razão. Um efeito corre *depois* de o ecrã ser pintado, por isso havia um instante em que a página nova já estava desenhada com o menu ainda aberto por cima. Passou a ser decidido durante o render, comparando o caminho actual com o anterior: é o padrão que a documentação do React chama "ajustar estado quando uma prop muda", e o React reinicia o render sem chegar a pintar o intermédio. O `npm run lint` passou a correr limpo.
+
+**2. "Siga-nos" era o único tratamento formal do site inteiro.** As notícias dizem "Segue-nos e partilha com os teus colegas", a página de contactos diz "Fala connosco", a home pergunta "Queres acompanhar tudo em primeira mão?". Só o rodapé tratava o estudante por você. Passou a "Segue-nos".
+
+**3. A nota `@mukandaprepa` por baixo dos quatro ícones não era verdade.** Só o Instagram e o TikTok usam esse nome: o Facebook é um perfil com identificador numérico e o LinkedIn é `/company/mukanda-prepa/`. A nota saiu; quem quiser o nome de cada conta tem-no escrito na página de Contactos, rede a rede.
+
+### Notas técnicas
+
+As quatro ligações foram abertas uma a uma num navegador a sério, e não só com um pedido simples — estas redes respondem de maneira diferente a quem não parece um visitante:
+
+| Rede | O que respondeu |
+|---|---|
+| LinkedIn | Página **MUKANDA PREPA**, acessível |
+| Facebook | Reencaminha para `/people/Mukanda-Prepa/61591268696768/`, acessível |
+| TikTok | Conta `mukandaprepa` existe |
+| Instagram | Exigiu início de sessão; não foi possível confirmar de fora |
+
+### Questões em aberto
+
+Duas coisas que se viram ao confirmar as ligações e que são decisão da direcção, não do site:
+
+- **O TikTok está vazio:** 1 seguidor, nenhum vídeo, sem biografia. Uma ligação para uma conta vazia convida o visitante a sair do site para não encontrar nada. Ou se alimenta, ou se tira do rodapé até haver conteúdo.
+- **O Facebook é um perfil pessoal, não uma página.** Tem 56 seguidores. Um perfil pessoal não dá estatísticas, não se gere a várias mãos e não pode ser promovido. Converter num perfil de empresa é uma operação que o próprio Facebook oferece.
+- O Instagram não foi possível confirmar sem sessão iniciada. Vale a pena a equipa de marketing abrir a ligação do rodapé no telemóvel e confirmar que chega à conta certa.

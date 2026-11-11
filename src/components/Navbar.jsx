@@ -16,7 +16,20 @@ export default function Navbar() {
   }, []);
 
   // Mudar de página fecha o menu; senão ficava aberto por cima do conteúdo.
-  useEffect(() => { setMenuAberto(false); }, [pathname]);
+  //
+  // Isto estava num useEffect e o eslint recusava-o, com razão: um efeito que
+  // só muda estado corre DEPOIS de o ecrã ser pintado, por isso havia um
+  // instante em que a página nova já estava desenhada com o menu ainda aberto
+  // por cima. Comparar aqui, durante o render, fecha-o antes de se ver.
+  //
+  // É o padrão que a documentação do React chama "ajustar estado quando uma
+  // prop muda": guarda-se o caminho anterior e compara-se. O React reinicia o
+  // render imediatamente, sem pintar o intermédio.
+  const [caminhoAnterior, setCaminhoAnterior] = useState(pathname);
+  if (pathname !== caminhoAnterior) {
+    setCaminhoAnterior(pathname);
+    setMenuAberto(false);
+  }
 
   useEffect(() => {
     const h = (e) => { if (e.key === 'Escape') setMenuAberto(false); };
