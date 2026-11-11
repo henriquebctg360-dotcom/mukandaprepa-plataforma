@@ -40,7 +40,7 @@
   RewriteRule ^(assets/|fontes/) - [R=404,L]
 
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule \.(js|css|woff2?|map|json|xml|txt|png|jpe?g|webp|svg|ico)$ - [R=404,L]
+  RewriteRule \.(html?|js|css|woff2?|map|json|xml|txt|png|jpe?g|webp|svg|ico)$ - [R=404,L]
 
   # Rotas do React: o que nao for ficheiro nem pasta vai para o index.html.
   RewriteRule ^index\.html$ - [L]
