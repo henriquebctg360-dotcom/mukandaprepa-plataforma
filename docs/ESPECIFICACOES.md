@@ -39,6 +39,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-29 — HTTPS e endereço fixo com www](#esp-29)
 - [ESP-30 — A página inicial ao contrário: certa no telemóvel, errada no computador](#esp-30)
 - [ESP-31 — Um ficheiro que falta deixa de devolver o index.html](#esp-31)
+- [ESP-32 — Inscrição no Google Search Console](#esp-32)
 
 ---
 
@@ -1154,3 +1155,38 @@ Verificado no site publicado: ficheiro que falta devolve 404, ficheiro que exist
 ### Questões em aberto
 
 - Quem tenha aberto o site naquele minuto precisa de um **Ctrl+Shift+R**, uma vez. Não há maneira de resolver isso do lado do servidor: o endereço do ficheiro é o mesmo e o navegador nem chega a perguntar.
+
+---
+
+<a id="esp-32"></a>
+## ESP-32 — Inscrição no Google Search Console
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção: *"Inscreve no Google Search Console e submete o sitemap."*
+
+### Decisão
+
+Sem isto, o Google descobre o site mais cedo ou mais tarde, mas às cegas e ao seu ritmo. Com a inscrição feita, dizemos-lhe quais são as páginas, ficamos a saber o que ele indexou e o que não conseguiu, e recebemos aviso por e-mail quando alguma coisa corre mal.
+
+Foi escolhida a propriedade de **prefixo de URL**, `https://www.mukandaprepa.com/`, e não a de domínio. A de domínio obriga a mexer no DNS e arrastaria atrás os subdomínios `app.` e `api.`, que não são para indexar. O endereço leva `www` porque é esse o canónico desde a ESP-29.
+
+### O que muda
+
+- Novo ficheiro `public/googled0d18e1fd63ac327.html`, de uma linha, na raiz do site. É por ele que o Google confirma que o site é nosso. **Não se apaga:** se desaparecer, o Google deixa de reconhecer a propriedade.
+- O `sitemap.xml`, com as 17 páginas, foi submetido.
+
+### Notas técnicas
+
+A primeira tentativa de verificação falhou com *"o conteúdo do ficheiro de validação é incorrecto"*, e a mensagem enganava: o ficheiro não estava sequer no servidor. Um pedido terminado em `.html` que não existisse caía na regra das rotas do React e recebia o `index.html` com código 200 — o Google leu isso e queixou-se do conteúdo em vez de dizer que não encontrava nada.
+
+Ficou corrigido na mesma linha da ESP-31: um `.html` que não existe passa a dar 404, como já davam o `js`, o `css` e os restantes.
+
+Confirmado no site publicado que o ficheiro responde 200 com o conteúdo exacto ao verificador do Search Console e ao Googlebot, e que o `sitemap.xml` lhes chega como `application/xml`.
+
+### Questões em aberto
+
+- Todas as páginas são servidas a partir do mesmo `index.html`, com o título e a descrição escritos pelo JavaScript depois de a página abrir. O Google executa JavaScript, por isso lê-os — mas quem não executa (a pré-visualização do WhatsApp, por exemplo) vê sempre o mesmo. É a mesma questão já levantada nas ESP-22 e ESP-23: resolvê-la obriga a gerar um HTML por rota na compilação.
+- Falta medir no PageSpeed Insights e guardar o resultado.

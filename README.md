@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 31 especificações aplicadas |
+| `main` | A nova versão do site, com as 32 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 31 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 32 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -31,7 +31,7 @@ npm run lint
 2. ~~Levar o `public/.htaccess`~~ — vai sozinho dentro de `dist/`, e a publicação pára com erro se faltar.
 3. **Guardar uma cópia** do que está no cPanel antes de substituir.
 4. ~~Ligar a compressão e a cache no cPanel~~ — já vai no `public/.htaccess`: compressão, cache de um ano para ficheiros com nome versionado e nenhuma cache para o `index.html`.
-5. **Inscrever no Google Search Console** e submeter `https://www.mukandaprepa.com/sitemap.xml`.
+5. ~~Inscrever no Google Search Console~~ — feito a 11 Nov 2026 (ESP-32). **O ficheiro `public/googled0d18e1fd63ac327.html` não se apaga:** é por ele que o Google reconhece a propriedade.
 6. **Testar a partilha**: enviar o link para um grupo de WhatsApp e confirmar que aparece com imagem e título. O WhatsApp guarda em cache, por isso convém testar com o link limpo.
 7. **Medir com o PageSpeed Insights** antes e depois, e guardar os dois resultados.
 
