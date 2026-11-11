@@ -141,9 +141,20 @@ jobs:
             set net:reconnect-interval-base 5;
             set xfer:clobber on;
             open -u $UTILIZADOR, sftp://$SERVIDOR;
-            mirror --reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
+            mirror --reverse --verbose --no-perms --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
             put -O $PASTA ./dist/index.html
           "
+          # UMA ligação de cada vez, e não quatro em paralelo (ESP-35).
+          # O envio passou a falhar sempre no mesmo sítio, com a ligação a
+          # ser testada com sucesso cinco segundos antes — o sinal de um
+          # alojamento partilhado a limitar ligações SFTP simultâneas. O site
+          # tem poucos megabytes: em série demora mais uns segundos e deixa
+          # de depender de o servidor aceitar quatro sessões ao mesmo tempo.
+          #
+          # --no-perms porque não interessa replicar permissões: os ficheiros
+          # já lá estão com as do cPanel, e tentar mudá-las é mais uma coisa
+          # que o servidor pode recusar.
+          #
           # mirror --reverse envia; SEM --delete, de propósito. Dentro do
           # public_html estão as pastas api.mukandaprepa.com e
           # app.mukandaprepa.com, criadas pelo cPanel. Apagar o que não
