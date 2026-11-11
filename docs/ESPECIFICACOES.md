@@ -34,6 +34,11 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-24 — Velocidade: fontes, código e imagens](#esp-24)
 - [ESP-25 — Acessibilidade](#esp-25)
 - [ESP-26 — Fim do protótipo: o site passa a ser o site](#esp-26)
+- [ESP-27 — Logotipo da barra e ícone do separador](#esp-27)
+- [ESP-28 — Publicação automática no cPanel a partir do `main`](#esp-28)
+- [ESP-29 — HTTPS e endereço fixo com www](#esp-29)
+- [ESP-30 — A página inicial ao contrário: certa no telemóvel, errada no computador](#esp-30)
+- [ESP-31 — Um ficheiro que falta deixa de devolver o index.html](#esp-31)
 
 ---
 
@@ -1000,3 +1005,152 @@ O protótipo cumpriu o que tinha a cumprir: mostrar as ideias, deixá-las discut
 - **A validar antes de publicar:** as respostas das perguntas frequentes nunca foram confirmadas pela direcção. Tinham uma etiqueta "Respostas a validar" que saiu com a camada do protótipo, por isso agora aparecem como se estivessem fechadas.
 - O `vercel.json` mantém o cabeçalho que manda não indexar. É do endereço de pré-visualização; o cPanel não lê este ficheiro. Está explicado no README.
 - Continuam por decidir: o contraste do branco sobre o laranja da marca (ESP-25), a pré-visualização por página no WhatsApp (ESP-22 e ESP-23), as imagens definitivas do designer (ESP-18 e ESP-23), quem assina o artigo-modelo (ESP-15) e a fotografia do Leonel Macaia (ESP-20).
+
+---
+
+<a id="esp-27"></a>
+## ESP-27 — Logotipo da barra e ícone do separador
+
+**Estado:** Implementada · **Data:** 08 Nov 2026
+
+### Pedido
+
+Da direcção, a olhar para o site num computador: *"Um parece com um tamanho pequeno e outro está sem fundo."*
+
+### Decisão
+
+Dois problemas diferentes, com a mesma origem: os ficheiros do logotipo foram usados como vieram do designer, sem os preparar para o sítio onde iam aparecer.
+
+### O que muda
+
+- **O logotipo da barra.** O ficheiro original tinha a marca ao centro e 58% de espaço vazio à volta. A barra reservava-lhe uma altura, o espaço vazio comia-a, e a marca ficava pequena. Passou a ser usada a marca aparada, sem margem — ocupa agora a altura toda que a barra lhe dá.
+- **O ícone do separador.** Era a marca sobre fundo transparente. Ao lado do Gmail, do Drive ou do Facebook, que têm todos um quadrado de cor, parecia fino e apagado. Passou a ser a marca branca sobre um quadrado laranja de cantos arredondados, nos tamanhos 32, 192 e 512, mais o de 180 que o iPhone usa quando alguém guarda o site no ecrã inicial.
+
+### Notas técnicas
+
+- Os ícones são gerados a partir do logotipo oficial da pasta `DOCUMENTOS RECENTES/LOGOTIPO`, não desenhados de novo.
+- O ícone de Apple não leva cantos arredondados: o sistema arredonda-os sozinho, e arredondá-los duas vezes deixa uma orla.
+
+---
+
+<a id="esp-28"></a>
+## ESP-28 — Publicação automática no cPanel a partir do `main`
+
+**Estado:** Implementada · **Data:** 08 a 10 Nov 2026
+
+### Pedido
+
+Da direcção: *"Carregar ficheiros zips não foi para mim uma boa ideia e nem para engenheira Fernanda. Foi extremamente trabalhoso. Eu quero utilizar a `main` do repositório directamente."*
+
+### Decisão
+
+Quem compila passa a ser o GitHub. Sempre que alguma coisa entra no ramo `main`, o GitHub instala, compila e envia só a pasta `dist/` — os ficheiros prontos — para dentro do `public_html`. Ninguém volta a abrir o gestor de ficheiros do cPanel.
+
+O painel deste alojamento não tem Terminal, por isso não há maneira de correr o `npm run build` no servidor; e não oferece contas de FTP, só SSH com chave. As duas limitações decidiram o desenho: compila-se fora, envia-se por SFTP com chave.
+
+### O que muda
+
+- Novo ficheiro `.github/workflows/publicar.yml`, com nove passos e um limite de 15 minutos.
+- A chave privada vive num *secret* do GitHub e em mais lado nenhum. O servidor, o utilizador, a porta e a pasta são *variables*, à vista no painel.
+- O envio é um espelho **sem apagar**. Dentro do `public_html` estão as pastas `api.mukandaprepa.com` e `app.mukandaprepa.com`, criadas pelo cPanel: um espelho que apagasse o que não reconhece levava-as à frente.
+- A publicação pára com erro se faltar o `index.html` ou o `.htaccess` em `dist/`.
+
+### Notas técnicas
+
+Três coisas correram mal pelo caminho, e as três deixaram defesa escrita no ficheiro:
+
+- **O envio ficou pendurado 12 minutos.** O `ssh` estava à espera de uma palavra-passe que ninguém ia escrever. Passou a levar `BatchMode=yes` e `ConnectTimeout=20`: em vez de esperar para sempre, falha em segundos e diz porquê. Há agora um passo só para testar a ligação, antes de enviar seja o que for.
+- **A chave não era aceite e não se percebia porquê.** O passo da chave passou a dizer o que o OpenSSH respondeu, quantas linhas tem o *secret* e como começa — sem nunca mostrar a chave.
+- **A chave tinha palavra-passe sem ninguém a ter escrito.** O gestor de palavras-passe do navegador preencheu sozinho o campo da *passphrase* no formulário do cPanel. Foi gerada outra, com os campos vazios, e autorizada.
+
+### Questões em aberto
+
+- As cópias de segurança automáticas estão desligadas pelo administrador do servidor. Antes de uma mudança grande, convém descarregar uma cópia em *Backup → Download a Home Directory Backup*.
+
+---
+
+<a id="esp-29"></a>
+## ESP-29 — HTTPS e endereço fixo com www
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção, logo depois da primeira publicação: *"O site apresenta problemas de conexão não segura?"*
+
+### Decisão
+
+O certificado sempre esteve bom — AutoSSL válido até Janeiro de 2027, com e sem www. O que faltava era mandar quem chega por `http://` passar para `https://`. No telemóvel, que abria já em `https`, aparecia o cadeado; no computador, não.
+
+### O que muda
+
+- Quem chega por `http://` é reencaminhado para `https://`, com código 301.
+- Quem chega sem `www` é reencaminhado para `www.mukandaprepa.com`. Um endereço só, para o Google não contar o site duas vezes.
+
+### Notas técnicas
+
+As duas regras estão limitadas ao domínio principal de propósito. O Apache lê este mesmo `.htaccess` quando serve `api.mukandaprepa.com` e `app.mukandaprepa.com`, cujas pastas vivem dentro do `public_html` — sem esse cuidado, os dois subdomínios eram atirados para o site institucional.
+
+---
+
+<a id="esp-30"></a>
+## ESP-30 — A página inicial ao contrário: certa no telemóvel, errada no computador
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção, depois de o site estar no ar: *"A home está estranha (apenas no PC), porque no telefone funcionou bem."* E, mais tarde, a desfazer a primeira suspeita: *"Não mudou mesmo depois de limpar a cache."*
+
+### Decisão
+
+O defeito era nosso e vinha da ESP-26. Foi reposto o ficheiro original e a limpeza refeita como deve ser.
+
+### O que muda
+
+- `src/components/hero/HeroVariantes.css` passa a ter 178 linhas, 32 chavetas abertas e 32 fechadas, só com `hero-v` (partilhado) e `hero-a` (a proposta escolhida).
+- A página inicial volta a desenhar-se como foi aprovada em ecrãs largos: a hero em duas colunas, os factos em grelha, os cartões lado a lado.
+
+### Notas técnicas
+
+Vale a pena ficar registado, porque a lição é mais larga do que o erro.
+
+Quando a ESP-26 retirou as duas propostas de hero que não ficaram, a remoção foi feita com uma expressão regular. Uma expressão regular não sabe que um `@media` abre uma chaveta à volta de outras: levou o conteúdo e deixou **duas chavetas por fechar**. No ficheiro de CSS único que o Vite gera, tudo o que vinha a seguir ficou preso dentro de `(max-width: 1023px)` e `(max-width: 560px)` — ou seja, só se aplicava em ecrãs estreitos. Daí o sintoma ao contrário: o telemóvel acertava, o computador não.
+
+O defeito foi encontrado a percorrer as regras de estilo no próprio navegador e a perguntar dentro de que `@media` estava cada uma. A contagem de chavetas confirmou-o em segundos, e nenhum dos outros ficheiros de CSS estava desequilibrado.
+
+A remoção foi refeita com um programa que conta chavetas, entra dentro dos `@media` e limpa **selector a selector** em vez de deitar fora a regra inteira — era isso que faltava para `.hero-a__inner, .hero-c__inner` perder só a segunda metade.
+
+Antes disto houve duas explicações erradas da minha parte — a cache do navegador e a compressão — e as duas foram desmentidas por quem estava a ver o site.
+
+---
+
+<a id="esp-31"></a>
+## ESP-31 — Um ficheiro que falta deixa de devolver o index.html
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Nenhum: foi apanhado ao publicar a correcção da ESP-30.
+
+### Decisão
+
+Durante a publicação, o `index.html` novo chegou ao servidor **antes** dos ficheiros da pasta `assets/`. Nesse intervalo de cerca de um minuto, quem abriu o site pediu o JavaScript novo, caiu na regra das rotas do React e recebeu o `index.html` — com código 200 e com a cache de um ano que damos aos ficheiros versionados.
+
+O navegador guardou HTML debaixo do endereço do JavaScript. E, como o nome de um ficheiro versionado só muda quando o conteúdo muda, nem recarregar a página resolvia: ficaria assim durante um ano.
+
+### O que muda
+
+Duas correcções, uma para a causa e outra para a consequência:
+
+- **A publicação envia o `index.html` em último lugar**, sozinho, depois de tudo o que ele nomeia já lá estar. O intervalo deixa de existir.
+- **Um ficheiro que não existe devolve 404** em vez do `index.html`. Um 404 não se guarda em cache, por isso o navegador volta a pedir assim que o ficheiro chegar. As rotas do React continuam a ir ao `index.html` — só os pedidos de ficheiros e das pastas `assets/` e `fontes/` é que passam a dar 404.
+
+### Notas técnicas
+
+Verificado no site publicado: ficheiro que falta devolve 404, ficheiro que existe devolve 200 com o tipo certo, `/equipa` continua a abrir, e o `sitemap.xml`, o `robots.txt` e as fontes não foram afectados.
+
+### Questões em aberto
+
+- Quem tenha aberto o site naquele minuto precisa de um **Ctrl+Shift+R**, uma vez. Não há maneira de resolver isso do lado do servidor: o endereço do ficheiro é o mesmo e o navegador nem chega a perguntar.
