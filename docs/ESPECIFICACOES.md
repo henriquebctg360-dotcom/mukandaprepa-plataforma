@@ -1267,10 +1267,10 @@ As quatro ligações foram abertas uma a uma num navegador a sério, e não só 
 
 ### Questões em aberto
 
-Duas coisas que se viram ao confirmar as ligações e que são decisão da direcção, não do site:
+O que se viu ao confirmar as ligações, e que é decisão da direcção e não do site:
 
-- **O TikTok está vazio:** 1 seguidor, nenhum vídeo, sem biografia. Uma ligação para uma conta vazia convida o visitante a sair do site para não encontrar nada. Ou se alimenta, ou se tira do rodapé até haver conteúdo.
-- **O Facebook é um perfil pessoal, não uma página.** Tem 56 seguidores. Um perfil pessoal não dá estatísticas, não se gere a várias mãos e não pode ser promovido. Converter num perfil de empresa é uma operação que o próprio Facebook oferece.
+- **O TikTok está vazio:** 1 seguidor, nenhum vídeo, sem biografia. Uma ligação para uma conta vazia convida o visitante a sair do site para não encontrar nada. **A direcção vai pedir o endereço da conta nova** (11 Nov 2026); até lá a ligação do rodapé continua a apontar para esta.
+- **O Facebook é um perfil pessoal, e está certo assim.** Levantei isto como problema e a direcção corrigiu-me (11 Nov 2026): o perfil **já está em modo profissional**, que é o que o Facebook oferece hoje e que traz as mesmas definições de uma página — estatísticas incluídas. A conversão de perfil em página, que eu dei como caminho, **já não existe**. Nada a fazer.
 - O Instagram não foi possível confirmar sem sessão iniciada. Vale a pena a equipa de marketing abrir a ligação do rodapé no telemóvel e confirmar que chega à conta certa.
 
 ---
