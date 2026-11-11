@@ -44,6 +44,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-34 — O menu de telemóvel e duas incoerências do rodapé](#esp-34)
 - [ESP-35 e ESP-36 — Três envios falhados, e a dependência que os causava](#esp-35)
 - [ESP-37 — Os ícones das redes, redesenhados](#esp-37)
+- [ESP-38 — Os ícones estavam a canto: uma regra do rodapé apanhava-os](#esp-38)
 
 ---
 
@@ -1357,3 +1358,44 @@ O defeito não se via nas medidas do ecrã: os quatro `<svg>` mediam 20×20 px d
 Para rever o resultado, os quatro foram desenhados numa camada por cima do site, ampliados e em tamanho real ao mesmo tempo, dentro de botões iguais aos do rodapé. É a maneira de ver um problema de peso óptico, que nenhuma medida denuncia.
 
 Confirmado depois que os três com contentor ocupam exactamente de 2 a 22 nas duas direcções, e que o TikTok ocupa 18,6 de altura — a mesma faixa, com a largura menor que a própria marca tem.
+
+---
+
+<a id="esp-38"></a>
+## ESP-38 — Os ícones estavam a canto: uma regra do rodapé apanhava-os
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção, depois de a ESP-37 redesenhar os ícones: *"Ainda não está como deve ser. O que se passa?"*
+
+### Decisão
+
+Os ícones **não estavam centrados nos botões redondos**: encostavam ao canto superior esquerdo, com 0,8 px de margem em cima e à esquerda e 17,2 px em baixo e à direita.
+
+A causa estava a um ficheiro de distância, numa regra do rodapé escrita muito antes das redes existirem:
+
+```css
+.footer__col a,
+.footer__col p { display: block; ... }
+```
+
+Ela apanha **todos** os links dentro de uma coluna do rodapé — incluindo os das redes, que lá vivem desde a ESP-33 — e `.footer__col a` pesa mais do que `.redes__link`. Com `display: block` em vez de `inline-flex`, o `justify-content` e o `align-items` do componente deixam de ter efeito: não há caixa flexível para centrar coisa nenhuma.
+
+Na página de Contactos não existe essa regra, e foi por isso que lá sempre esteve bem — o que fez o defeito parecer um problema do desenho dos ícones quando era do seu enquadramento.
+
+### O que muda
+
+Duas correcções, uma para a causa e outra para que não volte a acontecer:
+
+- **No rodapé, a regra passa a `.footer__col > a`** — só os filhos directos. Os links próprios do rodapé são filhos directos da coluna; os das redes vivem dentro de uma lista. A regra deixa de lhes tocar, e deixa de tocar a qualquer outro componente que venha a ser colocado no rodapé.
+- **O componente passa a afirmar o seu próprio enquadramento** com peso suficiente para ganhar a regras genéricas de quem o acolhe: `display`, `align-items`, `justify-content` e `margin` repetidos na variante, e não só na regra base.
+
+### Notas técnicas
+
+Isto escapou à ESP-37 por uma razão que vale a pena ficar escrita: **revi os ícones fora do sítio onde vivem.** Desenhei-os numa camada por cima da página, ampliados, dentro de botões iguais aos do rodapé — e aí estavam perfeitos, porque essa camada não estava dentro de um `.footer__col`. O defeito só existe em contexto.
+
+A medida que o denunciou não foi uma imagem, foi comparar as quatro margens de cada ícone dentro do seu botão. Centrado são quatro números iguais; 0,8 contra 17,2 diz logo que não há centramento nenhum a acontecer.
+
+Confirmado depois: 9 px dos quatro lados, nos quatro ícones, em ecrã de computador e de telemóvel, sem transbordo horizontal, e a página de Contactos inalterada.

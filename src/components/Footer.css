@@ -15,8 +15,12 @@
   margin-bottom: 14px;
 }
 
-.footer__col a,
-.footer__col p {
+/* `>` de proposito (ESP-38). Sem ele, esta regra apanhava tambem os links
+   das redes sociais, que vivem dentro de uma lista, e punha-os `display:
+   block` — o que desligava o centramento dos icones dentro dos botoes
+   redondos. Os links proprios do rodape sao filhos directos da coluna. */
+.footer__col > a,
+.footer__col > p {
   display: block;
   font-size: 13px;
   color: var(--color-gray-mid);
