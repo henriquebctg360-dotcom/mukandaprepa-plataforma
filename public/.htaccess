@@ -24,6 +24,24 @@
   RewriteCond %{HTTP_HOST} ^mukandaprepa\.com$ [NC]
   RewriteRule ^ https://www.mukandaprepa.com%{REQUEST_URI} [R=301,L]
 
+  # Um ficheiro que falta devolve 404 e nao o index.html.
+  #
+  # Isto apanhou-nos a serio. Durante a publicacao o index.html novo chega
+  # antes dos ficheiros assets/. Nesse intervalo o pedido do JavaScript novo
+  # caia na regra das rotas e recebia o index.html — com 200 e com a cache de
+  # um ano dos ficheiros versionados. O navegador guardava HTML debaixo do
+  # endereco do JavaScript e so o largava um ano depois.
+  #
+  # Com esta regra, um ficheiro que ainda nao chegou da 404: o navegador nao
+  # guarda nada e, assim que o ficheiro chega, carrega-o. A publicacao tambem
+  # passou a enviar o index.html em ultimo lugar, por isso o intervalo deixou
+  # de existir — mas a rede de seguranca fica.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(assets/|fontes/) - [R=404,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule \.(js|css|woff2?|map|json|xml|txt|png|jpe?g|webp|svg|ico)$ - [R=404,L]
+
   # Rotas do React: o que nao for ficheiro nem pasta vai para o index.html.
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f

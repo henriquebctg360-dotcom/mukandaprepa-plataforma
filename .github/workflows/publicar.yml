@@ -141,12 +141,19 @@ jobs:
             set net:reconnect-interval-base 5;
             set xfer:clobber on;
             open -u $UTILIZADOR, sftp://$SERVIDOR;
-            mirror --reverse --verbose --parallel=4 --exclude-glob .git* ./dist/ $PASTA
+            mirror --reverse --verbose --parallel=4 --exclude-glob .git* --exclude-glob index.html ./dist/ $PASTA;
+            put -O $PASTA ./dist/index.html
           "
           # mirror --reverse envia; SEM --delete, de propósito. Dentro do
           # public_html estão as pastas api.mukandaprepa.com e
           # app.mukandaprepa.com, criadas pelo cPanel. Apagar o que não
           # reconhece levá-las-ia à frente.
+          #
+          # O index.html vai em ÚLTIMO lugar, sozinho, e por isso está
+          # excluído do espelho. É ele que nomeia os ficheiros de assets/:
+          # se chegar primeiro, quem abrir o site nesse intervalo pede um
+          # JavaScript que ainda não existe. Enviado no fim, os ficheiros
+          # que ele nomeia já lá estão todos.
 
       - name: Confirmar que o site responde
         run: |
