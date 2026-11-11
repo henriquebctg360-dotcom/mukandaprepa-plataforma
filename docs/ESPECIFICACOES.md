@@ -43,6 +43,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-33 — Redes sociais à vista, e numa fonte única](#esp-33)
 - [ESP-34 — O menu de telemóvel e duas incoerências do rodapé](#esp-34)
 - [ESP-35 e ESP-36 — Três envios falhados, e a dependência que os causava](#esp-35)
+- [ESP-37 — Os ícones das redes, redesenhados](#esp-37)
 
 ---
 
@@ -1316,3 +1317,43 @@ O que as duas hipóteses tinham em comum era partirem dos **tempos** (falhava ao
 ### Questões em aberto
 
 - Esta dependência era a última coisa que a publicação instalava a cada vez. Não ficou nenhuma: o envio usa agora só o que o runner já traz.
+
+---
+
+<a id="esp-37"></a>
+## ESP-37 — Os ícones das redes, redesenhados
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção, com uma imagem do rodapé: *"Os ícones não estão bem no rodapé."*
+
+### Decisão
+
+Tinha razão, e o defeito era meu. Na ESP-33 fui buscar cada marca ao seu lado e usei-a como veio, sem reparar que vinham em escalas e em pesos diferentes:
+
+| Rede | Como estava |
+|---|---|
+| Facebook | Marca **cheia**, a ocupar a caixa de ponta a ponta |
+| LinkedIn | Marca **cheia**, a ocupar a caixa de ponta a ponta |
+| Instagram | Desenho **fino**, a ocupar 83% da caixa |
+| TikTok | Desenho cheio, a ocupar 67% da caixa |
+
+Lado a lado, dentro de botões redondos, os dois cheios liam-se como manchas escuras a transbordar e os outros dois pareciam apagados ao lado deles.
+
+### O que muda
+
+Os quatro passam a obedecer a três regras:
+
+1. **A mesma caixa.** Todos desenhados em 24×24, com a marca entre 2 e 22 — duas unidades de margem de cada lado.
+2. **O mesmo peso.** Quem tem contentor — Instagram, Facebook e LinkedIn — desenha-o como contorno de 2 unidades de espessura, com a marca de dentro cheia. O TikTok não tem contentor: é só a marca.
+3. **A mesma cor.** Tudo em `currentColor`, para o mesmo ícone servir no rodapé (cinzento, em círculo branco) e na página de contactos (laranja, em círculo claro) sem existir duas vezes.
+
+### Notas técnicas
+
+O defeito não se via nas medidas do ecrã: os quatro `<svg>` mediam 20×20 px desde o início, e foi por isso que passou à primeira. O que diferia era o desenho **dentro** da caixa, que só se vê medindo o `getBBox` de cada um ou ampliando-os lado a lado.
+
+Para rever o resultado, os quatro foram desenhados numa camada por cima do site, ampliados e em tamanho real ao mesmo tempo, dentro de botões iguais aos do rodapé. É a maneira de ver um problema de peso óptico, que nenhuma medida denuncia.
+
+Confirmado depois que os três com contentor ocupam exactamente de 2 a 22 nas duas direcções, e que o TikTok ocupa 18,6 de altura — a mesma faixa, com a largura menor que a própria marca tem.
