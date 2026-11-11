@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ARTIGOS_VISIVEIS } from '../config/artigos';
 import './Footer.css';
 import { CONTACTO } from '../config/contactos';
+import Redes from './Redes';
 
 export default function Footer() {
   return (
@@ -19,13 +20,10 @@ export default function Footer() {
 
         <div className="footer__col">
           <h4>Siga-nos</h4>
-          {/* Perfis oficiais confirmados pela equipa (D6 + D-A2, 3-4 Ago 2026).
-              O LinkedIn usa o URL público da página; o /admin/dashboard do
-              link partilhado internamente só funciona para administradores. */}
-          <a href="https://www.linkedin.com/company/mukanda-prepa/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://www.facebook.com/profile.php?id=61591268696768" target="_blank" rel="noreferrer">Facebook</a>
-          <a href="https://www.instagram.com/mukandaprepa/" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://www.tiktok.com/@mukandaprepa" target="_blank" rel="noreferrer">TikTok</a>
+          {/* Os endereços vivem em src/config/contactos.js (ESP-33). Estavam
+              escritos aqui à mão, e repetidos noutro formato nas notícias. */}
+          <Redes variante="icones" />
+          <p className="footer__redes-nota">@mukandaprepa</p>
         </div>
 
         <div className="footer__col">

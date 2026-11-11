@@ -1,0 +1,93 @@
+/* Fila de redes sociais (ESP-33). Duas variantes, o mesmo componente. */
+
+.redes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.redes__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.redes__icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* ── Ícones: fila de botões redondos (rodapé) ─────────────────────────── */
+.redes--icones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.redes--icones .redes__link {
+  width: 38px;
+  height: 38px;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-gray-mid);
+  background: #FFFFFF;
+  transition: color .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+.redes--icones .redes__link:hover,
+.redes--icones .redes__link:focus-visible {
+  color: var(--color-orange-texto);
+  border-color: var(--color-orange);
+  transform: translateY(-2px);
+}
+
+/* ── Lista: ícone, nome e conta (página de contactos) ─────────────────── */
+.redes--lista {
+  display: grid;
+  gap: 10px;
+}
+
+.redes--lista .redes__link {
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #FFFFFF;
+  transition: border-color .15s ease, background .15s ease;
+}
+
+.redes--lista .redes__link:hover,
+.redes--lista .redes__link:focus-visible {
+  border-color: var(--color-orange);
+  background: #FFF8F4;
+}
+
+.redes--lista .redes__icone {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: #FFF3EB;
+  color: var(--color-orange-texto);
+}
+
+.redes__texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.redes__texto strong {
+  font-size: 14px;
+  color: var(--color-dark);
+}
+
+.redes__texto span {
+  font-size: 12.5px;
+  color: var(--color-gray-mid);
+}

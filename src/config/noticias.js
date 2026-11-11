@@ -1,3 +1,5 @@
+import { CONTACTO, COMUNIDADE_URL, redePorId } from './contactos';
+
 // Notícias do site — fonte única.
 //
 // A página Notícias mostra todas; a página Blog e a home mostram as mais
@@ -21,11 +23,16 @@
 // imagem, o cartão e a página voltam a mostrar a faixa com a cor da notícia.
 
 // Blocos repetidos no fim das notícias, para não andarem copiados seis vezes.
-const CANAIS = `- Facebook: https://www.facebook.com/profile.php?id=61591268696768
-- Instagram: https://www.instagram.com/mukandaprepa/
-- Grupo de WhatsApp: https://chat.whatsapp.com/CI2jGDNAewi3RHqBRSptjm
-- WhatsApp de suporte: +244 945 370 874
-- E-mail: mukandaprepasuporte@gmail.com`;
+//
+// ESP-33: os endereços deixaram de estar escritos aqui e vêm de
+// src/config/contactos.js, para não poderem divergir dos do rodapé. A lista
+// é a mesma de sempre — Facebook e Instagram — e não a das quatro redes: as
+// notícias são registo histórico e o texto publicado não se reescreve.
+const CANAIS = `- Facebook: ${redePorId('facebook').url}
+- Instagram: ${redePorId('instagram').url}
+- Grupo de WhatsApp: ${COMUNIDADE_URL}
+- WhatsApp de suporte: ${CONTACTO.telefoneLegivel}
+- E-mail: ${CONTACTO.emailSuporte}`;
 
 const SOBRE = `## Sobre a MUKANDA PREPA
 

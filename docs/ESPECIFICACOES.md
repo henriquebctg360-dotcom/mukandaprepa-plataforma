@@ -40,6 +40,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-30 — A página inicial ao contrário: certa no telemóvel, errada no computador](#esp-30)
 - [ESP-31 — Um ficheiro que falta deixa de devolver o index.html](#esp-31)
 - [ESP-32 — Inscrição no Google Search Console](#esp-32)
+- [ESP-33 — Redes sociais à vista, e numa fonte única](#esp-33)
 
 ---
 
@@ -1190,3 +1191,38 @@ Confirmado no site publicado que o ficheiro responde 200 com o conteúdo exacto 
 
 - Todas as páginas são servidas a partir do mesmo `index.html`, com o título e a descrição escritos pelo JavaScript depois de a página abrir. O Google executa JavaScript, por isso lê-os — mas quem não executa (a pré-visualização do WhatsApp, por exemplo) vê sempre o mesmo. É a mesma questão já levantada nas ESP-22 e ESP-23: resolvê-la obriga a gerar um HTML por rota na compilação.
 - Falta medir no PageSpeed Insights e guardar o resultado.
+
+---
+
+<a id="esp-33"></a>
+## ESP-33 — Redes sociais à vista, e numa fonte única
+
+**Estado:** Implementada · **Data:** 11 Nov 2026
+
+### Pedido
+
+Da direcção: *"Eu quero add também as redes sociais da MUKANDA."*
+
+### Decisão
+
+As quatro redes já estavam no site — mas mal. Estavam só no rodapé, escritas em texto simples no meio de uma coluna de links, indistinguíveis dos "Links úteis" ao lado. Quem procura o Instagram procura o símbolo do Instagram, não a palavra.
+
+Confirmado com a direcção que as redes oficiais continuam a ser quatro, com os mesmos endereços de Agosto de 2026: Instagram, Facebook, TikTok e LinkedIn.
+
+### O que muda
+
+- **No rodapé**, os quatro links passam a ícones, numa fila de botões redondos, com o nome `@mukandaprepa` por baixo. Ocupam menos espaço do que as quatro linhas de texto que lá estavam.
+- **Na página de Contactos**, novo bloco "Segue-nos" com ícone, nome da rede e conta, ao lado do WhatsApp e dos e-mails. Até aqui, quem chegava à página de contactos não encontrava uma única rede.
+- **Os endereços passam a viver num sítio só**, em `src/config/contactos.js`. Estavam escritos à mão dentro do `Footer.jsx` e repetidos noutro formato no `noticias.js` — mudar um endereço obrigava a caçar ocorrências, e nada impedia que divergissem.
+
+### Notas técnicas
+
+- Os ícones são SVG desenhados no próprio projecto (`src/components/IconesRedes.jsx`), não uma biblioteca de ícones descarregada: são quatro, não mudam, e uma biblioteca inteira obrigaria o visitante a descarregar muito mais do que o site precisa. Herdam a cor de quem os contém, por isso o mesmo ícone serve no rodapé e na página de contactos.
+- Um componente só, `Redes.jsx`, com duas variantes — `icones` e `lista` — para as duas listas não poderem divergir uma da outra.
+- O nome de cada rede vai escrito no link em texto a sério. Na fila de ícones fica escondido à vista mas presente para quem usa leitor de ecrã: um botão redondo sem nome não se percebe. Para isso entrou a classe `.apenas-leitor-ecra` no `index.css`, que serve para o resto do site daqui para a frente.
+- **O texto das notícias não mudou.** O bloco de canais no fim de cada notícia passou a ir buscar os endereços à mesma fonte, mas continua a listar o que sempre listou — Facebook, Instagram e os contactos de WhatsApp — e não as quatro redes. As notícias são registo histórico e o texto publicado não se reescreve. Confirmado no navegador que o texto sai carácter a carácter igual ao de antes.
+- Verificado a 1280 px e a 375 px, no rodapé e na página de contactos, sem transbordo horizontal.
+
+### Questões em aberto
+
+- Não há canal de YouTube. Se vier a haver, acrescenta-se uma entrada em `REDES` e um ícone — o resto do site acompanha sozinho.

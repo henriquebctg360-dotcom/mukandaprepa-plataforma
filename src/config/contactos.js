@@ -46,3 +46,41 @@ export const ASSUNTO_EMAIL_CONTACTO = 'Contacto pelo site da MUKANDA PREPA';
 // mailto: com o assunto já preenchido.
 export const emailCom = (endereco, assunto) =>
   `mailto:${endereco}${assunto ? `?subject=${encodeURIComponent(assunto)}` : ''}`;
+
+// ── Redes sociais (ESP-33) ──────────────────────────────────────────────────
+// Perfis oficiais, confirmados pela equipa a 3-4 Ago 2026 e reconfirmados pela
+// direcção a 11 Nov 2026. Estavam escritos à mão dentro do Footer.jsx, e os
+// dois primeiros repetidos noutro formato em noticias.js — alterar um endereço
+// obrigava a caçar ocorrências. Agora mudam-se aqui, e só aqui.
+//
+// A ordem é a que aparece no site. O `id` escolhe o ícone (ver IconesRedes.jsx).
+export const REDES = [
+  {
+    id: 'instagram',
+    nome: 'Instagram',
+    conta: '@mukandaprepa',
+    url: 'https://www.instagram.com/mukandaprepa/',
+  },
+  {
+    id: 'facebook',
+    nome: 'Facebook',
+    conta: 'MUKANDA PREPA',
+    url: 'https://www.facebook.com/profile.php?id=61591268696768',
+  },
+  {
+    id: 'tiktok',
+    nome: 'TikTok',
+    conta: '@mukandaprepa',
+    url: 'https://www.tiktok.com/@mukandaprepa',
+  },
+  {
+    // O endereço público da página. O /admin/dashboard que circulou
+    // internamente só funciona para quem a administra.
+    id: 'linkedin',
+    nome: 'LinkedIn',
+    conta: 'MUKANDA PREPA',
+    url: 'https://www.linkedin.com/company/mukanda-prepa/',
+  },
+];
+
+export const redePorId = (id) => REDES.find((r) => r.id === id);

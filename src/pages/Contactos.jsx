@@ -8,6 +8,7 @@ import {
   emailCom,
 } from '../config/contactos';
 import { IconeComunidade, IconeWhatsApp } from '../components/hero/partes';
+import Redes from '../components/Redes';
 
 // ESP-21 — o formulário saiu.
 //
@@ -79,6 +80,13 @@ export default function Contactos() {
             <div className="contactos-info__card">
               <h3>E-mail geral</h3>
               <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>
+            </div>
+
+            {/* ESP-33 — quem chegava aqui não encontrava nenhuma rede: estavam
+                só no rodapé. A lista vem de src/config/contactos.js. */}
+            <div className="contactos-info__card contactos-info__card--redes">
+              <h3>Segue-nos</h3>
+              <Redes variante="lista" />
             </div>
 
             <div className="contactos-mapa">
