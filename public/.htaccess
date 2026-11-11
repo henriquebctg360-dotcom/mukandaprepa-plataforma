@@ -4,6 +4,27 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Forcar HTTPS e fixar o endereco com www.
+  #
+  # Sem isto o site respondia tambem em http://, sem encriptacao, e os
+  # navegadores avisavam que a ligacao nao era segura. O certificado sempre
+  # esteve bom — faltava mandar quem chega por http passar para https.
+  #
+  # As duas regras sao limitadas ao dominio principal de proposito: o Apache
+  # tambem le este ficheiro quando serve api.mukandaprepa.com e
+  # app.mukandaprepa.com, cujas pastas vivem dentro de public_html. Sem este
+  # cuidado, os dois subdominios eram atirados para o site institucional.
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?mukandaprepa\.com$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://www.mukandaprepa.com%{REQUEST_URI} [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^mukandaprepa\.com$ [NC]
+  RewriteRule ^ https://www.mukandaprepa.com%{REQUEST_URI} [R=301,L]
+
+  # Rotas do React: o que nao for ficheiro nem pasta vai para o index.html.
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
