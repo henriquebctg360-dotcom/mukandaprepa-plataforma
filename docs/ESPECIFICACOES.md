@@ -1425,7 +1425,7 @@ Confirmado depois: 9 px dos quatro lados, nos quatro ícones, em ecrã de comput
 <a id="esp-39"></a>
 ## ESP-39 — Medir as visitas, com autorização
 
-**Estado:** Implementada, à espera do identificador · **Data:** 14 Nov 2026
+**Estado:** Implementada e ligada · **Data:** 14 Nov 2026
 
 ### Pedido
 
@@ -1471,5 +1471,6 @@ Verificado no navegador, com um identificador de teste:
 
 ### Questões em aberto
 
-- **Falta o identificador** `G-XXXXXXXXXX` da conta do Analytics. Enquanto não chegar, nada disto está ligado.
+- ~~Falta o identificador da conta do Analytics.~~ Ligado a 14 Nov 2026: propriedade **MUKANDA PREPA**, fluxo **mukandaprepa** → `https://www.mukandaprepa.com`. O identificador vive em `src/config/analytics.js`.
+- A direcção chegou primeiro ao **Gestor de Etiquetas** (GTM), que é outro produto. Esse contentor ficou criado e por usar — o site não lhe toca. Se um dia for preciso, é de lá que se gerem etiquetas sem mexer no código; por agora seria uma camada a mais.
 - Fica por decidir se o aviso deve poder ser reaberto — hoje, quem recusa só volta a ser perguntado se limpar os dados do site no navegador. Para um site sem conta de utilizador, é defensável; se a direcção quiser, acrescenta-se uma ligação no rodapé.

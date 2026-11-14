@@ -12,7 +12,8 @@
 //
 // Não é um segredo: vai parar ao JavaScript que o navegador descarrega, como
 // tudo o que é VITE_* neste projecto. Identifica a conta, não dá acesso a ela.
-export const GA_ID = '';
+// Propriedade “MUKANDA PREPA”, fluxo “mukandaprepa” → https://www.mukandaprepa.com
+export const GA_ID = 'G-KFDX162BCV';
 
 // ── Consentimento ──────────────────────────────────────────────────────────
 // O Analytics guarda cookies no computador de quem visita, por isso só entra
