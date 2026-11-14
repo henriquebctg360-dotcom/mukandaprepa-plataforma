@@ -49,14 +49,43 @@
   RewriteRule . /index.html [L]
 </IfModule>
 
+# Cache (ESP-41).
+#
+# A regra anterior dava um ano de cache "immutable" a TODOS os ficheiros com
+# extensao de ficheiro estatico. Para o que o Vite gera em assets/ isso esta
+# certo: o nome traz o resumo do conteudo, por isso mudar o conteudo muda o
+# nome e o navegador vai buscar outro ficheiro.
+#
+# Para os ficheiros de public/ esta errado, e a diferenca nao e teorica: o
+# og-mukandaprepa.png, o logo-icon.png, os icones e o sitemap.xml tem nome
+# FIXO. Dizer "immutable, um ano" a um nome fixo e prometer que o conteudo
+# nunca muda — e quando muda, quem ja o tinha fica com o antigo durante um
+# ano, sem maneira de o forcar a ir buscar outra vez.
+#
+# Apanhado a 14 Nov 2026, ao trocar a imagem de partilha.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2|png|jpg|jpeg|webp|svg)$">
+  # Nome versionado: um ano, e nunca mais se pergunta.
+  <FilesMatch "\.(js|css|woff2?)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
+
+  # Nome fixo: um dia de cache, e depois pergunta-se ao servidor se mudou.
+  # O servidor responde "nao mudou" em poucos bytes quando nao mudou, por
+  # isso isto nao pesa na velocidade.
+  <FilesMatch "\.(png|jpe?g|webp|svg|ico|xml|txt)$">
+    Header set Cache-Control "public, max-age=86400, must-revalidate"
+  </FilesMatch>
+
   <FilesMatch "index\.html$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>
+
+# Nota: hoje NENHUMA imagem tem nome versionado — as 40 estao em public/ com
+# nome fixo, e o Vite so versiona o js e o css. Se um dia passarem pelo Vite,
+# acrescenta-se aqui uma regra para elas. Nao se deixa uma regra a adivinhar
+# nomes versionados: bastava um ficheiro chamar-se algo-12345678.png para
+# apanhar um ano de cache sem ninguem querer.
 
 # Compressão. Sem isto o navegador descarrega o triplo em texto.
 <IfModule mod_deflate.c>
@@ -65,11 +94,13 @@
   AddOutputFilterByType DEFLATE image/svg+xml application/xml
 </IfModule>
 
-# As imagens e as fontes também podem ficar em cache por um ano: os nomes
-# dos ficheiros mudam quando o conteúdo muda.
+# O mesmo pela via do mod_expires, para os servidores que leiam este e nao
+# o mod_headers. As fontes ficam com o ano; as imagens com o dia, pela razao
+# explicada acima.
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/webp "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 day"
+  ExpiresByType image/png "access plus 1 day"
   ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
