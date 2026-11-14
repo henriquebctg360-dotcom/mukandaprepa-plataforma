@@ -45,6 +45,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-35 e ESP-36 — Três envios falhados, e a dependência que os causava](#esp-35)
 - [ESP-37 — Os ícones das redes, redesenhados](#esp-37)
 - [ESP-38 — Os ícones estavam a canto: uma regra do rodapé apanhava-os](#esp-38)
+- [ESP-39 — Medir as visitas, com autorização](#esp-39)
 
 ---
 
@@ -1399,3 +1400,57 @@ Isto escapou à ESP-37 por uma razão que vale a pena ficar escrita: **revi os �
 A medida que o denunciou não foi uma imagem, foi comparar as quatro margens de cada ícone dentro do seu botão. Centrado são quatro números iguais; 0,8 contra 17,2 diz logo que não há centramento nenhum a acontecer.
 
 Confirmado depois: 9 px dos quatro lados, nos quatro ícones, em ecrã de computador e de telemóvel, sem transbordo horizontal, e a página de Contactos inalterada.
+
+---
+
+<a id="esp-39"></a>
+## ESP-39 — Medir as visitas, com autorização
+
+**Estado:** Implementada, à espera do identificador · **Data:** 14 Nov 2026
+
+### Pedido
+
+Da direcção, ao fechar as configurações do site: medir as visitas, com o Google Analytics.
+
+### Decisão
+
+Até aqui o site não media nada. Pelo Search Console sabíamos quem chegava pela pesquisa da Google — e mais nada: nem quantas pessoas entram, nem que páginas lêem, nem de onde vêm.
+
+O Analytics guarda cookies no computador de quem visita, e isso obriga a perguntar. A decisão foi fazê-lo como deve ser, e não como se faz na maioria dos sites:
+
+- enquanto não houver resposta, **não se carrega uma única linha de código da Google** — não basta não enviar dados, não se chama sequer o servidor deles;
+- **"Recusar" é um botão a sério**, do mesmo tamanho e à mesma vista que "Aceitar";
+- a resposta fica no navegador da própria pessoa e não sai de lá.
+
+### O que muda
+
+| Ficheiro | O quê |
+|---|---|
+| `src/config/analytics.js` | O identificador do Analytics e o consentimento. **É aqui, e só aqui, que se escreve o `G-XXXXXXXXXX`** |
+| `src/components/Analytics.jsx` | Carrega a Google depois do sim, e conta cada página |
+| `src/components/AvisoCookies.jsx` | O aviso, em baixo, com os dois botões |
+
+**Com o identificador vazio, o site fica exactamente como estava:** sem aviso, sem cookies, sem um único pedido à Google. Foi assim que ficou publicado, à espera do identificador da conta.
+
+### Notas técnicas
+
+Duas coisas que esta aplicação de página única obriga a resolver, e que um site normal não tem:
+
+**Contar todas as páginas.** O navegador carrega o HTML uma vez e daí em diante troca o conteúdo sem recarregar. O Analytics, deixado por sua conta, contaria uma visita à entrada e mais nenhuma — quem lesse seis notícias apareceria como tendo visto uma página. Avisamo-lo a cada mudança de rota.
+
+**Contá-las com o nome certo.** Este defeito só apareceu a testar: `/contactos` era contada com o título da página inicial. As páginas são carregadas à parte (ESP-24), e na primeira visita a uma delas o `<head>` ainda tem o título da anterior quando a rota já mudou. A correcção foi deixar de adivinhar o momento: o `useMeta` passa a anunciar, por um evento do navegador, que já escreveu o título, e o Analytics espera por esse aviso. Há uma rede de segurança de 800 ms para o caso de o aviso não chegar — mais vale uma visita com o nome errado do que uma visita perdida.
+
+Verificado no navegador, com um identificador de teste:
+
+| O que se testou | Resultado |
+|---|---|
+| Antes de responder ao aviso | Nenhum pedido à Google, `dataLayer` nem existe |
+| "Aceitar" | Código carregado uma vez, visita contada logo |
+| "Recusar" | Zero pedidos à Google, mesmo navegando entre páginas |
+| Quatro páginas seguidas | Quatro visitas, nenhuma repetida, cada uma com o seu título |
+| Telemóvel (375 px) | Os dois botões do mesmo tamanho, sem transbordo |
+
+### Questões em aberto
+
+- **Falta o identificador** `G-XXXXXXXXXX` da conta do Analytics. Enquanto não chegar, nada disto está ligado.
+- Fica por decidir se o aviso deve poder ser reaberto — hoje, quem recusa só volta a ser perguntado se limpar os dados do site no navegador. Para um site sem conta de utilizador, é defensável; se a direcção quiser, acrescenta-se uma ligação no rodapé.

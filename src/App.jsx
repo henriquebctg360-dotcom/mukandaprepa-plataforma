@@ -2,6 +2,8 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import ScrollToTop from './components/ScrollToTop';
+import Analytics from './components/Analytics';
+import AvisoCookies from './components/AvisoCookies';
 import Homepage from './pages/Homepage';
 import PaginaNaoEncontrada from './pages/PaginaNaoEncontrada';
 
@@ -35,6 +37,11 @@ export default function App() {
   return (
     <>
       <ScrollToTop />
+      {/* ESP-39 — nenhum dos dois desenha nada até haver identificador do
+          Analytics configurado em src/config/analytics.js. O Analytics só
+          carrega a Google depois de o aviso ter resposta afirmativa. */}
+      <Analytics />
+      <AvisoCookies />
       <Suspense fallback={<AEsperar />}>
       <Routes>
         <Route element={<MainLayout />}>

@@ -7,7 +7,7 @@
 // O Google executa JavaScript e lê o que fica aqui escrito. O WhatsApp e o
 // Facebook NÃO executam: para eles vale sempre o que está no index.html.
 import { useEffect } from 'react';
-import { META_PADRAO, SITE_URL } from '../config/seo';
+import { META_PADRAO, SITE_URL, EVENTO_META } from '../config/seo';
 
 function escrever(seletor, atributo, valor) {
   let etiqueta = document.head.querySelector(seletor);
@@ -45,6 +45,8 @@ export function useMeta({ titulo, descricao, caminho }) {
     escrever('meta[name="twitter:description"]', 'content', descricao || META_PADRAO.descricao);
     escrever('meta[property="og:image"]', 'content', `${SITE_URL}/og-mukandaprepa.png`);
     ligacaoCanonica(SITE_URL + (caminho || ''));
+    // Escrito. Quem estiver à espera do título certo pode avançar.
+    window.dispatchEvent(new Event(EVENTO_META));
     return undefined;
   }, [titulo, descricao, caminho]);
 }

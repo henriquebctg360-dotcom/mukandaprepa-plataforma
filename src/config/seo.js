@@ -13,6 +13,15 @@
 // As páginas de notícia e de artigo não estão aqui: usam o título e o resumo
 // do próprio conteúdo (ver src/pages/ConteudoDetalhe.jsx).
 
+// Avisado por useMeta sempre que o título e a descrição de uma página ficam
+// escritos (ESP-39). Quem precisa de saber o título certo — hoje só o
+// Analytics — espera por isto em vez de adivinhar o momento.
+//
+// Era preciso porque as páginas são carregadas à parte: na primeira visita a
+// uma delas, o <head> ainda tem o título da página anterior quando o resto da
+// aplicação já reagiu à mudança de rota.
+export const EVENTO_META = 'mukandaprepa:meta';
+
 export const SITE_NOME = 'MUKANDA PREPA';
 export const SITE_URL = 'https://www.mukandaprepa.com';
 
