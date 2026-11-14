@@ -46,6 +46,8 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-37 — Os ícones das redes, redesenhados](#esp-37)
 - [ESP-38 — Os ícones estavam a canto: uma regra do rodapé apanhava-os](#esp-38)
 - [ESP-39 — Medir as visitas, com autorização](#esp-39)
+- [ESP-40 — A imagem de partilha à prova do recorte quadrado](#esp-40)
+- [ESP-41 — Cache de um ano só para quem tem nome versionado](#esp-41)
 
 ---
 
@@ -1474,3 +1476,82 @@ Verificado no navegador, com um identificador de teste:
 - ~~Falta o identificador da conta do Analytics.~~ Ligado a 14 Nov 2026: propriedade **MUKANDA PREPA**, fluxo **mukandaprepa** → `https://www.mukandaprepa.com`. O identificador vive em `src/config/analytics.js`.
 - A direcção chegou primeiro ao **Gestor de Etiquetas** (GTM), que é outro produto. Esse contentor ficou criado e por usar — o site não lhe toca. Se um dia for preciso, é de lá que se gerem etiquetas sem mexer no código; por agora seria uma camada a mais.
 - Fica por decidir se o aviso deve poder ser reaberto — hoje, quem recusa só volta a ser perguntado se limpar os dados do site no navegador. Para um site sem conta de utilizador, é defensável; se a direcção quiser, acrescenta-se uma ligação no rodapé.
+
+---
+
+<a id="esp-40"></a>
+## ESP-40 — A imagem de partilha à prova do recorte quadrado
+
+**Estado:** Implementada · **Data:** 14 Nov 2026
+
+### Pedido
+
+Da direcção, ao testar a partilha no WhatsApp: *"Funcionou. Foi o corte do PC. No telefone funcionou bem."* E, depois de ver a alternativa: *"Troca, e acrescenta essa conclusão ao documento do Leonel."*
+
+### Decisão
+
+A partilha funcionava — título, descrição e endereço certos — mas só no telemóvel.
+
+**No telemóvel**, o WhatsApp mostra a imagem inteira, 1200 × 630. **No computador**, mostra uma miniatura **quadrada**, recortada ao meio: fica a faixa central de 630 × 630 e as duas pontas desaparecem.
+
+A imagem estava composta à maneira editorial, com o logótipo e o título encostados à esquerda — que é precisamente o que o recorte deita fora. No computador ficava sem logótipo, sem nome, e com o título decapitado: *"ação para / so à / sidade"*.
+
+Não era urgente: o caso que mais conta, o telemóvel, já funcionava. Mas a correcção não custa nada ao telemóvel e arruma o computador.
+
+### O que muda
+
+- Tudo o que importa passa a viver **dentro do quadrado central**: logótipo e nome ao cimo, título em três linhas, slogan e endereço, tudo ao centro.
+- As formas de fundo ficam nas pontas, que é onde podem desaparecer sem falta nenhuma.
+- Sai o selo "100% ANGOLANA", que vivia à direita e não cabe no meio sem apertar o resto.
+- O gerador **verifica sozinho** a folga de cada linha até ao limite do quadrado seguro, e imprime-a. A menor é de 94 px.
+
+### Notas técnicas
+
+A conclusão foi acrescentada ao documento de tarefa do **Leonel Macaia**, que é quem vai fazer as imagens definitivas, com a regra escrita e a maneira de a verificar: abrir a imagem, recortar um quadrado ao centro, e ver se ainda se percebe o que é. Saiu de lá a instrução antiga de pôr o logótipo num canto — um canto é das primeiras coisas que o recorte deita fora.
+
+**Ao refazer esse documento destruí o `.docx` original**, por ter passado o caminho dele no argumento de saída de um script de leitura: ficou a zero bytes. O PDF sobreviveu e foi dele que o conteúdo veio; o documento foi reconstruído com tudo o que tinha, mais as duas secções novas, e continua a caber numa página. A cópia do PDF original ficou guardada à parte, e o OneDrive guarda versões anteriores da pasta.
+
+---
+
+<a id="esp-41"></a>
+## ESP-41 — Cache de um ano só para quem tem nome versionado
+
+**Estado:** Implementada · **Data:** 14 Nov 2026
+
+### Pedido
+
+Nenhum: apanhado ao trocar a imagem de partilha da ESP-40, que foi enviada para o servidor e continuou a não aparecer.
+
+### Decisão
+
+O `.htaccess` dava **um ano de cache `immutable`** a todos os ficheiros com extensão de ficheiro estático.
+
+Para o que o Vite gera em `assets/` isso está certo: o nome traz o resumo do conteúdo, por isso mudar o conteúdo muda o nome, e o navegador vai buscar outro ficheiro.
+
+Para os ficheiros de `public/` está errado, e a diferença não é teórica: a imagem de partilha, os ícones, o logótipo e o `sitemap.xml` têm nome **fixo**. Dizer "immutable, um ano" a um nome fixo é prometer que o conteúdo nunca muda — e quando muda, quem já o tinha fica com o antigo durante um ano, sem maneira de o forçar a ir buscar outra vez.
+
+É a mesma família de erro da ESP-31, mas esta estava escrita de propósito.
+
+### O que muda
+
+| O quê | Cache |
+|---|---|
+| `js`, `css`, fontes | Um ano, `immutable` |
+| Imagens, ícones, `xml`, `txt` | Um dia, e depois pergunta ao servidor se mudou |
+| `index.html` | Nenhuma |
+
+Quando o ficheiro não mudou, a resposta do servidor são uns bytes a dizer "não mudou" — por isso o dia de cache não pesa na velocidade.
+
+**Não se deixou nenhuma regra a adivinhar nomes versionados em imagens.** Hoje não há nenhuma: as 40 estão em `public/` com nome fixo, e o Vite só versiona o `js` e o `css`. Uma regra do género `-[8 caracteres].png` bastava para um ficheiro chamado `algo-12345678.png` apanhar um ano de cache sem ninguém querer.
+
+### Notas técnicas
+
+Corrigir a regra não chegou para esta imagem: ela já estava guardada, com o ano de cache, numa camada à frente do Apache — o mesmo `nginx` que serve a página "One moment, please..." a quem não parece um visitante. Continuava a devolver o ficheiro antigo **e o cabeçalho antigo**, e nem um parâmetro na query a fazia largar.
+
+Para um ficheiro de nome fixo há uma única solução que funciona sempre: **mudar-lhe o nome**. `og-mukandaprepa.png` passou a `og-mukandaprepa-v2.png`, com as três referências a acompanhar — duas no `index.html`, uma no `useMeta.js` — e ficou uma nota escrita ao lado da etiqueta a dizer que o número no nome não é enfeite.
+
+Confirmado no site publicado: a imagem no ar é byte a byte a do repositório, e vem com `max-age=86400, must-revalidate`.
+
+### Questões em aberto
+
+- **O WhatsApp guarda a pré-visualização nos servidores dele**, por endereço. Como o endereço do site não mudou, quem já partilhou o link pode continuar a ver o cartão antigo durante algum tempo. Testar com `?x=1` no fim do endereço mostra o novo.

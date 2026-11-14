@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 39 especificações aplicadas |
+| `main` | A nova versão do site, com as 41 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 39 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 41 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -32,8 +32,8 @@ npm run lint
 3. **Guardar uma cópia** do que está no cPanel antes de substituir.
 4. ~~Ligar a compressão e a cache no cPanel~~ — já vai no `public/.htaccess`: compressão, cache de um ano para ficheiros com nome versionado e nenhuma cache para o `index.html`.
 5. ~~Inscrever no Google Search Console~~ — feito (ESP-32): propriedade de prefixo a 11 Nov 2026, propriedade de domínio a 14 Nov 2026. **Duas coisas que não se apagam**, ou a Google deixa de reconhecer o site: o ficheiro `public/googled0d18e1fd63ac327.html`, na raiz, e o registo TXT `google-site-verification=…` na zona DNS do cPanel (que fica ao lado do TXT do SPF — esse nunca se substitui, é o que faz o e-mail funcionar).
-6. **Testar a partilha**: enviar o link para um grupo de WhatsApp e confirmar que aparece com imagem e título. O WhatsApp guarda em cache, por isso convém testar com o link limpo.
-7. **Medir com o PageSpeed Insights** antes e depois, e guardar os dois resultados.
+6. ~~Testar a partilha no WhatsApp~~ — feito a 14 Nov 2026 (ESP-40). Dois cuidados para a próxima vez: **a imagem de partilha tem nome fixo**, por isso quando mudar muda-se também o número no nome (`-v2`, `-v3`…) e as três referências, senão as caches servem a antiga; e **o que importa tem de caber no quadrado central da imagem**, porque no computador o WhatsApp mostra uma miniatura quadrada e corta as pontas.
+7. **Medir com o PageSpeed Insights** — em pagespeed.web.dev, à mão: a API da Google deixou de servir pedidos sem chave de projecto. Medido no navegador a 14 Nov 2026: servidor a responder em 216 ms, 268 kB na primeira visita, página completa numa visita repetida em 264 ms.
 
 ## Onde vivem os conteúdos
 
