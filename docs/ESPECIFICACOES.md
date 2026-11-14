@@ -1184,9 +1184,28 @@ Foi escolhida a propriedade de **prefixo de URL**, `https://www.mukandaprepa.com
 - Novo ficheiro `public/googled0d18e1fd63ac327.html`, de uma linha, na raiz do site. É por ele que o Google confirma que o site é nosso. **Não se apaga:** se desaparecer, o Google deixa de reconhecer a propriedade.
 - O `sitemap.xml`, com as 17 páginas, foi submetido.
 
+### Acrescentado a 14 Nov 2026 — a propriedade de domínio
+
+A Google, por e-mail, recomendou cobrir todas as variantes do endereço. Foi criada também uma **propriedade de domínio** (`mukandaprepa.com`), que cobre de uma vez `http` e `https`, com e sem `www`, e todos os subdomínios — incluindo o `app.` quando a app voltar. A propriedade de prefixo de URL ficou, com o histórico que já tinha.
+
+Verifica-se por DNS, com um registo **TXT** na zona do domínio, acrescentado no cPanel em *Zone Editor*. O sitemap foi submetido outra vez, porque cada propriedade tem a sua lista.
+
+**Dois registos que não se apagam**, por razões diferentes e ambas silenciosas:
+
+| O quê | Onde | Se desaparecer |
+|---|---|---|
+| `public/googled0d18e1fd63ac327.html` | Raiz do site | A Google deixa de reconhecer a propriedade de prefixo |
+| TXT `google-site-verification=…` | Zona DNS, no cPanel | O mesmo, para a propriedade de domínio |
+
+E, ao mexer na zona: o domínio tem um segundo registo TXT, o do **SPF** (`v=spf1 …`), que é o que autoriza o envio de e-mail. Acrescenta-se ao lado, nunca por cima — um domínio pode ter vários TXT.
+
 ### Notas técnicas
 
-A primeira tentativa de verificação falhou com *"o conteúdo do ficheiro de validação é incorrecto"*, e a mensagem enganava: o ficheiro não estava sequer no servidor. Um pedido terminado em `.html` que não existisse caía na regra das rotas do React e recebia o `index.html` com código 200 — o Google leu isso e queixou-se do conteúdo em vez de dizer que não encontrava nada.
+A verificação por DNS também falhou à primeira, e o motivo vale a pena: o código tinha sido copiado à mão da caixa do Search Console e vieram **38 caracteres em vez de 43**. Faltavam cinco, cortados no fim. A Google dizia *"não encontrei o meu código"* e listava, logo a seguir, um registo que à vista parecia o certo.
+
+Contar os caracteres resolveu em segundos o que de outra maneira se atribuiria à propagação e se esperaria horas por ele. Um código de verificação da Google tem sempre 43 caracteres depois do `=`. Da próxima vez, usar o botão de copiar e não o rato.
+
+A primeira tentativa de verificação pelo ficheiro HTML tinha falhado com *"o conteúdo do ficheiro de validação é incorrecto"*, e a mensagem enganava: o ficheiro não estava sequer no servidor. Um pedido terminado em `.html` que não existisse caía na regra das rotas do React e recebia o `index.html` com código 200 — o Google leu isso e queixou-se do conteúdo em vez de dizer que não encontrava nada.
 
 Ficou corrigido na mesma linha da ESP-31: um `.html` que não existe passa a dar 404, como já davam o `js`, o `css` e os restantes.
 

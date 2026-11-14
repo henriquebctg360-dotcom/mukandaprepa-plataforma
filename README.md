@@ -31,7 +31,7 @@ npm run lint
 2. ~~Levar o `public/.htaccess`~~ — vai sozinho dentro de `dist/`, e a publicação pára com erro se faltar.
 3. **Guardar uma cópia** do que está no cPanel antes de substituir.
 4. ~~Ligar a compressão e a cache no cPanel~~ — já vai no `public/.htaccess`: compressão, cache de um ano para ficheiros com nome versionado e nenhuma cache para o `index.html`.
-5. ~~Inscrever no Google Search Console~~ — feito a 11 Nov 2026 (ESP-32). **O ficheiro `public/googled0d18e1fd63ac327.html` não se apaga:** é por ele que o Google reconhece a propriedade.
+5. ~~Inscrever no Google Search Console~~ — feito (ESP-32): propriedade de prefixo a 11 Nov 2026, propriedade de domínio a 14 Nov 2026. **Duas coisas que não se apagam**, ou a Google deixa de reconhecer o site: o ficheiro `public/googled0d18e1fd63ac327.html`, na raiz, e o registo TXT `google-site-verification=…` na zona DNS do cPanel (que fica ao lado do TXT do SPF — esse nunca se substitui, é o que faz o e-mail funcionar).
 6. **Testar a partilha**: enviar o link para um grupo de WhatsApp e confirmar que aparece com imagem e título. O WhatsApp guarda em cache, por isso convém testar com o link limpo.
 7. **Medir com o PageSpeed Insights** antes e depois, e guardar os dois resultados.
 
