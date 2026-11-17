@@ -656,7 +656,7 @@ Lista de Membros de 31/10/2026 (ata 013) e Especificações das Equipas (Novembr
 - As duas vagas — Designer de Maratonas e Professor(a) de Língua Portuguesa — devem aparecer no site, junto ao “Queres trabalhar connosco?”, ou ficam fora?
 - Faltam 14 fotografias. A lista oficial diz que 13 destas pessoas já deram fotografia e autorização de imagem, mas os ficheiros não estão na pasta do projecto.
 - O documento das fotografias foi entregue à Kassia António; a tarefa é da Gestora Comercial, Mariana Baptista. Reemitir?
-- O documento dos artigos manda a Ester Diahoha escrever três artigos de Língua Portuguesa. Ela saiu — refazer o documento.
+- ~~O documento dos artigos manda a Ester Diahoha escrever três artigos de Língua Portuguesa. Ela saiu — refazer o documento.~~ **Feito a 17 Nov 2026**, ao refazer o documento para o novo destino (ESP-44).
 
 ### Ver no protótipo
 
@@ -1693,4 +1693,4 @@ Ficou escrito no próprio ficheiro que **pôr o interruptor a `true` já não ch
 
 ### Questões em aberto
 
-- Fica por decidir **onde passam a viver os artigos** — na app, noutro sítio, ou em lado nenhum por agora. O documento de tarefa entregue ao corpo docente manda escrever para o site; se o destino mudar, esse documento precisa de ser refeito.
+- ~~Fica por decidir onde passam a viver os artigos.~~ **Respondido a 17 Nov 2026: vão para a app.** O documento de tarefa do corpo docente foi refeito nesse mesmo dia, com três correcções: o destino passa a ser a app; o artigo-modelo deixa de ser um endereço e passa a ir em anexo, em papel (“Artigo-Modelo-Equacao-1-Grau”), porque os dois endereços que o documento mandava abrir deixaram de responder; e saem os três artigos de Língua Portuguesa atribuídos à Ester Diahoha, que saiu da equipa — ficam à espera de a vaga ser preenchida.
