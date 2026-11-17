@@ -74,10 +74,6 @@ export const META_PAGINAS = {
     descricao: 'As novidades da MUKANDA PREPA: o balanço da edição 2026, a manutenção da app web e o que vem a seguir para os estudantes angolanos.',
   },
 
-  '/artigos': {
-    titulo: 'Artigos de estudo para o exame de acesso · MUKANDA PREPA',
-    descricao: 'Artigos dos professores da MUKANDA PREPA, por matéria e por nível, para estudar de graça para o exame de acesso à universidade em Angola.',
-  },
 
   '/blog': {
     titulo: 'Blog · MUKANDA PREPA',

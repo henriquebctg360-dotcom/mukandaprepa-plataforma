@@ -3,16 +3,18 @@
 export const MATERIAS = ['Matemática', 'Física', 'Química', 'Biologia', 'Português', 'História'];
 export const NIVEIS = ['Básico', 'Intermédio', 'Avançado'];
 
-// ESP-19 (08 Nov 2026): os artigos estão escondidos do site enquanto os
-// professores não escreverem os seus. Saíram os doze títulos de exemplo —
-// anunciar artigos que não existem não ajuda ninguém.
+// ESP-44 — decisão da equipa de Suporte Informático, 17 Nov 2026: os
+// artigos do corpo docente NÃO entram no site institucional.
 //
-// A página /artigos continua a funcionar por link directo, com o
-// artigo-modelo, porque é o que o corpo docente recebeu no seu documento.
-// Escondido: a entrada "Artigos" no menu e no rodapé, a secção da página
-// inicial e o separador do Blog.
+// Este ficheiro fica, e com ele o artigo-modelo da ESP-15 — a estrutura
+// em cinco partes que os professores pediram, com um artigo escrito de
+// fio a pavio como exemplo. Não se deita fora trabalho que foi feito e
+// aprovado só porque mudou o sítio onde vai aparecer.
 //
-// Quando os artigos chegarem: pôr isto a true e acrescentá-los a ARTIGOS.
+// Pôr isto a true já NÃO chega para os artigos voltarem: as rotas
+// /artigos e /artigos/:id reencaminham para o Blog no App.jsx, e a
+// entrada do seo.js saiu. Quem os quiser de volta tem de desfazer
+// essas três coisas também.
 export const ARTIGOS_VISIVEIS = false;
 
 // ESP-15 (09 Out 2026): artigo-modelo pedido pelos professores. É o primeiro

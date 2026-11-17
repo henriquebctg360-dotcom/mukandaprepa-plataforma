@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 43 especificações aplicadas |
+| `main` | A nova versão do site, com as 44 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 43 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 44 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -42,7 +42,7 @@ Nada está escrito dentro das páginas. Para publicar ou corrigir, editam-se est
 | Ficheiro | O quê |
 |---|---|
 | `src/config/noticias.js` | Notícias, com o texto completo |
-| `src/config/artigos.js` | Artigos dos professores (`ARTIGOS_VISIVEIS` liga e desliga a secção) |
+| `src/config/artigos.js` | Artigo-modelo dos professores. **Fora do site desde a ESP-44** — as rotas reencaminham para o Blog, e o interruptor `ARTIGOS_VISIVEIS` já não chega para as trazer de volta |
 | `src/config/equipa.jsx` | Equipa, cargos e fotografias |
 | `src/config/depoimentos.js` | Depoimentos dos estudantes |
 | `src/config/estatisticas.js` | Números da edição 2026 |

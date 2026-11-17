@@ -22,7 +22,6 @@ const Blog = lazy(() => import('./pages/Blog'));
 const Missao = lazy(() => import('./pages/Missao'));
 const Recursos = lazy(() => import('./pages/Recursos'));
 const Noticias = lazy(() => import('./pages/Noticias'));
-const Artigos = lazy(() => import('./pages/Artigos'));
 const Equipa = lazy(() => import('./pages/Equipa'));
 const ConteudoDetalhe = lazy(() => import('./pages/ConteudoDetalhe'));
 const EntrarNaApp = lazy(() => import('./pages/EntrarNaApp'));
@@ -59,11 +58,16 @@ export default function App() {
           <Route path="/recursos" element={<Recursos />} />
           {/* ESP-03: páginas repostas — a página inicial liga para elas. */}
           <Route path="/noticias" element={<Noticias />} />
-          <Route path="/artigos" element={<Artigos />} />
+          {/* ESP-44 — decisão da equipa SI (17 Nov 2026): os artigos do corpo
+              docente deixam de fazer parte do site institucional. A rota
+              ficava aberta por endereço directo, mesmo com ARTIGOS_VISIVEIS
+              desligado — o interruptor só escondia o menu e o rodapé. Quem lá
+              chegar vai para o Blog, que é onde está o que há para ler. */}
+          <Route path="/artigos" element={<Navigate to="/blog" replace />} />
           {/* ESP-11: A Nossa Equipa volta a ter rota. */}
           <Route path="/equipa" element={<Equipa />} />
           <Route path="/noticias/:id" element={<ConteudoDetalhe tipo="noticia" />} />
-          <Route path="/artigos/:id" element={<ConteudoDetalhe tipo="artigo" />} />
+          <Route path="/artigos/:id" element={<Navigate to="/blog" replace />} />
           <Route path="/entrar-na-app" element={<EntrarNaApp />} />
           <Route path="*" element={<PaginaNaoEncontrada />} />
         </Route>

@@ -50,6 +50,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-41 — Cache de um ano só para quem tem nome versionado](#esp-41)
 - [ESP-42 — Palavra-chave e local: ser encontrado por quem ainda não nos conhece](#esp-42)
 - [ESP-43 — Links internos e imagens: tirar as páginas do beco](#esp-43)
+- [ESP-44 — Os artigos saem do site institucional](#esp-44)
 
 ---
 
@@ -729,7 +730,7 @@ Os doze títulos de exemplo saem do site. A página /artigos continua a funciona
 
 ### Questões em aberto
 
-- Os artigos voltam quando o corpo docente entregar. A estrutura está fixada na ESP-15.
+- ~~Os artigos voltam quando o corpo docente entregar.~~ **Já não voltam a este site:** a equipa de Suporte Informático decidiu a 17 Nov 2026 que os artigos do corpo docente não fazem parte do site institucional (ESP-44).
 
 ### Ver no protótipo
 
@@ -771,7 +772,7 @@ Doze das dezassete pessoas já têm retrato. Faltam cinco: Mariana Baptista, Leo
 
 - A fotografia do Leonel Macaia é a preto e branco, ao contrário das outras dezasseis, que são a cores. Destoa na página. Manter ou pedir outra?
 - A fotografia do Leonel Macaia tem a marca de água “ZOLA STUDIO” no canto superior. O enquadramento de rosto e ombros deixa-a de fora, mas convém confirmar se há alguma obrigação de crédito ao estúdio.
-- A fotografia da Fernanda Vilinga é de um evento e destoa das outras. A direcção decidiu mantê-la por agora e pedir-lhe outra mais tarde.
+- ~~A fotografia da Fernanda Vilinga é de um evento e destoa das outras.~~ **Fechado a 17 Nov 2026:** a direcção decidiu que fica assim. Não se pede outra.
 - As fotografias dos três professores foram tiradas num escritório, com flash e parede azul, e destoam das de estúdio. Mantidas; a direcção decide se vale a pena repetir.
 - A Leda Dias tem agora duas fotografias na pasta — a antiga, de interior, e uma nova em RAW, da mesma sessão dos professores. Ficou a antiga, que está melhor. Confirmar.
 
@@ -1660,3 +1661,36 @@ A redução das fotografias foi conferida a olho, lado a lado, ao tamanho real e
 
 - A página `/entrar-na-app` continua com uma só ligação, para a página inicial. É um aviso de manutenção, e enquanto o for não há mais para onde mandar quem lá chega.
 - Dos dez pontos da lista da direcção fica o **ponto 10, os backlinks** — que não é código.
+
+---
+
+<a id="esp-44"></a>
+## ESP-44 — Os artigos saem do site institucional
+
+**Estado:** Implementada · **Data:** 17 Nov 2026
+
+### Pedido
+
+Da direcção, a transmitir uma decisão da equipa de Suporte Informático: *"Os artigos do corpo docente já não serão incluídos no site institucional."*
+
+### Decisão
+
+Os artigos estavam escondidos desde a ESP-19, à espera de os professores entregarem, com um interruptor — `ARTIGOS_VISIVEIS` — que tirava o separador do menu, do rodapé e do Blog. Com a decisão tomada, a espera acabou.
+
+**Ao fechar isto apareceu um buraco que ninguém tinha visto:** o interruptor escondia os *links*, mas a rota não. Quem escrevesse `/artigos` no endereço abria a página na mesma, com o artigo-modelo lá dentro. Estava escondida, não fechada.
+
+### O que muda
+
+- **`/artigos` e `/artigos/:id` reencaminham para o Blog.** Nunca foram endereços públicos — não estão no sitemap nem nas páginas públicas — por isso não há ligações antigas a proteger; mandar para o Blog é mais útil do que um erro.
+- Sai a entrada `/artigos` do `seo.js` e o bloco dos artigos do `ligacoes.js`.
+- A página deixou de entrar na compilação: é menos um ficheiro de JavaScript que o visitante pode ter de descarregar.
+
+### O que NÃO muda
+
+**O `src/config/artigos.js` fica, e com ele o artigo-modelo da ESP-15** — a estrutura em cinco partes que os professores pediram, com um artigo escrito de fio a pavio como exemplo, e as três perguntas de escolha múltipla sem a resposta à vista. Não se deita fora trabalho que foi feito e aprovado só porque mudou o sítio onde vai aparecer.
+
+Ficou escrito no próprio ficheiro que **pôr o interruptor a `true` já não chega** para os artigos voltarem: é preciso desfazer também o reencaminhamento das rotas e repor a entrada do `seo.js`. Sem essa nota, alguém mudaria uma linha e ficaria à espera de um resultado que não vinha.
+
+### Questões em aberto
+
+- Fica por decidir **onde passam a viver os artigos** — na app, noutro sítio, ou em lado nenhum por agora. O documento de tarefa entregue ao corpo docente manda escrever para o site; se o destino mudar, esse documento precisa de ser refeito.

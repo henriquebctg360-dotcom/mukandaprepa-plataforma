@@ -10,8 +10,8 @@
 //     escolha, é um menu — e quem chega ao fim de uma página já tem menu;
 //   - só páginas que continuam o assunto. Quem acabou de ler as Maratonas
 //     quer saber das Aulas Online, não da Equipa;
-//   - nunca a própria página, e nunca /artigos enquanto a secção estiver
-//     escondida (ARTIGOS_VISIVEIS, na ESP-19).
+//   - nunca a própria página, e nunca /artigos: os artigos saíram do site
+//     institucional por decisão da equipa SI (ESP-44).
 
 export const LIGACOES = {
   '/maratonas': [
@@ -152,23 +152,6 @@ const POR_PREFIXO = [
       para: '/noticias',
       nome: 'Todas as notícias',
       resumo: 'O que mais se passou na MUKANDA PREPA.',
-    },
-  ]],
-  ['/artigos/', [
-    {
-      para: '/artigos',
-      nome: 'Todos os artigos',
-      resumo: 'Por matéria e por nível, para estudar de graça.',
-    },
-    {
-      para: '/recursos',
-      nome: 'Recursos gratuitos',
-      resumo: 'Exames passados e fichas de apoio.',
-    },
-    {
-      para: '/maratonas',
-      nome: 'Maratonas MUKANDA 2026',
-      resumo: 'Pôr à prova o que acabaste de ler.',
     },
   ]],
 ];
