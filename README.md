@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 42 especificações aplicadas |
+| `main` | A nova versão do site, com as 43 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 42 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 43 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -48,6 +48,7 @@ Nada está escrito dentro das páginas. Para publicar ou corrigir, editam-se est
 | `src/config/estatisticas.js` | Números da edição 2026 |
 | `src/config/recursos.js` | Recursos gratuitos |
 | `src/config/contactos.js` | Telefone, e-mails, redes sociais e link da Comunidade |
+| `src/config/ligacoes.js` | Para onde cada página manda a seguir, no bloco "Continua por aqui" |
 | `src/config/seo.js` | Título e descrição de cada página. O `vite.config.js` lê daqui o título do `index.html` e os dados estruturados — não se escreve nada disso à mão |
 | `src/config/analytics.js` | Identificador do Google Analytics (`G-XXXXXXXXXX`) e consentimento |
 

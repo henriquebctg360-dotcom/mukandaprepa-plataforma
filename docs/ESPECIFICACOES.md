@@ -49,6 +49,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-40 — A imagem de partilha à prova do recorte quadrado](#esp-40)
 - [ESP-41 — Cache de um ano só para quem tem nome versionado](#esp-41)
 - [ESP-42 — Palavra-chave e local: ser encontrado por quem ainda não nos conhece](#esp-42)
+- [ESP-43 — Links internos e imagens: tirar as páginas do beco](#esp-43)
 
 ---
 
@@ -1601,3 +1602,61 @@ Medido antes de mexer: **nenhum dos 13 títulos dizia Angola ou Luanda**, e todo
 
 - **Falta um Perfil de Empresa do Google.** Os dados estruturados dizem onde estamos; o Perfil é o que faz aparecer o cartão lateral com morada, horário e avaliações. Cria-se na conta da direcção, não no código.
 - Dos dez pontos da lista, ficaram de fora por decisão da direcção os **links internos** (só 5 das 14 páginas têm links no corpo do texto), a **compressão das imagens** (1,3 MB em 40 ficheiros, as duas maiores com 119 kB) e os **backlinks**, que não são código.
+
+---
+
+<a id="esp-43"></a>
+## ESP-43 — Links internos e imagens: tirar as páginas do beco
+
+**Estado:** Implementada · **Data:** 17 Nov 2026
+
+### Pedido
+
+Da direcção, dos pontos 8 e 9 de uma lista de SEO: *"Pode avançar com os links internos e a compressão das imagens."*
+
+### Decisão
+
+**Links internos.** Tirando a barra e o rodapé, só 6 das 14 páginas tinham ligações no corpo. Quem chegava às Maratonas pelo Google lia a página e ficava num beco: para ir às Aulas Online tinha de voltar ao menu, e a maior parte das pessoas não volta — fecha. Vale para quem lê e vale para o Google, pela mesma razão: ambos descobrem o resto do site seguindo ligações.
+
+**Imagens.** Medidas antes de mexer, e o resultado mandou fazer metade do que se pensava fazer.
+
+### O que muda
+
+**Um bloco "Continua por aqui"** no fim das páginas, com duas ou três ligações que continuam o assunto. Está montado no `MainLayout` e alimentado por `src/config/ligacoes.js`: é o ficheiro de configuração que decide quem leva bloco, e nas páginas que lá não estão o componente não desenha nada.
+
+Levam bloco: Maratonas, Aulas Online, Recursos, Notícias, Equipa, Missão, Contactos — e, por prefixo, **todas as páginas de notícia e de artigo**. Estas últimas são as que mais interessam: quem procura "maratona nacional" cai numa notícia, não na página inicial.
+
+| | Antes | Agora |
+|---|---|---|
+| Páginas com ligações no corpo | 6 de 14 | **14 de 14** |
+
+**As fotografias da equipa encolhem de 600 para 400 px.** São mostradas, no maior sítio onde aparecem, a 128 px — 400 px cobre folgadamente um ecrã de três vezes a densidade. Ninguém precisava do resto.
+
+| | Antes | Agora |
+|---|---|---|
+| 17 fotografias | 431 kB | **175 kB** (−59%) |
+| Todas as imagens | 1205 kB | **908 kB** (−25%) |
+
+Saiu também o `01.png` (40 kB), o logótipo largo que a ESP-27 substituiu e que já só aparecia num comentário.
+
+### Notas técnicas
+
+**O que não se fez, e porquê.** A primeira ideia era recomprimir também as imagens grandes — `maratonas.webp` e `aulas-online.webp`, a 119 kB cada. A medição desaconselhou-o:
+
+| Qualidade | Tamanho | Erro (RMSE) |
+|---|---|---|
+| Actual | 119 kB | — |
+| 82 | 103 kB | 2,2 |
+| 76 | 71 kB | 3,7 |
+| 70 | 45 kB | 4,3 |
+
+Treze por cento de poupança por um erro de 2,2 não compensa: já são ficheiros comprimidos, e recomprimir o que já está comprimido só acumula perda. Ficaram como estavam. O ganho verdadeiro estava noutro lado — em imagens três vezes maiores do que o ecrã onde aparecem.
+
+A redução das fotografias foi conferida a olho, lado a lado, ao tamanho real em que aparecem num ecrã de dupla densidade (256 px). Indistinguíveis.
+
+**O bloco é um acrescento, não uma reescrita.** Pôr ligações no meio do texto já escrito e aprovado seria mexer no que não foi pedido; o bloco acrescenta sem tocar em nada.
+
+### Questões em aberto
+
+- A página `/entrar-na-app` continua com uma só ligação, para a página inicial. É um aviso de manutenção, e enquanto o for não há mais para onde mandar quem lá chega.
+- Dos dez pontos da lista da direcção fica o **ponto 10, os backlinks** — que não é código.

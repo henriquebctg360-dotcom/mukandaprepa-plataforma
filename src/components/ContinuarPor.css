@@ -1,0 +1,55 @@
+/* "Continua por aqui" (ESP-43). Discreto de propósito: é uma saída para quem
+   chegou ao fim da página, não um apelo que compita com o conteúdo. */
+
+.continuar {
+  padding: 40px 0 56px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.continuar__titulo {
+  font-size: 15px;
+  color: var(--color-gray-mid);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.continuar__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.continuar__cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100%;
+  padding: 16px 18px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color .15s ease, transform .15s ease;
+}
+
+.continuar__cartao:hover,
+.continuar__cartao:focus-visible {
+  border-color: var(--color-orange);
+  transform: translateY(-2px);
+}
+
+.continuar__cartao strong {
+  font-family: var(--font-title);
+  font-size: 15px;
+  color: var(--color-dark);
+}
+
+.continuar__cartao span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-gray-mid);
+}

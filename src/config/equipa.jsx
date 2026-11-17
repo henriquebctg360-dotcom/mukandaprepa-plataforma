@@ -21,7 +21,8 @@
 //
 // FOTOGRAFIAS (ESP-20, 08 Nov 2026): chegaram as fotografias profissionais,
 // recolhidas pela Gestão e Administração. Doze das dezassete pessoas já têm
-// retrato. Ficheiros em public/equipa-nome-apelido.webp, quadrados 600x600,
+// retrato. Ficheiros em public/equipa-nome-apelido.webp, quadrados 400×400 (ESP-43: eram 600×600, e o maior sítio
+// onde aparecem são 128 px — ninguém precisava do resto),
 // recortados a partir dos originais em
 // DOCUMENTOS RECENTES › Grupo Geral › Membros › Fotos pro.
 //
