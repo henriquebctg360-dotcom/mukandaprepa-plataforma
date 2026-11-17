@@ -68,10 +68,14 @@ export const REDES = [
     url: 'https://www.facebook.com/profile.php?id=61591268696768',
   },
   {
+    // Conta nova, dada pela direcção a 17 Nov 2026. A anterior era
+    // @mukandaprepa (sem ponto) e estava vazia: 1 seguidor, nenhum vídeo,
+    // sem biografia — mandava o visitante sair do site para não encontrar
+    // nada. Esta tem conteúdo e biografia. O ponto do meio não é gralha.
     id: 'tiktok',
     nome: 'TikTok',
-    conta: '@mukandaprepa',
-    url: 'https://www.tiktok.com/@mukandaprepa',
+    conta: '@mukanda.prepa',
+    url: 'https://www.tiktok.com/@mukanda.prepa',
   },
   {
     // O endereço público da página. O /admin/dashboard que circulou
