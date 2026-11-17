@@ -48,6 +48,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-39 — Medir as visitas, com autorização](#esp-39)
 - [ESP-40 — A imagem de partilha à prova do recorte quadrado](#esp-40)
 - [ESP-41 — Cache de um ano só para quem tem nome versionado](#esp-41)
+- [ESP-42 — Palavra-chave e local: ser encontrado por quem ainda não nos conhece](#esp-42)
 
 ---
 
@@ -1555,3 +1556,48 @@ Confirmado no site publicado: a imagem no ar é byte a byte a do repositório, e
 ### Questões em aberto
 
 - **O WhatsApp guarda a pré-visualização nos servidores dele**, por endereço. Como o endereço do site não mudou, quem já partilhou o link pode continuar a ver o cartão antigo durante algum tempo. Testar com `?x=1` no fim do endereço mostra o novo.
+
+---
+
+<a id="esp-42"></a>
+## ESP-42 — Palavra-chave e local: ser encontrado por quem ainda não nos conhece
+
+**Estado:** Implementada · **Data:** 17 Nov 2026
+
+### Pedido
+
+Da direcção, a partir de uma lista de dez pontos de SEO: *"Avança apenas com os pontos 5 e 6"* — palavra-chave no título e adicionar local.
+
+### Decisão
+
+A ESP-22 deu a cada página o seu título e a sua descrição, e resolveu o problema que tinha: as doze páginas apareciam no Google todas iguais. Mas resolveu-o de dentro para fora, a descrever o site a quem já sabia o que o site é.
+
+Medido antes de mexer: **nenhum dos 13 títulos dizia Angola ou Luanda**, e todos começavam pela marca — "Notícias · MUKANDA PREPA", "A Nossa Equipa · MUKANDA PREPA". Quem já nos conhece escreve "mukanda prepa" e encontra-nos de qualquer maneira. Quem não nos conhece escreve **"exame de acesso à universidade"**, e por essa não aparecíamos em lado nenhum.
+
+### O que muda
+
+**Os títulos passam a começar pelo que a pessoa escreve na pesquisa**, e a marca vai para o fim:
+
+| Antes | Agora |
+|---|---|
+| MUKANDA PREPA — Preparação para o acesso à universidade | Exame de acesso à universidade em Angola · MUKANDA PREPA |
+| Maratonas MUKANDA 2026 · MUKANDA PREPA | Maratonas de exercícios de exames · MUKANDA PREPA |
+| Aulas Online 2026 · MUKANDA PREPA | Aulas online de correcção de exames · MUKANDA PREPA |
+| Recursos gratuitos · MUKANDA PREPA | Exames passados e materiais de estudo · MUKANDA PREPA |
+| Artigos · MUKANDA PREPA | Artigos de estudo para o exame de acesso · MUKANDA PREPA |
+
+**O local entra onde é verdade e faz falta** — página inicial, Sobre, Equipa e Contactos — e **não em todas**: repetir "Angola" em treze títulos é enchimento, e o Google desconta-o. Nas descrições, 10 das 12 passam a dizer Angola, Luanda ou "angolano".
+
+**Dados estruturados no `index.html`.** O site dizia "Luanda, Angola" no rodapé, em texto corrido: para uma pessoa chega, para o Google é mais uma linha de texto. Agora há um bloco `EducationalOrganization` que lhe diz, na forma que ele lê sem adivinhar, que isto é uma organização de ensino, que fica em Luanda, em Angola, e que aquelas quatro contas de redes sociais são nossas. É o que alimenta o painel da marca nos resultados.
+
+### Notas técnicas
+
+- **Os dados estruturados são gerados na compilação**, por um plugin no `vite.config.js` que lê o `contactos.js` e o `seo.js` — os mesmos ficheiros que o rodapé e as páginas lêem. Um endereço escrito em dois sítios acaba sempre por divergir num deles.
+- **O título e a descrição do `index.html` passam a vir do `seo.js`** pela mesma via. Estavam escritos à mão, eram os da página inicial, e tinham ficado para trás assim que o `seo.js` mudou. Não é cosmético: o `index.html` é o que vale para quem não executa JavaScript.
+- As etiquetas `og:` e `twitter:` **não** vêm daqui, de propósito: o texto de partilha foi escrito à parte (ESP-23) e validado assim pela direcção, que o viu no WhatsApp a 14 de Novembro.
+- Todos os títulos e descrições foram **medidos antes de escritos**: nenhum título passa os 60 caracteres nem nenhuma descrição os 160, que é onde o Google corta. O mais comprido tem 56; a descrição mais longa, 156.
+
+### Questões em aberto
+
+- **Falta um Perfil de Empresa do Google.** Os dados estruturados dizem onde estamos; o Perfil é o que faz aparecer o cartão lateral com morada, horário e avaliações. Cria-se na conta da direcção, não no código.
+- Dos dez pontos da lista, ficaram de fora por decisão da direcção os **links internos** (só 5 das 14 páginas têm links no corpo do texto), a **compressão das imagens** (1,3 MB em 40 ficheiros, as duas maiores com 119 kB) e os **backlinks**, que não são código.
