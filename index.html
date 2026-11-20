@@ -48,7 +48,22 @@
     <meta name="twitter:description" content="Maratonas de exercícios com questões de exames reais, aulas online de correcção e uma comunidade de estudantes." />
     <meta name="twitter:image" content="https://www.mukandaprepa.com/og-mukandaprepa-v2.png" />
 
-    <link rel="canonical" href="https://www.mukandaprepa.com/" />
+    <!-- NÃO voltar a pôr aqui uma etiqueta canonical (ESP-45).
+
+         Este index.html é servido para TODAS as rotas. Uma canonical fixa
+         aqui faz /equipa, /maratonas e todas as outras dizerem ao Google
+         "sou uma cópia da página inicial" — e o Google acredita: a 20 de
+         Novembro de 2026 só 5 das 17 páginas estavam indexadas, com 5
+         marcadas como "outra página com etiqueta canónica correcta".
+
+         Sem etiqueta, cada página é canónica de si própria, que é o certo.
+         O useMeta escreve a canónica verdadeira quando o JavaScript corre,
+         e os endereços sem www ou em http são tratados pelo 301 do
+         .htaccess (ESP-29), que vale mais do que uma canonical.
+
+         Isto só se resolve de vez gerando um HTML por rota na compilação,
+         que é a mesma coisa que falta para as partilhas por página no
+         WhatsApp (ESP-22 e ESP-23). Fica por decidir. -->
   </head>
   <body>
     <div id="root"></div>

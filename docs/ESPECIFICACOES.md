@@ -51,6 +51,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-42 — Palavra-chave e local: ser encontrado por quem ainda não nos conhece](#esp-42)
 - [ESP-43 — Links internos e imagens: tirar as páginas do beco](#esp-43)
 - [ESP-44 — Os artigos saem do site institucional](#esp-44)
+- [ESP-45 — Todas as páginas diziam ao Google que eram cópias da inicial](#esp-45)
 
 ---
 
@@ -1695,3 +1696,45 @@ Ficou escrito no próprio ficheiro que **pôr o interruptor a `true` já não ch
 
 - ~~Fica por decidir onde passam a viver os artigos.~~ **Respondido a 17 Nov 2026: vão para a app.** O documento de tarefa do corpo docente foi refeito nesse mesmo dia, com três correcções: o destino passa a ser a app; o artigo-modelo deixa de ser um endereço e passa a ir em anexo, em papel (“Artigo-Modelo-Equacao-1-Grau”), porque os dois endereços que o documento mandava abrir deixaram de responder; e saem os três artigos de Língua Portuguesa atribuídos à Ester Diahoha, que saiu da equipa — ficam à espera de a vaga ser preenchida.
 - **Por confirmar: como os artigos entram na app.** A secção 4 do documento mantém o caminho antigo — folha de recolha de conteúdos, separador Artigos, com revisão do Wagner Cazanza — porque é o único que conhecemos. A direcção ficou de confirmar com a equipa da app (17 Nov 2026). Se for outro, essa secção tem de ser corrigida antes de os professores começarem a entregar.
+
+---
+
+<a id="esp-45"></a>
+## ESP-45 — Todas as páginas diziam ao Google que eram cópias da inicial
+
+**Estado:** Implementada · **Data:** 20 Nov 2026
+
+### Pedido
+
+Da direcção, com os relatórios do Search Console das duas propriedades: *"Analisa os relatórios de indexação e de performance."*
+
+### Decisão
+
+Os números não batiam certo. Nove dias depois de inscrever o site, **só 5 das 17 páginas estavam indexadas**, e cinco apareciam no relatório como *"outra página com etiqueta canónica correcta"* — que é o Google a dizer "esta página diz-me que é cópia de outra, por isso deitei-a fora".
+
+A causa estava no `index.html`:
+
+```html
+<link rel="canonical" href="https://www.mukandaprepa.com/" />
+```
+
+O `index.html` é servido para **todas** as rotas. Uma etiqueta canónica fixa ali faz `/equipa`, `/maratonas`, `/noticias` e todas as outras dizerem ao Google *"sou uma cópia da página inicial"*. O `useMeta` escreve a canónica certa quando o JavaScript corre (ESP-22), mas o que o Google recebe primeiro é o HTML — e o Google acreditou nele.
+
+Confirmado no site publicado antes de mexer, sem executar JavaScript: `/equipa`, `/maratonas`, `/noticias` e `/contactos` declaravam todas `https://www.mukandaprepa.com/`.
+
+### O que muda
+
+A etiqueta sai do `index.html`, e no lugar dela fica um comentário a dizer porque não deve voltar. Sem etiqueta, cada página é canónica de si própria — que é o certo, e é o que o Google assume por omissão.
+
+Os endereços sem `www` ou em `http` continuam tratados pelo **301 do `.htaccess`** (ESP-29), que é um sinal mais forte do que uma canónica. Não se perde nada.
+
+### Notas técnicas
+
+Isto não se via no site nem em nenhuma verificação feita até aqui, porque **no navegador está tudo certo**: o `useMeta` corrige a etiqueta antes de alguém a poder observar com as ferramentas do navegador. Só se vê a pedir o HTML sem executar JavaScript, que é o que um `curl` faz — e o que o Google faz na primeira passagem.
+
+É o mesmo buraco que a ESP-22 já tinha registado para as partilhas no WhatsApp, visto de outro ângulo: **o `index.html` é um só para doze páginas.** Enquanto for assim, tudo o que estiver no `<head>` vale para a página inicial e mente sobre as outras.
+
+### Questões em aberto
+
+- **A correcção definitiva é gerar um HTML por rota na compilação.** Resolve de uma vez a canónica, o título e a descrição para quem não executa JavaScript, e as pré-visualizações por página no WhatsApp (ESP-22 e ESP-23). Fica por decidir.
+- A indexação não volta sozinha de um dia para o outro: o Google tem de passar outra vez por cada página. Vale a pena, dentro de duas a três semanas, voltar ao relatório e ver se as cinco "cópias" voltaram ao índice.
