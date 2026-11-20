@@ -857,7 +857,7 @@ As doze páginas partilhavam o mesmo título e a mesma descrição — no Google
 
 ### Questões em aberto
 
-- O Google executa JavaScript e lê estes títulos; o WhatsApp e o Facebook não. Para eles vale sempre o que está no index.html, por isso todas as partilhas mostram o mesmo texto. Ter pré-visualização diferente por página obriga a gerar um ficheiro HTML por endereço no build — decisão por tomar.
+- ~~O Google executa JavaScript e lê estes títulos; o WhatsApp e o Facebook não, por isso todas as partilhas mostram o cartão da página inicial.~~ **Resolvido a 20 Nov 2026 (ESP-46):** cada página passou a ter o seu próprio ficheiro HTML, com o seu `<head>`. Confirmado pela direcção no próprio WhatsApp, com a página `/entrar-na-app`.
 - Falta inscrever o site no Google Search Console e submeter o sitemap. Só se faz com o domínio real.
 
 ### Ver no protótipo
@@ -892,12 +892,12 @@ Imagem feita com as cores e o logótipo da marca, até haver uma do designer. Pa
 
 - Ficheiro em public/og-mukandaprepa.png, 50 kB. Desenhado em Arial porque a Montserrat não está instalada na máquina — quando o Leonel Macaia fizer uma, substitui-se o ficheiro e não é preciso mexer no código.
 - O endereço da imagem é absoluto e aponta para https://www.mukandaprepa.com. É obrigatório: os pré-visualizadores não resolvem caminhos relativos. Enquanto a imagem não estiver no domínio real, a partilha do link do protótipo não mostra imagem.
-- O WhatsApp e o Facebook não executam JavaScript, por isso lêem sempre o que está no index.html. O título por página (ESP-22) serve ao Google, não às partilhas.
+- ~~O WhatsApp e o Facebook não executam JavaScript, por isso lêem sempre o que está no index.html.~~ **Resolvido a 20 Nov 2026 (ESP-46).** Continua verdade que não executam JavaScript — o que mudou é que já não precisam: o `<head>` certo vem escrito no HTML de cada página.
 - Testar com o depurador de partilhas do Facebook e enviando o link para um grupo de WhatsApp — o WhatsApp guarda em cache, por isso convém testar com o link limpo.
 
 ### Questões em aberto
 
-- Para ter imagem e texto diferentes por página nas partilhas seria preciso gerar um ficheiro HTML por endereço no build. Fica por decidir (mesma questão da ESP-22).
+- ~~Para ter imagem e texto diferentes por página nas partilhas seria preciso gerar um ficheiro HTML por endereço no build. Fica por decidir.~~ **Decidido e feito a 20 Nov 2026 (ESP-46):** é exactamente o que passou a acontecer. O texto por página está feito; a imagem continua a ser a mesma em todas, por decisão da ESP-23.
 - A imagem é provisória: vale a pena pedir uma ao Leonel Macaia, com o mesmo formato 1200 × 630.
 
 ### Ver no protótipo
@@ -1019,7 +1019,7 @@ O protótipo cumpriu o que tinha a cumprir: mostrar as ideias, deixá-las discut
 
 - **A validar antes de publicar:** as respostas das perguntas frequentes nunca foram confirmadas pela direcção. Tinham uma etiqueta "Respostas a validar" que saiu com a camada do protótipo, por isso agora aparecem como se estivessem fechadas.
 - O `vercel.json` mantém o cabeçalho que manda não indexar. É do endereço de pré-visualização; o cPanel não lê este ficheiro. Está explicado no README.
-- Continuam por decidir: o contraste do branco sobre o laranja da marca (ESP-25), a pré-visualização por página no WhatsApp (ESP-22 e ESP-23), as imagens definitivas do designer (ESP-18 e ESP-23), quem assina o artigo-modelo (ESP-15) e a fotografia do Leonel Macaia (ESP-20).
+- Continuam por decidir: o contraste do branco sobre o laranja da marca (ESP-25), as imagens definitivas do designer (ESP-18 e ESP-23), quem assina o artigo-modelo (ESP-15) e a fotografia do Leonel Macaia (ESP-20). — **a pré-visualização por página no WhatsApp saiu desta lista a 20 Nov 2026, resolvida pela ESP-46 e confirmada pela direcção.**
 
 ---
 
