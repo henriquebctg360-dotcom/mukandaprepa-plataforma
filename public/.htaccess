@@ -42,6 +42,20 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule \.(html?|js|css|woff2?|map|json|xml|txt|png|jpe?g|webp|svg|ico)$ - [R=404,L]
 
+  # Um HTML por pagina (ESP-46).
+  #
+  # A compilacao passou a gerar equipa.html, maratonas.html,
+  # noticias/<noticia>.html e companhia: copias do index.html com o <head>
+  # proprio de cada pagina. Esta regra entrega-os sem mudar o endereco — quem
+  # pede /equipa recebe equipa.html, e continua a ver /equipa na barra.
+  #
+  # Nao se usa uma PASTA por pagina de proposito: o Apache acrescenta-lhe uma
+  # barra no fim e /equipa passaria a /equipa/, mudando enderecos que ja estao
+  # no sitemap e no indice da Google.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ /$1.html [L]
+
   # Rotas do React: o que nao for ficheiro nem pasta vai para o index.html.
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
