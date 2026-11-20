@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './EntrarNaApp.css';
-import { linkComunidade, whatsappCom } from '../config/contactos';
+import { REDES, linkComunidade, whatsappCom } from '../config/contactos';
 import { IconeComunidade } from '../components/hero/partes';
 
 // ESP-01 — Página para onde levam todos os botões "Entrar na app".
@@ -26,13 +26,6 @@ const PERCURSO = [
     titulo: 'App mobile',
     desc: 'Vamos passar de uma app web para uma app mobile, com mais funcionalidades e pensada para o teu telemóvel.',
   },
-];
-
-const REDES = [
-  { nome: 'Instagram', href: 'https://www.instagram.com/mukandaprepa/' },
-  { nome: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61591268696768' },
-  { nome: 'TikTok', href: 'https://www.tiktok.com/@mukandaprepa' },
-  { nome: 'LinkedIn', href: 'https://www.linkedin.com/company/mukanda-prepa/' },
 ];
 
 export default function EntrarNaApp() {
@@ -130,8 +123,11 @@ export default function EntrarNaApp() {
             </p>
           </div>
           <div className="manut-novidades__redes">
+            {/* ESP-48 — esta página tinha a sua própria lista de redes, escrita
+                à mão, e ficou para trás quando o TikTok mudou de conta. Passa a
+                ler a mesma lista que o rodapé e a página de Contactos lêem. */}
             {REDES.map((r) => (
-              <a key={r.nome} href={r.href} target="_blank" rel="noreferrer">
+              <a key={r.id} href={r.url} target="_blank" rel="noreferrer">
                 {r.nome}
               </a>
             ))}
