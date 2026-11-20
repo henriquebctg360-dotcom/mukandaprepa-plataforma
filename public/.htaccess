@@ -42,6 +42,29 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule \.(html?|js|css|woff2?|map|json|xml|txt|png|jpe?g|webp|svg|ico)$ - [R=404,L]
 
+  # Sem barra automatica no fim, e sem listagem de pastas (ESP-46).
+  #
+  # Assim que a compilacao passou a gerar noticias/<noticia>.html, passou a
+  # existir uma PASTA chamada noticias ao lado do ficheiro noticias.html. O
+  # Apache, ao ver a pasta, reencaminhava /noticias para /noticias/ — mudando
+  # um endereco que ja esta no sitemap e no indice da Google — e mostrava la
+  # dentro a lista dos ficheiros.
+  #
+  # Estas duas linhas nao chegam aos subdominios: o app. e o api. tem o seu
+  # proprio .htaccess, e e por isso que o /robots.txt deles nao obedece as
+  # regras daqui.
+  Options -Indexes
+  <IfModule mod_dir.c>
+    DirectorySlash Off
+  </IfModule>
+
+  # Quem chegar a /noticias/ com barra volta a /noticias, para o endereco
+  # ter uma forma so. Sem isto, com o DirectorySlash desligado, a barra dava
+  # 403 — e a Google ja foi mandada para la pelo reencaminhamento de ontem.
+  RewriteCond %{REQUEST_URI} ^/(.+)/$
+  RewriteCond %{DOCUMENT_ROOT}/%1.html -f
+  RewriteRule ^ /%1 [R=301,L]
+
   # Um HTML por pagina (ESP-46).
   #
   # A compilacao passou a gerar equipa.html, maratonas.html,
