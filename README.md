@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 45 especificações aplicadas |
+| `main` | A nova versão do site, com as 46 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 45 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 46 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -53,6 +53,8 @@ Nada está escrito dentro das páginas. Para publicar ou corrigir, editam-se est
 | `src/config/analytics.js` | Identificador do Google Analytics (`G-XXXXXXXXXX`) e consentimento |
 
 O texto longo das notícias e dos artigos usa marcas simples, tratadas por `src/components/TextoRico.jsx`: `## ` subtítulo, `- ` lista, `1. ` passos numerados, `> ` destaque. Endereços e e-mails viram ligações sozinhos.
+
+**Cada página tem o seu HTML.** A compilação gera um ficheiro por página, com o título, a descrição, a canónica e as etiquetas de partilha próprias (ESP-46, no `vite.config.js`). Uma página nova entra sozinha se estiver no `seo.js` ou nas notícias — mas **também tem de ser acrescentada ao sitemap**.
 
 **O `sitemap.xml` é escrito à mão.** Quando houver páginas ou notícias novas, é preciso acrescentá-las a `public/sitemap.xml`.
 

@@ -52,6 +52,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-43 — Links internos e imagens: tirar as páginas do beco](#esp-43)
 - [ESP-44 — Os artigos saem do site institucional](#esp-44)
 - [ESP-45 — Todas as páginas diziam ao Google que eram cópias da inicial](#esp-45)
+- [ESP-46 — Um HTML por página, com o seu `<head>`](#esp-46)
 
 ---
 
@@ -1736,5 +1737,50 @@ Isto não se via no site nem em nenhuma verificação feita até aqui, porque **
 
 ### Questões em aberto
 
-- **A correcção definitiva é gerar um HTML por rota na compilação.** Resolve de uma vez a canónica, o título e a descrição para quem não executa JavaScript, e as pré-visualizações por página no WhatsApp (ESP-22 e ESP-23). Fica por decidir.
+- ~~A correcção definitiva é gerar um HTML por rota na compilação.~~ **Feita no mesmo dia (ESP-46).**
 - A indexação não volta sozinha de um dia para o outro: o Google tem de passar outra vez por cada página. Vale a pena, dentro de duas a três semanas, voltar ao relatório e ver se as cinco "cópias" voltaram ao índice.
+
+---
+
+<a id="esp-46"></a>
+## ESP-46 — Um HTML por página, com o seu `<head>`
+
+**Estado:** Implementada · **Data:** 20 Nov 2026
+
+### Pedido
+
+Da direcção, depois de ver o que a ESP-45 destapou: *"Avança com a correcção do HTML."*
+
+### Decisão
+
+O servidor devolvia o **mesmo `index.html` para as doze páginas**. O título, a descrição e a canónica certos só apareciam depois de o JavaScript correr (ESP-22). Para quem lê no navegador isso é invisível. Para quem não executa JavaScript, não:
+
+- **o Google** recebia doze páginas com o mesmo `<head>`, e a canónica fixa apontava todas para a inicial. Deitou-as fora: a 20 de Novembro só 5 das 17 estavam indexadas;
+- **o WhatsApp e o Facebook nunca executam JavaScript.** Partilhar uma notícia mostrava sempre o cartão da página inicial — questão em aberto desde a ESP-22 e a ESP-23.
+
+A ESP-45 tapou o buraco tirando a canónica. Isto fecha-o.
+
+### O que muda
+
+A compilação passa a gerar, depois do build, **uma cópia do `index.html` por página**, com o `<head>` trocado: 17 ficheiros, os mesmos 17 do sitemap. O corpo e o JavaScript são os mesmos, por isso a aplicação arranca e navega na mesma a partir dali.
+
+Cada um leva o seu **título e descrição** do `seo.js`, a sua **canónica**, e as suas etiquetas **og:** e **twitter:** — as notícias com o título e o resumo do próprio texto, como o `ConteudoDetalhe.jsx` faz quando o JavaScript corre.
+
+A página inicial mantém o cartão de partilha que a direcção validou no WhatsApp a 14 de Novembro.
+
+### Notas técnicas
+
+**Os endereços não mudaram.** O `.htaccess` entrega `equipa.html` a quem pede `/equipa`, e a barra de endereço continua a dizer `/equipa`. Não se usou uma pasta por página de propósito: o Apache acrescenta-lhe uma barra no fim, e `/equipa` passaria a `/equipa/`.
+
+**E foi exactamente isso que aconteceu com as notícias.** Assim que a compilação passou a gerar `noticias/<noticia>.html`, passou a existir uma pasta chamada `noticias` ao lado do ficheiro `noticias.html`, e o Apache começou a reencaminhar `/noticias` para `/noticias/` — mudando um endereço que já está no sitemap. Pior: `/noticias/` mostrava a **lista dos ficheiros** lá dentro. As pastas `assets/` e `fontes/` não mostravam por acaso — a regra dos 404 da ESP-31 apanha-as antes.
+
+Resolvido com `Options -Indexes`, `DirectorySlash Off` e uma regra que manda `/noticias/` de volta para `/noticias`, com 301. Sem essa última, a barra passaria a dar 403 — e a Google já lá tinha sido mandada pelo reencaminhamento.
+
+Estas directivas **não chegam aos subdomínios**: o `app.` e o `api.` têm o seu próprio `.htaccess`, e é por isso que o `/robots.txt` deles não obedece às regras daqui.
+
+Verificado no site publicado: os 17 endereços respondem 200, sem reencaminhamento, cada um com o seu título; `/noticias/` volta a `/noticias`; não há listagem de pastas; e entrar directamente em `/equipa` e navegar dali para `/maratonas` continua a funcionar sem recarregar.
+
+### Questões em aberto
+
+- A indexação não volta de um dia para o outro. Vale a pena, dentro de duas a três semanas, ver no relatório se as páginas que estavam marcadas como cópias voltaram ao índice.
+- As pré-visualizações já partilhadas ficam na cache do WhatsApp durante algum tempo. Para ver a nova, acrescentar `?x=1` ao endereço.
