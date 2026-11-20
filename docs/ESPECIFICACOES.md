@@ -53,6 +53,7 @@ Até à ESP-25 este documento era gerado a partir de `src/prototipo/especificaco
 - [ESP-44 — Os artigos saem do site institucional](#esp-44)
 - [ESP-45 — Todas as páginas diziam ao Google que eram cópias da inicial](#esp-45)
 - [ESP-46 — Um HTML por página, com o seu `<head>`](#esp-46)
+- [ESP-47 — A app sai do Google e passa a explicar-se](#esp-47)
 
 ---
 
@@ -1776,7 +1777,7 @@ A página inicial mantém o cartão de partilha que a direcção validou no What
 
 Resolvido com `Options -Indexes`, `DirectorySlash Off` e uma regra que manda `/noticias/` de volta para `/noticias`, com 301. Sem essa última, a barra passaria a dar 403 — e a Google já lá tinha sido mandada pelo reencaminhamento.
 
-Estas directivas **não chegam aos subdomínios**: o `app.` e o `api.` têm o seu próprio `.htaccess`, e é por isso que o `/robots.txt` deles não obedece às regras daqui.
+~~Estas directivas não chegam aos subdomínios: o `app.` e o `api.` têm o seu próprio `.htaccess`.~~ **Isto estava errado, e foi corrigido a 20 Nov 2026 (ESP-47):** o `app.` não tinha `.htaccess` nenhum, e as regras deste ficheiro **chegam-lhe**. Viu-se ao pedir um endereço inventado no `app.`: devolvia a aplicação em vez de um erro, que é a regra das rotas daqui a actuar. As directivas foram revistas com isso em conta e não fazem mal aos subdomínios, mas a afirmação em si era falsa.
 
 Verificado no site publicado: os 17 endereços respondem 200, sem reencaminhamento, cada um com o seu título; `/noticias/` volta a `/noticias`; não há listagem de pastas; e entrar directamente em `/equipa` e navegar dali para `/maratonas` continua a funcionar sem recarregar.
 
@@ -1784,3 +1785,44 @@ Verificado no site publicado: os 17 endereços respondem 200, sem reencaminhamen
 
 - A indexação não volta de um dia para o outro. Vale a pena, dentro de duas a três semanas, ver no relatório se as páginas que estavam marcadas como cópias voltaram ao índice.
 - As pré-visualizações já partilhadas ficam na cache do WhatsApp durante algum tempo. Para ver a nova, acrescentar `?x=1` ao endereço.
+
+---
+
+<a id="esp-47"></a>
+## ESP-47 — A app sai do Google e passa a explicar-se
+
+**Estado:** Implementada · **Data:** 20 Nov 2026
+
+### Pedido
+
+Da direcção, ao ver nos relatórios do Search Console que o `app.mukandaprepa.com` estava indexado: *"Não deve ser indexada, pois está indisponível. Precisamos fazer alguma coisa para que os estudantes saibam que estamos em manutenção."* E, perante as três hipóteses: *"Avança com a página de manutenção."*
+
+### Decisão
+
+O relatório de 20 de Novembro mostrava o `app.` com 6 impressões e 1 clique, mais 1 impressão no `/registo`. Ou seja: **havia estudantes a chegar à app pela pesquisa da Google e a encontrar uma aplicação que não responde**, enquanto o site institucional lhes dizia que a app estava em manutenção.
+
+Das três hipóteses postas à direcção — página de manutenção, só impedir a indexação, ou fechar o subdomínio — foi escolhida a primeira, que é a única que trata do estudante e do Google ao mesmo tempo.
+
+**Porquê 503 e não 404.** O 503 diz "isto está temporariamente indisponível, volta mais tarde". O Google deixa de mostrar a app nos resultados mas **não esquece o endereço**: quando ela voltar, recupera o lugar. Um 404 dir-lhe-ia que a app deixou de existir, e começava-se do zero.
+
+### O que muda
+
+Dois ficheiros na pasta `app.mukandaprepa.com`:
+
+- **`manutencao.html`** — explica que a app está em manutenção, que as maratonas e as aulas voltam, e que nada se perdeu. Com botões para o ponto de situação no site e para a Comunidade do WhatsApp.
+- **`.htaccess`** — responde 503 a tudo menos à própria página, com `Retry-After: 604800`, `Cache-Control: no-store` e `X-Robots-Tag: noindex`.
+
+**Para repor a app:** apagar os dois ficheiros. Mais nada — está escrito dentro do próprio `.htaccess` e no `LEIA-ME.txt` que ficou na pasta de tarefas da equipa de Suporte Informático.
+
+### Notas técnicas
+
+**A página é auto-suficiente:** os estilos e o logótipo vão dentro dela, em base64. Tinha de ser — com o 503 a apanhar tudo, uma folha de estilos à parte não chegaria a carregar.
+
+**Não fui eu a colocá-la.** A chave SSH vive só nos *secrets* do GitHub, e o `.htaccess` de uma pasta nunca é servido pela web: não havia maneira de fazer cópia do que lá estivesse antes de o substituir. Sobrepor às cegas o trabalho de outra equipa não se faz, por isso os ficheiros foram preparados e entregues, e a direcção colocou-os pelo gestor de ficheiros do cPanel.
+
+**Uma correcção ao que eu tinha afirmado na ESP-46.** Escrevi que o `app.` e o `api.` tinham `.htaccess` próprio e que as regras do site não lhes chegavam. **Era falso.** O `app.` não tinha `.htaccess` nenhum — viu-se ao pedir um endereço inventado, que devolvia a aplicação em vez de um erro, porque era a regra das rotas do site a actuar. A conclusão errada veio de um teste mal lido: o `/robots.txt` do `app.` devolvia HTML, e eu li isso como "tem regras próprias" em vez de "é a regra das rotas do site a mandá-lo para o index.html da app".
+
+### Questões em aberto
+
+- O `api.mukandaprepa.com` responde 200 e não foi tocado. Não está nos relatórios da Google, mas convém a equipa confirmar se deve estar acessível.
+- A app continua a receber as regras do `.htaccess` do site principal, por estar dentro do `public_html`. Enquanto estiver em manutenção não tem importância — o 503 do `.htaccess` dela apanha tudo primeiro. Quando voltar, vale a pena rever se alguma regra do site a atrapalha.

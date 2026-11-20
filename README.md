@@ -6,13 +6,13 @@ O ramo **`main`** é a nova versão do site, pronta para publicar. É aqui que s
 
 | Ramo | Conteúdo |
 |---|---|
-| `main` | A nova versão do site, com as 46 especificações aplicadas |
+| `main` | A nova versão do site, com as 47 especificações aplicadas |
 | `prototipo` | O mesmo conteúdo; é o ramo onde o protótipo foi construído |
 | `fernanda/versao-setembro-2026` | A versão que a Fernanda Vilinga construiu em Setembro. Guardada, não se apaga |
 | etiqueta `producao-2026-08-16` | A versão que esteve no cPanel, para poder voltar atrás |
 
 - **Site navegável:** https://mukandaprepa-prototipo.vercel.app
-- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 46 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
+- **O que mudou e porquê:** [`docs/ESPECIFICACOES.md`](docs/ESPECIFICACOES.md) — as 47 especificações, com o pedido, a decisão, o que mudou e o que ficou em aberto.
 
 ## Correr localmente
 
@@ -102,6 +102,7 @@ No fim, a publicação confirma sozinha que `https://www.mukandaprepa.com/` resp
 
 ### Dois cuidados
 
+- **A app está em manutenção, por dois ficheiros dela.** Dentro de `public_html/app.mukandaprepa.com` há um `.htaccess` e um `manutencao.html` que respondem 503 a tudo (ESP-47). Não são do site nem vêm daqui: o envio nunca lhes toca, porque não apaga nada. Para repor a app, apagam-se os dois.
 - **Nunca apagar o conteúdo de `public_html` de uma vez.** O cPanel criou lá dentro as pastas `api.mukandaprepa.com` e `app.mukandaprepa.com`. O envio é um espelho **sem apagar**: acrescenta e substitui, nunca remove o que não conhece.
 - **O `.htaccess` tem de ir.** É ele que faz as rotas do React funcionarem, liga a compressão e define a cache. A publicação pára com erro se ele não estiver em `dist/`.
 
